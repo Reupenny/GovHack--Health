@@ -298,7 +298,7 @@ const App: React.FC = () => {
             await registerProvider({
                 providerId: 'DHB_1',
                 name: 'Local DHB',
-                baseUrl: 'http://localhost:3001/api/v1'
+                baseUrl: 'http://localhost:3001'
             });
             alert('DHB provider registered successfully!');
             setProviderRegistered(true);

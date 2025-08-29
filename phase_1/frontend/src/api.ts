@@ -1,6 +1,5 @@
-// Fallback to default URLs if env vars are not set
+// API base URL
 const API_BASE_URL = (typeof process !== 'undefined' && process.env && process.env.REACT_APP_API_URL) || 'http://localhost:3000';
-const DHB_API_URL = (typeof process !== 'undefined' && process.env && process.env.REACT_APP_DHB_API_URL) || 'http://localhost:3001';
 
 export interface Provider {
     providerId: string;
@@ -53,7 +52,7 @@ export async function fetchPatientData(nhi: string) {
 export async function fetchMedications(nhi: string, current: boolean = false) {
     try {
         const response = await fetch(
-            `${DHB_API_URL}/patients/${nhi}/medications?current=${current}`
+            `${API_BASE_URL}/patients/${nhi}/medications?current=${current}`
         );
         if (!response.ok) {
             const data = await response.json().catch(() => null);
@@ -83,7 +82,7 @@ export async function fetchBloodTests(
         });
 
         const response = await fetch(
-            `${DHB_API_URL}/patients/${nhi}/blood-tests?${params}`
+            `${API_BASE_URL}/patients/${nhi}/blood-tests?${params}`
         );
         if (!response.ok) {
             const data = await response.json().catch(() => null);

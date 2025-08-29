@@ -19,7 +19,6 @@ npm install
 Create a `.env` file in the frontend directory with the following content:
 ```env
 REACT_APP_API_URL=http://localhost:3000
-REACT_APP_DHB_API_URL=http://localhost:3001
 ```
 
 3. Start the development server:
@@ -64,16 +63,13 @@ frontend/
 
 ## API Integration
 
-The frontend integrates with two main APIs:
+The frontend integrates with the central API (http://localhost:3000) which handles:
+- Provider registration
+- Patient data aggregation
+- Medical records retrieval
+- Test results consolidation
 
-1. **Central API** (http://localhost:3000)
-   - Provider registration
-   - Patient data aggregation
-
-2. **DHB API** (http://localhost:3001)
-   - Local patient records
-   - Medical history
-   - Test results
+The central API internally communicates with individual provider APIs (like the DHB API) to fetch and aggregate the data.
 
 ## Development Notes
 
