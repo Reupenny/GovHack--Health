@@ -1,0 +1,741 @@
+{
+  "info": {
+    "name": "OpenHealth API",
+    "description": "Health information API for accessing patient data using National Health Identifier (NHI)",
+    "version": "1.0.0",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3001",
+      "type": "string"
+    },
+    {
+      "key": "api_version",
+      "value": "v1",
+      "type": "string"
+    },
+    {
+      "key": "sample_nhi_1",
+      "value": "ABC1234",
+      "type": "string"
+    },
+    {
+      "key": "sample_nhi_2", 
+      "value": "DEF5678",
+      "type": "string"
+    },
+    {
+      "key": "sample_nhi_3",
+      "value": "GHI9012",
+      "type": "string"
+    },
+    {
+      "key": "central_api_url",
+      "value": "http://localhost:3000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Central API - Register Service Provider",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"providerId\": \"dhb-localhost\",\n  \"baseUrl\": \"{{base_url}}/api/{{api_version}}\"\n}"
+        },
+        "url": {
+          "raw": "{{central_api_url}}/register",
+          "host": ["{{central_api_url}}"],
+          "path": ["register"]
+        },
+        "description": "Register the DHB localhost service as a provider with the central API"
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 201', function () {",
+              "    pm.response.to.have.status(201);",
+              "});",
+              "",
+              "pm.test('Registration successful', function () {",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property('message');",
+              "    pm.expect(jsonData).to.have.property('providerId');",
+              "    pm.expect(jsonData).to.have.property('totalProviders');",
+              "    pm.expect(jsonData.providerId).to.eql('dhb-localhost');",
+              "});",
+              "",
+              "pm.test('Response time is less than 1000ms', function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Central API - List Registered Providers",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{central_api_url}}/providers",
+          "host": ["{{central_api_url}}"],
+          "path": ["providers"]
+        },
+        "description": "List all registered service providers"
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Response has providers list', function () {",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property('providers');",
+              "    pm.expect(jsonData).to.have.property('total');",
+              "    pm.expect(jsonData.providers).to.be.an('array');",
+              "});",
+              "",
+              "pm.test('DHB localhost provider is registered', function () {",
+              "    const jsonData = pm.response.json();",
+              "    const dhbProvider = jsonData.providers.find(p => p.providerId === 'dhb-localhost');",
+              "    pm.expect(dhbProvider).to.not.be.undefined;",
+              "    pm.expect(dhbProvider.baseUrl).to.include('localhost:3001');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Central API - Get Patient via Central API",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{central_api_url}}/patients/{{sample_nhi_1}}",
+          "host": ["{{central_api_url}}"],
+          "path": ["patients", "{{sample_nhi_1}}"]
+        },
+        "description": "Get patient information through the central API (aggregated from registered providers)"
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Patient data returned from central API', function () {",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property('nhi');",
+              "    pm.expect(jsonData).to.have.property('name');",
+              "    pm.expect(jsonData).to.have.property('dateOfBirth');",
+              "    pm.expect(jsonData).to.have.property('gender');",
+              "});",
+              "",
+              "pm.test('NHI matches requested', function () {",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData.nhi).to.eql(pm.collectionVariables.get('sample_nhi_1'));",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Central API - Get Patient Medications",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{central_api_url}}/patients/{{sample_nhi_1}}/medications?current=true&limit=10",
+          "host": ["{{central_api_url}}"],
+          "path": ["patients", "{{sample_nhi_1}}", "medications"],
+          "query": [
+            {
+              "key": "current",
+              "value": "true"
+            },
+            {
+              "key": "limit",
+              "value": "10"
+            }
+          ]
+        },
+        "description": "Get patient medications through central API (consolidated from all providers)"
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Medications response has correct structure', function () {",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property('medications');",
+              "    pm.expect(jsonData).to.have.property('total');",
+              "    pm.expect(jsonData.medications).to.be.an('array');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/health",
+          "host": ["{{base_url}}"],
+          "path": ["health"]
+        },
+        "description": "Check if the API is running and healthy"
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Response has status field', function () {",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property('status');",
+              "    pm.expect(jsonData.status).to.eql('healthy');",
+              "});",
+              "",
+              "pm.test('Response time is less than 500ms', function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(500);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Get Patient Information",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/{{api_version}}/patients/{{sample_nhi_1}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "{{api_version}}", "patients", "{{sample_nhi_1}}"]
+        },
+        "description": "Get basic patient information using NHI"
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Response is JSON', function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "",
+              "pm.test('Patient has required fields', function () {",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property('nhi');",
+              "    pm.expect(jsonData).to.have.property('name');",
+              "    pm.expect(jsonData).to.have.property('dateOfBirth');",
+              "    pm.expect(jsonData).to.have.property('gender');",
+              "});",
+              "",
+              "pm.test('NHI matches requested', function () {",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData.nhi).to.eql(pm.collectionVariables.get('sample_nhi_1'));",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Get Patient Medications - All",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/{{api_version}}/patients/{{sample_nhi_1}}/medications",
+          "host": ["{{base_url}}"],
+          "path": ["api", "{{api_version}}", "patients", "{{sample_nhi_1}}", "medications"]
+        },
+        "description": "Get all medications for a patient (current and historical)"
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Response has medications array', function () {",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property('medications');",
+              "    pm.expect(jsonData).to.have.property('total');",
+              "    pm.expect(jsonData.medications).to.be.an('array');",
+              "});",
+              "",
+              "pm.test('Each medication has required fields', function () {",
+              "    const jsonData = pm.response.json();",
+              "    if (jsonData.medications.length > 0) {",
+              "        const med = jsonData.medications[0];",
+              "        pm.expect(med).to.have.property('id');",
+              "        pm.expect(med).to.have.property('name');",
+              "        pm.expect(med).to.have.property('dosage');",
+              "        pm.expect(med).to.have.property('status');",
+              "    }",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Get Patient Medications - Current Only",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/{{api_version}}/patients/{{sample_nhi_1}}/medications?current=true",
+          "host": ["{{base_url}}"],
+          "path": ["api", "{{api_version}}", "patients", "{{sample_nhi_1}}", "medications"],
+          "query": [
+            {
+              "key": "current",
+              "value": "true"
+            }
+          ]
+        },
+        "description": "Get only current active medications for a patient"
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('All medications are active', function () {",
+              "    const jsonData = pm.response.json();",
+              "    jsonData.medications.forEach(function(med) {",
+              "        pm.expect(med.status).to.eql('active');",
+              "    });",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Get Patient Blood Tests",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/{{api_version}}/patients/{{sample_nhi_1}}/blood-tests",
+          "host": ["{{base_url}}"],
+          "path": ["api", "{{api_version}}", "patients", "{{sample_nhi_1}}", "blood-tests"]
+        },
+        "description": "Get blood test results for a patient"
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Response has bloodTests array', function () {",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property('bloodTests');",
+              "    pm.expect(jsonData).to.have.property('total');",
+              "    pm.expect(jsonData.bloodTests).to.be.an('array');",
+              "});",
+              "",
+              "pm.test('Each blood test has required fields', function () {",
+              "    const jsonData = pm.response.json();",
+              "    if (jsonData.bloodTests.length > 0) {",
+              "        const test = jsonData.bloodTests[0];",
+              "        pm.expect(test).to.have.property('id');",
+              "        pm.expect(test).to.have.property('testName');",
+              "        pm.expect(test).to.have.property('testDate');",
+              "        pm.expect(test).to.have.property('status');",
+              "    }",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Get Patient Blood Tests - Date Range",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/{{api_version}}/patients/{{sample_nhi_1}}/blood-tests?from=2024-01-01&to=2024-12-31&limit=10",
+          "host": ["{{base_url}}"],
+          "path": ["api", "{{api_version}}", "patients", "{{sample_nhi_1}}", "blood-tests"],
+          "query": [
+            {
+              "key": "from",
+              "value": "2024-01-01"
+            },
+            {
+              "key": "to", 
+              "value": "2024-12-31"
+            },
+            {
+              "key": "limit",
+              "value": "10"
+            }
+          ]
+        },
+        "description": "Get blood test results within a specific date range"
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Results are within date range', function () {",
+              "    const jsonData = pm.response.json();",
+              "    jsonData.bloodTests.forEach(function(test) {",
+              "        const testDate = new Date(test.testDate);",
+              "        const fromDate = new Date('2024-01-01');",
+              "        const toDate = new Date('2024-12-31T23:59:59Z');",
+              "        pm.expect(testDate).to.be.at.least(fromDate);",
+              "        pm.expect(testDate).to.be.at.most(toDate);",
+              "    });",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Get Patient Documents",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/{{api_version}}/patients/{{sample_nhi_1}}/documents",
+          "host": ["{{base_url}}"],
+          "path": ["api", "{{api_version}}", "patients", "{{sample_nhi_1}}", "documents"]
+        },
+        "description": "Get all health documents for a patient"
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Response has documents array', function () {",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property('documents');",
+              "    pm.expect(jsonData).to.have.property('total');",
+              "    pm.expect(jsonData.documents).to.be.an('array');",
+              "});",
+              "",
+              "pm.test('Each document has required fields', function () {",
+              "    const jsonData = pm.response.json();",
+              "    if (jsonData.documents.length > 0) {",
+              "        const doc = jsonData.documents[0];",
+              "        pm.expect(doc).to.have.property('id');",
+              "        pm.expect(doc).to.have.property('type');",
+              "        pm.expect(doc).to.have.property('title');",
+              "        pm.expect(doc).to.have.property('date');",
+              "        // Store first document ID for next test",
+              "        pm.collectionVariables.set('document_id', doc.id);",
+              "    }",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Get Patient Documents - X-Ray Only",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/{{api_version}}/patients/{{sample_nhi_1}}/documents?type=x-ray",
+          "host": ["{{base_url}}"],
+          "path": ["api", "{{api_version}}", "patients", "{{sample_nhi_1}}", "documents"],
+          "query": [
+            {
+              "key": "type",
+              "value": "x-ray"
+            }
+          ]
+        },
+        "description": "Get only X-ray documents for a patient"
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('All documents are X-rays', function () {",
+              "    const jsonData = pm.response.json();",
+              "    jsonData.documents.forEach(function(doc) {",
+              "        pm.expect(doc.type).to.eql('x-ray');",
+              "    });",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Get Specific Document Content",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/{{api_version}}/patients/{{sample_nhi_1}}/documents/doc1",
+          "host": ["{{base_url}}"],
+          "path": ["api", "{{api_version}}", "patients", "{{sample_nhi_1}}", "documents", "doc1"]
+        },
+        "description": "Get the content of a specific document"
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Document content has required fields', function () {",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property('id');",
+              "    pm.expect(jsonData).to.have.property('content');",
+              "    pm.expect(jsonData).to.have.property('contentType');",
+              "    pm.expect(jsonData).to.have.property('filename');",
+              "});",
+              "",
+              "pm.test('Content is base64 encoded', function () {",
+              "    const jsonData = pm.response.json();",
+              "    const base64Pattern = /^[A-Za-z0-9+/]*={0,2}$/;",
+              "    pm.expect(jsonData.content).to.match(base64Pattern);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Test Invalid NHI Format",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/{{api_version}}/patients/INVALID123",
+          "host": ["{{base_url}}"],
+          "path": ["api", "{{api_version}}", "patients", "INVALID123"]
+        },
+        "description": "Test validation with invalid NHI format"
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 400', function () {",
+              "    pm.response.to.have.status(400);",
+              "});",
+              "",
+              "pm.test('Error response has correct format', function () {",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property('error');",
+              "    pm.expect(jsonData).to.have.property('message');",
+              "    pm.expect(jsonData).to.have.property('timestamp');",
+              "    pm.expect(jsonData.error).to.eql('INVALID_NHI');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Test Non-Existent Patient",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/{{api_version}}/patients/XYZ9999",
+          "host": ["{{base_url}}"],
+          "path": ["api", "{{api_version}}", "patients", "XYZ9999"]
+        },
+        "description": "Test with valid NHI format but non-existent patient"
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 404', function () {",
+              "    pm.response.to.have.status(404);",
+              "});",
+              "",
+              "pm.test('Error response indicates patient not found', function () {",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData.error).to.eql('PATIENT_NOT_FOUND');",
+              "    pm.expect(jsonData.message).to.include('XYZ9999');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Test Patient 2 - Maria Garcia (DEF5678)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/{{api_version}}/patients/{{sample_nhi_2}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "{{api_version}}", "patients", "{{sample_nhi_2}}"]
+        },
+        "description": "Test second sample patient"
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Correct patient returned', function () {",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData.nhi).to.eql(pm.collectionVariables.get('sample_nhi_2'));",
+              "    pm.expect(jsonData.name.firstName).to.eql('Maria');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Test Patient 3 - Dr. Priya Patel (GHI9012)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/{{api_version}}/patients/{{sample_nhi_3}}",
+          "host": ["{{base_url}}"],
+          "path": ["api", "{{api_version}}", "patients", "{{sample_nhi_3}}"]
+        },
+        "description": "Test third sample patient"
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Correct patient returned', function () {",
+              "    const jsonData = pm.response.json();",
+              "    pm.expect(jsonData.nhi).to.eql(pm.collectionVariables.get('sample_nhi_3'));",
+              "    pm.expect(jsonData.name.firstName).to.eql('Priya');",
+              "    pm.expect(jsonData.name.title).to.eql('Dr');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ]
+    }
+  ]
+}
