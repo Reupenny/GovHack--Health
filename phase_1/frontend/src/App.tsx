@@ -160,7 +160,7 @@ const PatientDashboard: React.FC = () => {
 
             <div className="data-container">
                 <PatientInfo patient={patient} />
-                
+
                 <div className="section">
                     <h2>Medications</h2>
                     <MedicationList medications={medications} />
@@ -229,7 +229,7 @@ const Dashboard: React.FC<DashboardProps> = ({
 
             <div className="data-container">
                 <PatientInfo patient={patient} />
-                
+
                 <div className="section">
                     <h2>Medications</h2>
                     <MedicationList medications={medications} />
@@ -312,7 +312,7 @@ const App: React.FC = () => {
             <header className="app-header">
                 <h1>OpenHealth Patient Portal</h1>
                 {!providerRegistered && (
-                    <button 
+                    <button
                         className="register-dhb-button"
                         onClick={registerDHB}
                     >
