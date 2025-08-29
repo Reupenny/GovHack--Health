@@ -5,6 +5,7 @@ import {
     fetchBloodTests,
     registerProvider
 } from './api';
+import { Chat } from './components/Chat';
 import type {
     Patient,
     Medication,
@@ -194,52 +195,63 @@ const Dashboard: React.FC<DashboardProps> = ({
     error,
     onNhiChange
 }) => {
-    if (loading) {
-        return <div>Loading...</div>;
-    }
-
-    if (error) {
-        return (
-            <div className="error-container">
-                <h2>Error</h2>
-                <p>{error}</p>
-            </div>
-        );
-    }
-
-    if (!patient) {
-        return (
-            <div className="error-container">
-                <h2>Not Found</h2>
-                <p>Could not find patient with NHI: {nhi}</p>
-            </div>
-        );
-    }
-
     return (
         <div className="dashboard">
-            <div className="search-container">
-                <input
-                    type="text"
-                    placeholder="Enter NHI number"
-                    value={nhi}
-                    onChange={(e) => onNhiChange(e.target.value.toUpperCase())}
-                />
+            {/* Top row: Search and Providers */}
+            <div className="top-row">
+                <div className="search-container">
+                    <input
+                        type="text"
+                        placeholder="Enter NHI number"
+                        value={nhi}
+                        onChange={(e) => onNhiChange(e.target.value.toUpperCase())}
+                    />
+                    {!patient && !loading && (
+                        <p className="hint">Try: ABC1234, DEF5678, GHI9012</p>
+                    )}
+                </div>
+                <div className="providers-list">
+                    <h3>Connected Providers</h3>
+                    <ul>
+                        <li>Local DHB</li>
+                        {/* More providers will be listed here as they're registered */}
+                    </ul>
+                </div>
             </div>
 
-            <div className="data-container">
-                <PatientInfo patient={patient} />
-
-                <div className="section">
-                    <h2>Medications</h2>
-                    <MedicationList medications={medications} />
+            {/* Main content */}
+            {loading ? (
+                <div className="status-container">
+                    <p>Loading...</p>
                 </div>
-
-                <div className="section">
-                    <h2>Blood Tests</h2>
-                    <BloodTestList tests={bloodTests} />
+            ) : error ? (
+                <div className="error-container">
+                    <h2>Error</h2>
+                    <p>{error}</p>
                 </div>
-            </div>
+            ) : patient ? (
+                <div className="main-content">
+                    <div className="health-info">
+                        <PatientInfo patient={patient} />
+                        <div className="section">
+                            <h2>Blood Tests</h2>
+                            <BloodTestList tests={bloodTests} />
+                        </div>
+                    </div>
+                    <div className="medications">
+                        <h2>Medications</h2>
+                        <MedicationList medications={medications} />
+                    </div>
+                </div>
+            ) : (
+                <div className="error-container">
+                    <h2>Not Found</h2>
+                    <p>Could not find patient with NHI: {nhi}</p>
+                </div>
+            )}
+
+            {/* Chat container at the bottom */}
+            <Chat />
         </div>
     );
 };
