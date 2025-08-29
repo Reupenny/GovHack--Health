@@ -12,8 +12,8 @@ A centralized API gateway that aggregates health data from multiple service prov
 ## Quick Start
 
 ```bash
-npm install
-npm run dev
+bun install
+bun run dev
 ```
 
 Open http://localhost:3000

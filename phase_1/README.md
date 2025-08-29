@@ -42,18 +42,18 @@ The OpenHealth API system consists of two main components:
 
 ### Prerequisites
 - Node.js (v18+)
-- npm
+- bun
 
 ### Step 1: Install Dependencies
 
 ```bash
 # Install DHB API dependencies
 cd phase_1/DHB
-npm install
+bun install
 
 # Install Central API dependencies
 cd ../central_api
-npm install
+bun install
 ```
 
 ### Step 2: Start the Services
@@ -61,13 +61,13 @@ npm install
 **Terminal 1 - Start DHB API:**
 ```bash
 cd phase_1/DHB
-npm run dev
+bun run dev
 ```
 
 **Terminal 2 - Start Central API:**
 ```bash
 cd phase_1/central_api
-npm run dev
+bun run dev
 ```
 
 You should see:
@@ -232,13 +232,13 @@ The system includes 3 test patients:
 
 ```bash
 # Development mode (auto-reload)
-npm run dev
+bun run dev
 
 # Build for production
-npm run build
+bun run build
 
 # Run production build
-npm start
+bun run start
 ```
 
 ## 🐛 Troubleshooting
@@ -259,7 +259,7 @@ npm start
 
 **Slow responses:**
 - Development mode includes TypeScript compilation overhead
-- For performance testing, use `npm run build && npm start`
+- For performance testing, use `bun run build && bun run start`
 
 ### Debugging Tips
 

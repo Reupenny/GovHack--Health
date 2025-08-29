@@ -19,7 +19,7 @@ This directory contains comprehensive testing tools for the OpenHealth API.
 3. **Start the API Server**
    ```bash
    cd ../DHB
-   npm run dev
+   bun run dev
    ```
 
 4. **Run Tests**
@@ -30,7 +30,7 @@ This directory contains comprehensive testing tools for the OpenHealth API.
 
 ```bash
 # Start the API server first
-cd ../DHB && npm run dev
+cd ../DHB && bun run dev
 
 # Test endpoints
 curl http://localhost:3001/health
@@ -103,7 +103,7 @@ For automated testing, you can use Newman (Postman CLI):
 
 ```bash
 # Install Newman globally
-npm install -g newman
+bun add -g newman
 
 # Run collection from command line
 newman run OpenHealth_API.postman_collection.json -e OpenHealth_API.postman_environment.json
