@@ -1,53 +1,21 @@
 import { serve } from '@hono/node-server'
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
+import type { 
+  Patient, 
+  Medication, 
+  BloodTest, 
+  Document, 
+  DocumentContent,
+  MedicationsResponse,
+  BloodTestsResponse,
+  DocumentsResponse,
+  ErrorResponse
+} from './types.js'
 
 interface ServiceProvider {
   providerId: string
   baseUrl: string
-}
-
-interface Patient {
-  nhi: string
-  name: {
-    title?: string
-    firstName: string
-    middleName?: string
-    lastName: string
-    preferredName?: string
-  }
-  dateOfBirth: string
-  gender: 'male' | 'female' | 'other' | 'unknown'
-  address?: any
-  contactDetails?: any
-  emergencyContact?: any
-  ethnicGroup?: string
-  preferredLanguage?: string
-}
-
-interface Medication {
-  id: string
-  name: string
-  dosage: string
-  frequency: string
-  status: 'active' | 'discontinued' | 'completed' | 'on-hold'
-  [key: string]: any
-}
-
-interface BloodTest {
-  id: string
-  testName: string
-  testDate: string
-  status: 'completed' | 'pending' | 'cancelled'
-  [key: string]: any
-}
-
-interface Document {
-  id: string
-  type: string
-  title: string
-  date: string
-  [key: string]: any
 }
 
 const app = new Hono()
@@ -118,7 +86,7 @@ function consolidatePatients(patients: Patient[]): Patient | null {
   return consolidated
 }
 
-function consolidateMedications(responses: any[]): { medications: Medication[], total: number } {
+function consolidateMedications(responses: any[]): MedicationsResponse {
   const allMedications: Medication[] = []
   
   responses.forEach(response => {
@@ -137,7 +105,7 @@ function consolidateMedications(responses: any[]): { medications: Medication[], 
   }
 }
 
-function consolidateBloodTests(responses: any[]): { bloodTests: BloodTest[], total: number } {
+function consolidateBloodTests(responses: any[]): BloodTestsResponse {
   const allBloodTests: BloodTest[] = []
   
   responses.forEach(response => {
@@ -156,7 +124,7 @@ function consolidateBloodTests(responses: any[]): { bloodTests: BloodTest[], tot
   }
 }
 
-function consolidateDocuments(responses: any[]): { documents: Document[], total: number } {
+function consolidateDocuments(responses: any[]): DocumentsResponse {
   const allDocuments: Document[] = []
   
   responses.forEach(response => {
