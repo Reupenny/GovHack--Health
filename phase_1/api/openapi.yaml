@@ -1,0 +1,582 @@
+openapi: 3.0.3
+info:
+  title: OpenHealth API
+  description: Health information API for accessing patient data using National Health Identifier (NHI)
+  version: 1.0.0
+servers:
+  - url: https://api.openhealth.govt.nz/v1
+    description: Production server
+paths:
+  /patients/{nhi}:
+    get:
+      summary: Get patient basic information
+      description: Retrieve basic patient information using NHI
+      parameters:
+        - name: nhi
+          in: path
+          required: true
+          description: National Health Identifier
+          schema:
+            type: string
+            pattern: '^[A-Z]{3}\d{4}$'
+            example: 'ABC1234'
+      responses:
+        '200':
+          description: Patient information retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Patient'
+        '404':
+          description: Patient not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /patients/{nhi}/medications:
+    get:
+      summary: Get patient medications
+      description: Retrieve current and/or historical medications for a patient
+      parameters:
+        - name: nhi
+          in: path
+          required: true
+          description: National Health Identifier
+          schema:
+            type: string
+            pattern: '^[A-Z]{3}\d{4}$'
+            example: 'ABC1234'
+        - name: current
+          in: query
+          required: false
+          description: Filter for current medications only
+          schema:
+            type: boolean
+            default: false
+        - name: limit
+          in: query
+          required: false
+          description: Maximum number of records to return
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+      responses:
+        '200':
+          description: Medications retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  medications:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Medication'
+                  total:
+                    type: integer
+        '404':
+          description: Patient not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /patients/{nhi}/blood-tests:
+    get:
+      summary: Get patient blood test results
+      description: Retrieve blood test result history for a patient
+      parameters:
+        - name: nhi
+          in: path
+          required: true
+          description: National Health Identifier
+          schema:
+            type: string
+            pattern: '^[A-Z]{3}\d{4}$'
+            example: 'ABC1234'
+        - name: from
+          in: query
+          required: false
+          description: Start date for filtering results
+          schema:
+            type: string
+            format: date
+        - name: to
+          in: query
+          required: false
+          description: End date for filtering results
+          schema:
+            type: string
+            format: date
+        - name: limit
+          in: query
+          required: false
+          description: Maximum number of records to return
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+      responses:
+        '200':
+          description: Blood test results retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  bloodTests:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/BloodTest'
+                  total:
+                    type: integer
+        '404':
+          description: Patient not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /patients/{nhi}/documents:
+    get:
+      summary: Get patient health documents
+      description: Retrieve health documents (X-rays, specialist letters, reports) for a patient
+      parameters:
+        - name: nhi
+          in: path
+          required: true
+          description: National Health Identifier
+          schema:
+            type: string
+            pattern: '^[A-Z]{3}\d{4}$'
+            example: 'ABC1234'
+        - name: type
+          in: query
+          required: false
+          description: Filter by document type
+          schema:
+            type: string
+            enum: [x-ray, specialist-letter, report, lab-result, discharge-summary]
+        - name: from
+          in: query
+          required: false
+          description: Start date for filtering results
+          schema:
+            type: string
+            format: date
+        - name: to
+          in: query
+          required: false
+          description: End date for filtering results
+          schema:
+            type: string
+            format: date
+        - name: limit
+          in: query
+          required: false
+          description: Maximum number of records to return
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+      responses:
+        '200':
+          description: Documents retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  documents:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Document'
+                  total:
+                    type: integer
+        '404':
+          description: Patient not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /patients/{nhi}/documents/{documentId}:
+    get:
+      summary: Get specific document content
+      description: Retrieve the full content of a specific document
+      parameters:
+        - name: nhi
+          in: path
+          required: true
+          description: National Health Identifier
+          schema:
+            type: string
+            pattern: '^[A-Z]{3}\d{4}$'
+            example: 'ABC1234'
+        - name: documentId
+          in: path
+          required: true
+          description: Document identifier
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Document content retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentContent'
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: Document not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    Patient:
+      type: object
+      required:
+        - nhi
+        - name
+        - dateOfBirth
+        - gender
+      properties:
+        nhi:
+          type: string
+          description: National Health Identifier
+          pattern: '^[A-Z]{3}\d{4}$'
+          example: 'ABC1234'
+        name:
+          $ref: '#/components/schemas/PersonName'
+        dateOfBirth:
+          type: string
+          format: date
+          description: Patient's date of birth
+          example: '1985-06-15'
+        gender:
+          type: string
+          enum: [male, female, other, unknown]
+          description: Patient's gender
+        address:
+          $ref: '#/components/schemas/Address'
+        contactDetails:
+          $ref: '#/components/schemas/ContactDetails'
+        emergencyContact:
+          $ref: '#/components/schemas/EmergencyContact'
+        ethnicGroup:
+          type: string
+          description: Patient's ethnic group
+        preferredLanguage:
+          type: string
+          description: Patient's preferred language
+
+    PersonName:
+      type: object
+      required:
+        - firstName
+        - lastName
+      properties:
+        title:
+          type: string
+          description: Name title (Mr, Mrs, Dr, etc.)
+        firstName:
+          type: string
+          description: First name
+        middleName:
+          type: string
+          description: Middle name
+        lastName:
+          type: string
+          description: Last name
+        preferredName:
+          type: string
+          description: Preferred name
+
+    Address:
+      type: object
+      properties:
+        line1:
+          type: string
+          description: Address line 1
+        line2:
+          type: string
+          description: Address line 2
+        suburb:
+          type: string
+          description: Suburb
+        city:
+          type: string
+          description: City
+        region:
+          type: string
+          description: Region
+        postcode:
+          type: string
+          description: Postcode
+        country:
+          type: string
+          description: Country code (ISO 3166-1 alpha-2)
+          example: 'NZ'
+
+    ContactDetails:
+      type: object
+      properties:
+        phone:
+          type: string
+          description: Primary phone number
+        mobile:
+          type: string
+          description: Mobile phone number
+        email:
+          type: string
+          format: email
+          description: Email address
+
+    EmergencyContact:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Emergency contact name
+        relationship:
+          type: string
+          description: Relationship to patient
+        phone:
+          type: string
+          description: Emergency contact phone number
+
+    Medication:
+      type: object
+      required:
+        - id
+        - name
+        - dosage
+        - frequency
+        - status
+      properties:
+        id:
+          type: string
+          description: Unique medication record identifier
+        name:
+          type: string
+          description: Medication name
+        genericName:
+          type: string
+          description: Generic medication name
+        brandName:
+          type: string
+          description: Brand medication name
+        dosage:
+          type: string
+          description: Dosage information
+          example: '500mg'
+        frequency:
+          type: string
+          description: Frequency of administration
+          example: 'twice daily'
+        route:
+          type: string
+          description: Route of administration
+          enum: [oral, topical, injection, intravenous, inhaled]
+        startDate:
+          type: string
+          format: date
+          description: Date medication started
+        endDate:
+          type: string
+          format: date
+          description: Date medication ended (if applicable)
+        prescribingDoctor:
+          type: string
+          description: Doctor who prescribed the medication
+        prescriptionDate:
+          type: string
+          format: date
+          description: Date of prescription
+        status:
+          type: string
+          enum: [active, discontinued, completed, on-hold]
+          description: Current status of medication
+        indication:
+          type: string
+          description: Reason for prescription
+        notes:
+          type: string
+          description: Additional notes
+
+    BloodTest:
+      type: object
+      required:
+        - id
+        - testName
+        - testDate
+        - status
+      properties:
+        id:
+          type: string
+          description: Unique test identifier
+        testName:
+          type: string
+          description: Name of the blood test
+          example: 'Full Blood Count'
+        testCode:
+          type: string
+          description: Standard test code
+        testDate:
+          type: string
+          format: date-time
+          description: Date and time when test was performed
+        orderingDoctor:
+          type: string
+          description: Doctor who ordered the test
+        laboratory:
+          type: string
+          description: Laboratory that performed the test
+        status:
+          type: string
+          enum: [completed, pending, cancelled]
+          description: Test status
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/TestResult'
+          description: Individual test results
+        clinicalNotes:
+          type: string
+          description: Clinical notes or interpretation
+
+    TestResult:
+      type: object
+      required:
+        - parameter
+        - value
+        - unit
+        - referenceRange
+      properties:
+        parameter:
+          type: string
+          description: Test parameter name
+          example: 'Hemoglobin'
+        value:
+          type: string
+          description: Test result value
+          example: '14.2'
+        unit:
+          type: string
+          description: Unit of measurement
+          example: 'g/dL'
+        referenceRange:
+          type: string
+          description: Normal reference range
+          example: '12.0-15.5'
+        status:
+          type: string
+          enum: [normal, abnormal, critical, pending]
+          description: Result status
+        flags:
+          type: array
+          items:
+            type: string
+          description: Any flags or alerts
+          example: ['high']
+
+    Document:
+      type: object
+      required:
+        - id
+        - type
+        - title
+        - date
+      properties:
+        id:
+          type: string
+          description: Unique document identifier
+        type:
+          type: string
+          enum: [x-ray, specialist-letter, report, lab-result, discharge-summary, referral, consent-form]
+          description: Type of document
+        title:
+          type: string
+          description: Document title
+          example: 'Chest X-Ray Report'
+        description:
+          type: string
+          description: Document description
+        date:
+          type: string
+          format: date-time
+          description: Date document was created
+        author:
+          type: string
+          description: Document author/creator
+        specialty:
+          type: string
+          description: Medical specialty associated with document
+        facility:
+          type: string
+          description: Healthcare facility where document originated
+        contentType:
+          type: string
+          description: MIME type of document content
+          example: 'application/pdf'
+        size:
+          type: integer
+          description: Document size in bytes
+        tags:
+          type: array
+          items:
+            type: string
+          description: Document tags for categorization
+
+    DocumentContent:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Document identifier
+        content:
+          type: string
+          description: Base64 encoded document content
+        contentType:
+          type: string
+          description: MIME type of content
+        filename:
+          type: string
+          description: Original filename
+
+    Error:
+      type: object
+      required:
+        - error
+        - message
+      properties:
+        error:
+          type: string
+          description: Error code
+        message:
+          type: string
+          description: Human-readable error message
+        details:
+          type: string
+          description: Additional error details
+        timestamp:
+          type: string
+          format: date-time
+          description: Error timestamp
