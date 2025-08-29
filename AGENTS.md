@@ -1,13 +1,23 @@
 # Agent Guidelines for GovHack Health Project
 
+## Package Manager
+- **ALWAYS use bun instead of npm** for all commands
+- Install dependencies with `bun install`
+- Run scripts with `bun run <script>`
+
 ## Build/Lint/Test Commands
 ```bash
 # For each service (central_api and DHB):
 cd phase_1/central_api    # or phase_1/DHB
+bun install              # Install dependencies  
 bun run build            # TypeScript compilation
 bun run dev             # Development server with watch mode
 bun start               # Production server
 ```
+
+## Docker & Deployment
+- Use bun in Dockerfiles instead of npm
+- Install bun globally in containers: `npm install -g bun`
 
 ## Code Style Guidelines
 

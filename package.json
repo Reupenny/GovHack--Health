@@ -1,0 +1,14 @@
+{
+  "name": "govhack-health-root",
+  "version": "1.0.0",
+  "description": "OpenHealth API project root",
+  "type": "module",
+  "scripts": {
+    "dev": "cd phase_1 && bun run dev",
+    "build": "cd phase_1 && bun run build", 
+    "deploy": "cd phase_1 && bun run deploy",
+    "deploy:gcloud": "cd phase_1 && bun run deploy:gcloud",
+    "logs": "cd phase_1 && bun run logs"
+  },
+  "keywords": ["health", "api", "microservices", "hackathon"]
+}

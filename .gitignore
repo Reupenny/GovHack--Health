@@ -1,2 +1,34 @@
+# SST and AWS
+.sst/
+sst-env.d.ts
+
+# CDK
+*.d.ts.map
+cdk.out/
+
+# Environment variables
+.env*
+
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+
+# Logs
+*.log
+
+# OS
 .DS_Store
-dist
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temporary files
+*.tmp
+*.temp
