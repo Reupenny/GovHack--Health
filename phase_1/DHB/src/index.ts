@@ -22,6 +22,7 @@ app.get('/', (c) => {
       documents: '/api/v1/patients/{nhi}/documents',
       documentContent: '/api/v1/patients/{nhi}/documents/{documentId}'
     },
+    baseUrl: 'http://localhost:3001',
     sampleNHI: ['ABC1234', 'DEF5678', 'GHI9012']
   });
 });
@@ -97,7 +98,7 @@ app.notFound((c) => {
 
 serve({
   fetch: app.fetch,
-  port: 3000
+  port: 3001
 }, (info) => {
   console.log(`🚀 OpenHealth API running on http://localhost:${info.port}`);
   console.log(`📚 API Documentation: http://localhost:${info.port}/docs`);
