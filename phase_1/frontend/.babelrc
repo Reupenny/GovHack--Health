@@ -1,0 +1,31 @@
+{
+    "presets": [
+        [
+            "@babel/preset-env",
+            {
+                "targets": {
+                    "browsers": [
+                        ">0.25%",
+                        "not dead",
+                        "not ie 11"
+                    ]
+                },
+                "useBuiltIns": "entry",
+                "corejs": 3,
+                "modules": false
+            }
+        ],
+        "@babel/preset-react",
+        "@babel/preset-typescript"
+    ],
+    "plugins": [
+        [
+            "@babel/plugin-transform-runtime",
+            {
+                "regenerator": true,
+                "corejs": 3,
+                "helpers": true
+            }
+        ]
+    ]
+}
