@@ -1,0 +1,109 @@
+import { serve } from "@hono/node-server"
+import { Hono } from "hono"
+import api from "./routes.js"
+import { errorHandler, corsMiddleware } from "./middleware.js"
+
+const app = new Hono()
+
+app.use("*", corsMiddleware)
+app.use("*", errorHandler)
+
+app.route("/api/v1", api)
+
+app.get("/", (c) => {
+  return c.json({
+    message: "Toniq Medication API",
+    version: "1.0.0",
+    status: "running",
+    endpoints: {
+      medications: "/api/v1/patients/{nhi}/medications",
+    },
+    baseUrl: "http://localhost:3002",
+    sampleNHI: ["ABC1234", "DEF5678", "GHI9012"],
+  })
+})
+
+app.get("/health", (c) => {
+  return c.json({
+    status: "healthy",
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+  })
+})
+
+app.get("/docs", (c) => {
+  return c.html(`
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <title>Toniq Medication API Documentation</title>
+      <link rel="stylesheet" type="text/css" href="https://unpkg.com/swagger-ui-dist@5.10.3/swagger-ui.css" />
+      <style>
+        body { margin: 0; padding: 0; }
+        .swagger-ui .topbar { display: none; }
+      </style>
+    </head>
+    <body>
+      <div id="swagger-ui"></div>
+      <script src="https://unpkg.com/swagger-ui-dist@5.10.3/swagger-ui-bundle.js"></script>
+      <script>
+        window.onload = () => {
+          window.ui = SwaggerUIBundle({
+            url: 'https://raw.githubusercontent.com/swagger-api/swagger-petstore/master/src/main/resources/openapi.yaml',
+            dom_id: '#swagger-ui',
+            deepLinking: true,
+            presets: [
+              SwaggerUIBundle.presets.apis,
+              SwaggerUIBundle.presets.standalone
+            ],
+            plugins: [
+              SwaggerUIBundle.plugins.DownloadUrl
+            ],
+            layout: "StandaloneLayout"
+          });
+        };
+      </script>
+      <div style="padding: 20px; background: #f5f5f5;">
+        <h2>Toniq Medication API</h2>
+        <p>Use one of these sample NHI numbers to test the medication API:</p>
+        <ul>
+          <li><strong>ABC1234</strong> - John Doe (Male, extensive medical history)</li>
+          <li><strong>DEF5678</strong> - Maria Garcia (Female, thyroid condition)</li>
+          <li><strong>GHI9012</strong> - Dr. Priya Patel (Female, hypertension)</li>
+        </ul>
+        <h3>Example API Calls:</h3>
+        <ul>
+          <li><a href="/api/v1/patients/ABC1234/medications" target="_blank">/api/v1/patients/ABC1234/medications</a></li>
+        </ul>
+      </div>
+    </body>
+    </html>
+  `)
+})
+
+app.notFound((c) => {
+  return c.json(
+    {
+      error: "NOT_FOUND",
+      message: "The requested resource was not found",
+      timestamp: new Date().toISOString(),
+    },
+    404,
+  )
+})
+
+serve(
+  {
+    fetch: app.fetch,
+    port: 3002,
+  },
+  (info) => {
+    console.log(`🚀 Toniq Medication API running on http://localhost:${info.port}`)
+    console.log(`📚 API Documentation: http://localhost:${info.port}/docs`)
+    console.log(`❤️  Health Check: http://localhost:${info.port}/health`)
+    console.log(`📋 Sample medication endpoints:`)
+    console.log(
+      `   http://localhost:${info.port}/api/v1/patients/ABC1234/medications`,
+    )
+  },
+)
