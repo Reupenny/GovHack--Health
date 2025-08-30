@@ -61,12 +61,15 @@ This runs both services locally:
 
 ## Local Build Alternative with Docker Desktop
 ```bash
-# Build and run locally (from root)
-npm run build
+# Build and run locally all APIs
 cd phase_1
+npm run build
 docker compose up -d --build
 ```
-
+```bash
+# To remove Docker stack
+docker compose down
+```
 
 ## Deployment Options
 
