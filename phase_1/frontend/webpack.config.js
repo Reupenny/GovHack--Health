@@ -58,7 +58,7 @@ module.exports = {
     ],
     devServer: {
         static: path.join(__dirname, 'dist'),
-        port: 3003,
+        port: 8080,
         historyApiFallback: true // Enable client-side routing
     }
 };
