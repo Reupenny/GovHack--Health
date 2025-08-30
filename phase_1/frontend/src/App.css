@@ -558,7 +558,7 @@ h3 {
 }
 
 /* Unified search bar style */
-
+.chat-input,
 .search-bar {
     padding: 10px 18px;
     font-size: 1rem;
@@ -570,6 +570,7 @@ h3 {
     color: var(--text-main);
 }
 
+.chat-input:focus,
 .search-bar:focus {
     border: 1.5px solid var(--primary);
     box-shadow: 0 2px 8px rgba(33, 150, 243, 0.10);

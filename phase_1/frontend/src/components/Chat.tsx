@@ -21,6 +21,10 @@ const GROQ_API_KEY = process.env.REACT_APP_GROQ_API_KEY;
 // Use Groq's text generation API through Cloudflare AI Gateway
 const groqUrl = `https://api.groq.com/openai/v1/chat/completions`;
 
+// Rate limiting configuration
+const RATE_LIMIT_DELAY = 2000; // 2 seconds between requests
+const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
 // Prompt to allow prototyping using Groq API through AI Gateway
 const summaryPrompt = `Summarize only recent key clinical points:
 - Active medications and their purpose
@@ -81,58 +85,84 @@ export const Chat: React.FC<ChatProps> = ({
     const [sources, setSources] = useState<string[]>([]);
     const [isOpen, setIsOpen] = useState(false); // For toggle
     const [summary, setSummary] = useState<string>('');
+    const [isGeneratingSummary, setIsGeneratingSummary] = useState(false);
+    const [lastRequestTime, setLastRequestTime] = useState<number>(0);
 
-    React.useEffect(() => {
-        const generateSummary = async () => {
-            const patient = getPatient();
-            if (!patient) {
-                setSummary('');
-                return;
-            }
+    // React.useEffect(() => {
+    const generateSummary = async () => {
+        if (!getPatient() || isGeneratingSummary) return;
 
+        const now = Date.now();
+        const timeSinceLastRequest = now - lastRequestTime;
+        const minDelay = 2000; // 2 seconds minimum delay between requests
+
+        if (timeSinceLastRequest < minDelay) {
+            setError('Please wait a moment before generating another summary.');
+            return;
+        }
+
+        setIsGeneratingSummary(true);
+        setLastRequestTime(now);
+
+        try {
             const contextData = {
-                patient,
+                patient: getPatient(),
                 medications: getMedications(),
                 bloodTests: getBloodTests(),
             };
 
-            try {
-                const summaryResponse = await fetch(groqUrl, {
-                    method: "POST",
-                    headers: {
-                        Authorization: `Bearer ${GROQ_API_KEY}`,
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        model: "llama-3.3-70b-versatile",
-                        messages: [
-                            {
-                                role: "system",
-                                content: `${summaryPrompt}\n\nContext Data:\n${JSON.stringify(contextData, null, 2)}`
-                            }
-                        ]
-                    }),
-                });
+            const summaryResponse = await fetch(groqUrl, {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${GROQ_API_KEY}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    model: "llama-3.3-70b-versatile",
+                    messages: [
+                        {
+                            role: "system",
+                            content: `${summaryPrompt}\n\nContext Data:\n${JSON.stringify(contextData, null, 2)}`
+                        }
+                    ]
+                })
+            });
 
-                const summaryData = await summaryResponse.json();
-                setSummary(summaryData.choices[0]?.message?.content || 'No summary available');
-            } catch (error) {
-                setSummary('Unable to generate summary');
-                console.error('Summary generation failed:', error);
+            if (!summaryResponse.ok) {
+                if (summaryResponse.status === 429) {
+                    throw new Error('Rate limit reached. Please wait a moment and try again.');
+                }
+                throw new Error(`HTTP error! status: ${summaryResponse.status}`);
             }
-        };
 
-        generateSummary();
-    }, [getPatient, getMedications, getBloodTests]);
+            const summaryData = await summaryResponse.json();
+            setSummary(summaryData.choices[0]?.message?.content || 'No summary available');
+            setError(null);
+        } catch (error) {
+            console.error('Summary generation failed:', error);
+            setError('Unable to generate summary. Please try again.');
+            setSummary('');
+        } finally {
+            setIsGeneratingSummary(false);
+        }
+    };
 
     const sendMessage = async () => {
         if (!input.trim()) return;
+
+        const now = Date.now();
+        const timeSinceLastRequest = now - lastRequestTime;
+        if (timeSinceLastRequest < RATE_LIMIT_DELAY) {
+            setError('Please wait a moment before sending another message');
+            return;
+        }
 
         const newUserMessage: Message = { role: 'user', content: input.trim() };
         const updatedHistory = [...chatHistory, newUserMessage];
         setChatHistory(updatedHistory);
         setLoading(true);
         setError(null);
+        setLastRequestTime(now);
 
         try {
             // Create the system prompt with current context data
@@ -166,6 +196,13 @@ export const Chat: React.FC<ChatProps> = ({
                     messages: conversationMessages
                 }),
             });
+
+            if (!groqResponse.ok) {
+                if (groqResponse.status === 429) {
+                    throw new Error('Please wait a moment and try again (rate limit reached)');
+                }
+                throw new Error(`HTTP error! status: ${groqResponse.status}`);
+            }
 
             const groqData = (await groqResponse.json()) as {
                 choices: Array<{
@@ -223,9 +260,9 @@ export const Chat: React.FC<ChatProps> = ({
             setChatHistory([...updatedHistory, newAssistantMessage]);
             setSources(verifiedUrls || []);
 
-        } catch {
+        } catch (error) {
             console.error("Error during request:", error);
-            setError('Network error');
+            setError(error instanceof Error ? error.message : 'Network error');
         } finally {
             console.log("Finished Request");
             setLoading(false);
@@ -235,17 +272,26 @@ export const Chat: React.FC<ChatProps> = ({
 
     return (
         <>
-            <div className='summary'>
-                {summary ? (
-                    <div className="summary-content">
-                        <h2>Patient Summary</h2>
-                        <p>{summary}</p>
-                    </div>
-                ) : getPatient() ? (
-                    <p>Generating summary...</p>
-                ) : (
-                    <p>No patient selected</p>
-                )}
+            <div className='summary-container'>
+                <div className='summary'>
+                    {summary ? (
+                        <div className="summary-content">
+                            <h3>Patient Summary</h3>
+                            <p>{summary}</p>
+                        </div>
+                    ) : getPatient() ? (
+                        <p>Click generate to create a patient summary</p>
+                    ) : (
+                        <p>No patient selected</p>
+                    )}
+                </div>
+                <button
+                    className="generate-summary-btn"
+                    onClick={generateSummary}
+                    disabled={!getPatient() || isGeneratingSummary}
+                >
+                    {isGeneratingSummary ? 'Generating...' : 'Generate Summary'}
+                </button>
             </div>
             <div
                 style={{

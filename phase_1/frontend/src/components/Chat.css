@@ -1,3 +1,14 @@
+.summary-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.summary {
+    flex-grow: 1;
+}
+
 .summary-content {
     color: #212529;
 }
@@ -7,4 +18,108 @@
     line-height: 1.4;
     white-space: pre-line;
     font-size: 0.95rem;
+}
+
+.generate-summary-btn {
+    padding: 10px 20px;
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-weight: 500;
+    height: fit-content;
+    white-space: nowrap;
+}
+
+.generate-summary-btn:hover {
+    background-color: #004494;
+}
+
+.generate-summary-btn:disabled {
+    background-color: #ccc;
+}
+
+.chat-button-main {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    transition: width 0.3s ease;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+}
+
+.chat-button {
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    background-color: #ADD8E6;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.send-chat-button {
+    padding: 10px 20px;
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-weight: 500;
+    height: fit-content;
+    white-space: nowrap;
+}
+
+.send-chat-button:hover {
+    background-color: #004494;
+}
+
+.send-chat-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.chat-history {
+    flex-grow: 1;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-top: 10px;
+    overflow-y: auto;
+    min-height: 100px;
+    border-radius: var(--border-radius);
+}
+
+.chat-container {
+    background-color: #fff;
+    border-radius: var(--border-radius);
+    padding: 10px;
+    width: 100%;
+    max-height: 500px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chat-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #aaa;
+}
+
+.chat-close:hover {
+    color: #666;
 }

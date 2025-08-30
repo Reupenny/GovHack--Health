@@ -85,56 +85,67 @@ export const Chat: React.FC<ChatProps> = ({
     const [sources, setSources] = useState<string[]>([]);
     const [isOpen, setIsOpen] = useState(false); // For toggle
     const [summary, setSummary] = useState<string>('');
+    const [isGeneratingSummary, setIsGeneratingSummary] = useState(false);
     const [lastRequestTime, setLastRequestTime] = useState<number>(0);
 
-    React.useEffect(() => {
-        const generateSummary = async () => {
-            const patient = getPatient();
-            if (!patient) {
-                setSummary('');
-                return;
-            }
+    // React.useEffect(() => {
+    const generateSummary = async () => {
+        if (!getPatient() || isGeneratingSummary) return;
 
-            const now = Date.now();
-            const timeSinceLastRequest = now - lastRequestTime;
-            if (timeSinceLastRequest < RATE_LIMIT_DELAY) {
-                await sleep(RATE_LIMIT_DELAY - timeSinceLastRequest);
-            }
+        const now = Date.now();
+        const timeSinceLastRequest = now - lastRequestTime;
+        const minDelay = 2000; // 2 seconds minimum delay between requests
 
+        if (timeSinceLastRequest < minDelay) {
+            setError('Please wait a moment before generating another summary.');
+            return;
+        }
+
+        setIsGeneratingSummary(true);
+        setLastRequestTime(now);
+
+        try {
             const contextData = {
-                patient,
+                patient: getPatient(),
                 medications: getMedications(),
                 bloodTests: getBloodTests(),
             };
 
-            try {
-                const summaryResponse = await fetch(groqUrl, {
-                    method: "POST",
-                    headers: {
-                        Authorization: `Bearer ${GROQ_API_KEY}`,
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        model: "llama-3.3-70b-versatile",
-                        messages: [
-                            {
-                                role: "system",
-                                content: `${summaryPrompt}\n\nContext Data:\n${JSON.stringify(contextData, null, 2)}`
-                            }
-                        ]
-                    }),
-                });
+            const summaryResponse = await fetch(groqUrl, {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${GROQ_API_KEY}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    model: "llama-3.3-70b-versatile",
+                    messages: [
+                        {
+                            role: "system",
+                            content: `${summaryPrompt}\n\nContext Data:\n${JSON.stringify(contextData, null, 2)}`
+                        }
+                    ]
+                })
+            });
 
-                const summaryData = await summaryResponse.json();
-                setSummary(summaryData.choices[0]?.message?.content || 'No summary available');
-            } catch (error) {
-                setSummary('Unable to generate summary');
-                console.error('Summary generation failed:', error);
+            if (!summaryResponse.ok) {
+                if (summaryResponse.status === 429) {
+                    throw new Error('Rate limit reached. Please wait a moment and try again.');
+                }
+                throw new Error(`HTTP error! status: ${summaryResponse.status}`);
             }
-        };
 
-        generateSummary();
-    }, [getPatient, getMedications, getBloodTests]);
+            const summaryData = await summaryResponse.json();
+            setSummary(summaryData.choices[0]?.message?.content || 'No summary available');
+            setError(null);
+        } catch (error) {
+            console.error('Summary generation failed:', error);
+            setError('Unable to generate summary. Please try again.');
+            setSummary('');
+        } finally {
+            setIsGeneratingSummary(false);
+        }
+    };
 
     const sendMessage = async () => {
         if (!input.trim()) return;
@@ -261,56 +272,41 @@ export const Chat: React.FC<ChatProps> = ({
 
     return (
         <>
-            <div className='summary'>
-                {summary ? (
-                    <div className="summary-content">
-                        <h2>Patient Summary</h2>
-                        <p>{summary}</p>
-                    </div>
-                ) : getPatient() ? (
-                    <p>Generating summary...</p>
-                ) : (
-                    <p>No patient selected</p>
-                )}
+            <div className='summary-container'>
+                <div className='summary'>
+                    {summary ? (
+                        <div className="summary-content">
+                            <h3>Patient Summary</h3>
+                            <p>{summary}</p>
+                        </div>
+                    ) : getPatient() ? (
+                        <p>Click generate to create a patient summary</p>
+                    ) : (
+                        <p>No patient selected</p>
+                    )}
+                </div>
+                <button
+                    className="generate-summary-btn"
+                    onClick={generateSummary}
+                    disabled={!getPatient() || isGeneratingSummary}
+                >
+                    {isGeneratingSummary ? 'Generating...' : 'Generate Summary'}
+                </button>
             </div>
-            <div
+            <div className='chat-button-main'
                 style={{
-                    position: 'fixed',
-                    bottom: 20,
-                    right: 20,
-                    zIndex: 9999,
                     width: isOpen ? 350 : 'auto',
-                    transition: 'width 0.3s ease',
-                    boxShadow: '0 2px 12px rgba(0,0,0,0.2)',
                     borderRadius: isOpen ? 8 : '50%'
-
                 }}
             >
                 {isOpen ? (
-                    <div style={{
-                        backgroundColor: '#fff',
-                        borderRadius: 8,
-                        padding: 10,
-                        width: '100%',
-                        maxHeight: 500,
-                        overflow: 'hidden',
-                        display: 'flex',
-                        flexDirection: 'column'
-                    }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div className='chat-container'>
+                        <div className='chat-header' style={{}}>
                             <h4 style={{ margin: 0 }}>OpenHealth Assistant</h4>
-                            <button onClick={() => setIsOpen(false)} style={{ fontSize: 16 }}>✖</button>
+                            <button className='chat-close' onClick={() => setIsOpen(false)}>✖</button>
                         </div>
 
-                        <div
-                            style={{
-                                flexGrow: 1,
-                                border: '1px solid #ccc',
-                                padding: 10,
-                                marginTop: 10,
-                                overflowY: 'auto',
-                            }}
-                        >
+                        <div className='chat-history'>
                             {chatHistory.map((msg, idx) => (
                                 <p key={idx} style={{ color: msg.role === 'user' ? 'blue' : 'green' }}>
                                     <strong>{msg.role === 'user' ? 'You:' : 'Assistant:'}</strong> {msg.content}
@@ -320,15 +316,15 @@ export const Chat: React.FC<ChatProps> = ({
                             {loading && <p><em>Loading...</em></p>}
                         </div>
 
-                        <textarea
-                            rows={2}
+                        <input className='chat-input'
+                            type="text"
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
                             placeholder="Type your question..."
                             style={{ marginTop: 10 }}
                             disabled={loading}
                         />
-                        <button onClick={sendMessage} disabled={loading || !input.trim()} style={{ marginTop: 8 }}>
+                        <button className='send-chat-button' onClick={sendMessage} disabled={loading || !input.trim()} style={{ marginTop: 8 }}>
                             Send
                         </button>
 
@@ -348,20 +344,8 @@ export const Chat: React.FC<ChatProps> = ({
                         )}
                     </div>
                 ) : (
-                    <button
+                    <button className='chat-button'
                         onClick={() => setIsOpen(true)}
-                        style={{
-                            borderRadius: '50%',
-                            width: 60,
-                            height: 60,
-                            backgroundColor: '#ADD8E6',
-                            border: 'none',
-                            cursor: 'pointer',
-                            padding: 0,
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                        }}
                         title="Open chat"
                     >
                         <img src={chatIcon} alt="Chat Icon" width={50} height={50} />
