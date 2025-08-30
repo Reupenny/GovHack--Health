@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  openhealth-api:
+    build: .
+    ports:
+      - "3000:3000"  # Central API
+      - "3001:3001"  # DHB Service  
+      - "3002:3002"  # Toniq Service
+    environment:
+      - NODE_ENV=production
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:3000/ || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
+    
+  # Service registration container - runs once to register providers
+  register-services:
+    image: curlimages/curl:latest
+    depends_on:
+      openhealth-api:
+        condition: service_healthy
+    command: >
+      sh -c "
+        echo 'Waiting for services to be ready...' &&
+        sleep 2 &&
+        echo 'Registering DHB service...' &&
+        curl -X POST http://openhealth-api:3000/register 
+          -H 'Content-Type: application/json' 
+          -d '{\"providerId\": \"dhb-auckland\", \"baseUrl\": \"http://localhost:3001/api/v1\"}' &&
+        echo 'Registering Toniq service...' &&
+        curl -X POST http://openhealth-api:3000/register 
+          -H 'Content-Type: application/json' 
+          -d '{\"providerId\": \"toniq-medications\", \"baseUrl\": \"http://localhost:3002/api/v1\"}' &&
+        echo 'All services registered successfully!'
+      "
+    restart: "no"
+
+networks:
+  default:
+    name: openhealth-network

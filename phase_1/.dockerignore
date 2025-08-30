@@ -1,0 +1,21 @@
+node_modules/
+npm-debug.log*
+.npm
+.env
+.env.local
+.env.production.local
+.env.development.local
+*.log
+.DS_Store
+.vscode/
+.idea/
+
+# Ignore lockfiles to avoid version conflicts
+bun.lock
+package-lock.json
+yarn.lock
+
+# Ignore build artifacts
+dist/
+build/
+*.tsbuildinfo
