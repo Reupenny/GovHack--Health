@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import chatIcon from "../resources/chat-icon.png";
+import './Chat.css';
 import type { Patient, Medication, BloodTest, Provider } from '../types';
 
 interface ChatProps {
@@ -21,6 +22,16 @@ const GROQ_API_KEY = process.env.REACT_APP_GROQ_API_KEY;
 const groqUrl = `https://api.groq.com/openai/v1/chat/completions`;
 
 // Prompt to allow prototyping using Groq API through AI Gateway
+const summaryPrompt = `Summarize only recent key clinical points:
+- Active medications and their purpose
+- Any abnormal test results
+- Critical alerts or immediate concerns
+Keep it brief and focused on medical relevance only.
+do not provide bullet points, write in full NZ english sentences.
+if dates/ timeframes are mentioned make sure that it reliant to todays date.
+This is the current date and time, it is for reference only, do not state it in the summary: ${new Date().toLocaleString()}
+DO NOT recommend any specific actions.`;
+
 const baseSystemPrompt = `You are a professional and reliable healthcare assistant AI, designed to help busy healthcare professionals (such as doctors, nurses, and clinical coordinators). Your job is to organize patient-related data, answer questions accurately, and support efficient clinical decision-making.
 
 Your key objectives:
@@ -51,7 +62,10 @@ Example queries you should be able to help with:
 "Has this patient had any recent abnormal lab results?"
 "What are the discharge instructions based on this treatment?"
 
-Stay clinically relevant, clear, and concise.`;
+Stay clinically relevant, clear, and concise.
+
+if dates/ timeframes are mentioned make sure that it reliant to todays date.
+This is the current date and time, it is for reference only: ${new Date().toLocaleString()}`;
 
 export const Chat: React.FC<ChatProps> = ({
     getPatient,
@@ -66,6 +80,50 @@ export const Chat: React.FC<ChatProps> = ({
     const [error, setError] = useState<string | null>(null);
     const [sources, setSources] = useState<string[]>([]);
     const [isOpen, setIsOpen] = useState(false); // For toggle
+    const [summary, setSummary] = useState<string>('');
+
+    React.useEffect(() => {
+        const generateSummary = async () => {
+            const patient = getPatient();
+            if (!patient) {
+                setSummary('');
+                return;
+            }
+
+            const contextData = {
+                patient,
+                medications: getMedications(),
+                bloodTests: getBloodTests(),
+            };
+
+            try {
+                const summaryResponse = await fetch(groqUrl, {
+                    method: "POST",
+                    headers: {
+                        Authorization: `Bearer ${GROQ_API_KEY}`,
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        model: "llama-3.3-70b-versatile",
+                        messages: [
+                            {
+                                role: "system",
+                                content: `${summaryPrompt}\n\nContext Data:\n${JSON.stringify(contextData, null, 2)}`
+                            }
+                        ]
+                    }),
+                });
+
+                const summaryData = await summaryResponse.json();
+                setSummary(summaryData.choices[0]?.message?.content || 'No summary available');
+            } catch (error) {
+                setSummary('Unable to generate summary');
+                console.error('Summary generation failed:', error);
+            }
+        };
+
+        generateSummary();
+    }, [getPatient, getMedications, getBloodTests]);
 
     const sendMessage = async () => {
         if (!input.trim()) return;
@@ -176,100 +234,113 @@ export const Chat: React.FC<ChatProps> = ({
     };
 
     return (
-        <div
-            style={{
-                position: 'fixed',
-                bottom: 20,
-                right: 20,
-                zIndex: 9999,
-                width: isOpen ? 350 : 'auto',
-                transition: 'width 0.3s ease',
-                boxShadow: '0 2px 12px rgba(0,0,0,0.2)',
-                borderRadius: isOpen ? 8 : '50%'
-
-            }}
-        >
-            {isOpen ? (
-                <div style={{
-                    backgroundColor: '#fff',
-                    borderRadius: 8,
-                    padding: 10,
-                    width: '100%',
-                    maxHeight: 500,
-                    overflow: 'hidden',
-                    display: 'flex',
-                    flexDirection: 'column'
-                }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <h4 style={{ margin: 0 }}>OpenHealth Assistant</h4>
-                        <button onClick={() => setIsOpen(false)} style={{ fontSize: 16 }}>✖</button>
+        <>
+            <div className='summary'>
+                {summary ? (
+                    <div className="summary-content">
+                        <h2>Patient Summary</h2>
+                        <p>{summary}</p>
                     </div>
+                ) : getPatient() ? (
+                    <p>Generating summary...</p>
+                ) : (
+                    <p>No patient selected</p>
+                )}
+            </div>
+            <div
+                style={{
+                    position: 'fixed',
+                    bottom: 20,
+                    right: 20,
+                    zIndex: 9999,
+                    width: isOpen ? 350 : 'auto',
+                    transition: 'width 0.3s ease',
+                    boxShadow: '0 2px 12px rgba(0,0,0,0.2)',
+                    borderRadius: isOpen ? 8 : '50%'
 
-                    <div
-                        style={{
-                            flexGrow: 1,
-                            border: '1px solid #ccc',
-                            padding: 10,
-                            marginTop: 10,
-                            overflowY: 'auto',
-                        }}
-                    >
-                        {chatHistory.map((msg, idx) => (
-                            <p key={idx} style={{ color: msg.role === 'user' ? 'blue' : 'green' }}>
-                                <strong>{msg.role === 'user' ? 'You:' : 'Assistant:'}</strong> {msg.content}
-                            </p>
-                        ))}
-
-                        {loading && <p><em>Loading...</em></p>}
-                    </div>
-
-                    <textarea
-                        rows={2}
-                        value={input}
-                        onChange={(e) => setInput(e.target.value)}
-                        placeholder="Type your question..."
-                        style={{ marginTop: 10 }}
-                        disabled={loading}
-                    />
-                    <button onClick={sendMessage} disabled={loading || !input.trim()} style={{ marginTop: 8 }}>
-                        Send
-                    </button>
-
-                    {error && <p style={{ color: 'red' }}>Error: {error}</p>}
-
-                    {sources.length > 0 && (
-                        <div style={{ marginTop: 10 }}>
-                            <strong>Sources:</strong>
-                            <ul style={{ fontSize: '0.8em' }}>
-                                {sources.map((url, i) => (
-                                    <li key={i}>
-                                        <a href={url} target="_blank" rel="noopener noreferrer">{url}</a>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    )}
-                </div>
-            ) : (
-                <button
-                    onClick={() => setIsOpen(true)}
-                    style={{
-                        borderRadius: '50%',
-                        width: 60,
-                        height: 60,
-                        backgroundColor: '#ADD8E6',
-                        border: 'none',
-                        cursor: 'pointer',
-                        padding: 0,
+                }}
+            >
+                {isOpen ? (
+                    <div style={{
+                        backgroundColor: '#fff',
+                        borderRadius: 8,
+                        padding: 10,
+                        width: '100%',
+                        maxHeight: 500,
+                        overflow: 'hidden',
                         display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                    }}
-                    title="Open chat"
-                >
-                    <img src={chatIcon} alt="Chat Icon" width={50} height={50} />
-                </button>
-            )}
-        </div>
+                        flexDirection: 'column'
+                    }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <h4 style={{ margin: 0 }}>OpenHealth Assistant</h4>
+                            <button onClick={() => setIsOpen(false)} style={{ fontSize: 16 }}>✖</button>
+                        </div>
+
+                        <div
+                            style={{
+                                flexGrow: 1,
+                                border: '1px solid #ccc',
+                                padding: 10,
+                                marginTop: 10,
+                                overflowY: 'auto',
+                            }}
+                        >
+                            {chatHistory.map((msg, idx) => (
+                                <p key={idx} style={{ color: msg.role === 'user' ? 'blue' : 'green' }}>
+                                    <strong>{msg.role === 'user' ? 'You:' : 'Assistant:'}</strong> {msg.content}
+                                </p>
+                            ))}
+
+                            {loading && <p><em>Loading...</em></p>}
+                        </div>
+
+                        <textarea
+                            rows={2}
+                            value={input}
+                            onChange={(e) => setInput(e.target.value)}
+                            placeholder="Type your question..."
+                            style={{ marginTop: 10 }}
+                            disabled={loading}
+                        />
+                        <button onClick={sendMessage} disabled={loading || !input.trim()} style={{ marginTop: 8 }}>
+                            Send
+                        </button>
+
+                        {error && <p style={{ color: 'red' }}>Error: {error}</p>}
+
+                        {sources.length > 0 && (
+                            <div style={{ marginTop: 10 }}>
+                                <strong>Sources:</strong>
+                                <ul style={{ fontSize: '0.8em' }}>
+                                    {sources.map((url, i) => (
+                                        <li key={i}>
+                                            <a href={url} target="_blank" rel="noopener noreferrer">{url}</a>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
+                    </div>
+                ) : (
+                    <button
+                        onClick={() => setIsOpen(true)}
+                        style={{
+                            borderRadius: '50%',
+                            width: 60,
+                            height: 60,
+                            backgroundColor: '#ADD8E6',
+                            border: 'none',
+                            cursor: 'pointer',
+                            padding: 0,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                        }}
+                        title="Open chat"
+                    >
+                        <img src={chatIcon} alt="Chat Icon" width={50} height={50} />
+                    </button>
+                )}
+            </div></>
     );
 }

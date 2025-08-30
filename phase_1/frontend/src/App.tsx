@@ -8,6 +8,7 @@ import {
     fetchProviders
 } from './api';
 import { Chat } from './components/Chat';
+// import { Chat } from './components/ChatMock';
 import type {
     Medication,
     Provider
