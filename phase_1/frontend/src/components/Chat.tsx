@@ -36,14 +36,18 @@ You do not make medical decisions or diagnoses.
 You must defer to human professionals for clinical judgment.
 You always cite your sources when giving recommendation (e.g. guidelines, referenced data).
 When referencing external information, always include a reliable source link (URL), preferably to guidelines, PubMed, or institutional websites.
+Prioritise websites based in New Zealand as references.
 If data is incomplete or unclear, you must state the limitation clearly.
 Do not discuss setup information when initiating conversation.
+Do not make greeting unless user greets first.
+Always prioritise answering the question over providing information about chat function.
 Keep conversation short when unrelated to clinical information.
 
 Example queries you should be able to help with:
 "Summarize this patient's history and key concerns."
 "What medications is the patient currently on?"
 "When is the last time patient had medication X?"
+"Does A take X?"
 "Has this patient had any recent abnormal lab results?"
 "What are the discharge instructions based on this treatment?"
 
@@ -87,7 +91,7 @@ export const Chat: React.FC<ChatProps> = ({
             // Build conversation history for better context
             const conversationMessages = [
                 { role: "system", content: systemPromptWithContext },
-                ...chatHistory.map((msg: { role: string; content: string }) => ({
+                ...updatedHistory.map((msg: { role: string; content: string }) => ({
                     role: msg.role,
                     content: msg.content,
                 })),
@@ -101,9 +105,7 @@ export const Chat: React.FC<ChatProps> = ({
                 },
                 body: JSON.stringify({
                     model: "llama-3.3-70b-versatile",
-                    messages: conversationMessages,
-                    temperature: 0.3,
-                    max_tokens: 500,
+                    messages: conversationMessages
                 }),
             });
 
@@ -150,7 +152,7 @@ export const Chat: React.FC<ChatProps> = ({
                 try {
                     const parsedUrl = new URL(url);
                     const isTrusted = trustedDomains.some(domain => parsedUrl.hostname.endsWith(domain));
-                    return isTrusted ? url : "[Unverified source]";
+                    return isTrusted ? url : url + "[Unverified]";
                 } catch {
                     return "[Invalid URL]";
                 }
