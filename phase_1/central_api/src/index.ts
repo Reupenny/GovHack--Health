@@ -13,6 +13,7 @@ import type {
   DocumentsResponse,
   ErrorResponse
 } from './types.js'
+import { corsMiddleware } from './middleware.js';
 
 interface ServiceProvider {
   providerId: string
@@ -22,6 +23,7 @@ interface ServiceProvider {
 const app = new Hono()
 
 app.use('/*', cors())
+app.use('*', corsMiddleware);
 
 app.route('/', chatRouter);
 

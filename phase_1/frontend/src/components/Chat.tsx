@@ -13,6 +13,7 @@ export const Chat: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const [sources, setSources] = useState<string[]>([]);
     const [isOpen, setIsOpen] = useState(false); // For toggle
+    const centralAPI = 'http://localhost:3000/';
 
     const sendMessage = async () => {
         if (!input.trim()) return;
@@ -24,13 +25,21 @@ export const Chat: React.FC = () => {
         setError(null);
 
         try {
-            const res = await fetch('/api/chat', {
+            const res = await fetch(centralAPI + '/api/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ chatHistory: updatedHistory }),
+                body: JSON.stringify({
+                    chatHistory: [
+                        { role: 'user', content: 'Hello!' },
+                        { role: 'assistant', content: 'Hi there!' }
+                    ]
+                })
             });
 
+            console.log("Raw Response:", res);
+
             const data = await res.json();
+            console.log("Response:", data);
 
             if (data.success) {
                 const newAssistantMessage: Message = {
@@ -43,8 +52,10 @@ export const Chat: React.FC = () => {
                 setError(data.error || 'Unknown error');
             }
         } catch {
+            console.error("Error during request:", error);
             setError('Network error');
         } finally {
+            console.log("Finished Request");
             setLoading(false);
             setInput('');
         }
