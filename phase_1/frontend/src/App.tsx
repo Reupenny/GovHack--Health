@@ -466,7 +466,7 @@ const PatientDashboardContainer: React.FC = () => {
             const newProvider = {
                 providerId: 'TONIQ_1',
                 name: 'Toniq',
-                baseUrl: 'http://localhost:3002/api/v1'
+                baseUrl: 'http://localhost:3003/api/v1'
             };
             await registerProvider(newProvider);
             setProviders(prev => [...prev, newProvider]);
