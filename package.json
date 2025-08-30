@@ -5,10 +5,20 @@
   "type": "module",
   "scripts": {
     "dev": "cd phase_1 && bun run dev",
-    "build": "cd phase_1 && bun run build", 
+    "build": "cd phase_1 && bun run build",
     "deploy": "cd phase_1 && bun run deploy",
     "deploy:gcloud": "cd phase_1 && bun run deploy:gcloud",
     "logs": "cd phase_1 && bun run logs"
   },
-  "keywords": ["health", "api", "microservices", "hackathon"]
+  "keywords": [
+    "health",
+    "api",
+    "microservices",
+    "hackathon"
+  ],
+  "dependencies": {
+    "hono": "^4.9.5",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  }
 }

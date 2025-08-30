@@ -6,7 +6,7 @@ interface Provider {
 
 export async function registerProvider(provider: Provider) {
     try {
-        const response = await fetch(`${API_BASE_URL}/providers`, {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/providers`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

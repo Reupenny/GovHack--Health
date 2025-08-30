@@ -1,6 +1,7 @@
 import { serve } from '@hono/node-server'
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
+import chatRouter from './prompt.js';
 import type { 
   Patient, 
   Medication, 
@@ -21,6 +22,8 @@ interface ServiceProvider {
 const app = new Hono()
 
 app.use('/*', cors())
+
+app.route('/', chatRouter);
 
 const serviceProviders = new Map<string, string>()
 

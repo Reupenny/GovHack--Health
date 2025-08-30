@@ -18,7 +18,7 @@
     },
     {
       "key": "toniq_api_url",
-      "value": "http://localhost:3002", 
+      "value": "http://localhost:3003", 
       "type": "string"
     },
     {

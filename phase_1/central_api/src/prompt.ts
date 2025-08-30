@@ -1,9 +1,10 @@
 import { Hono } from 'hono';
+const chatRouter = new Hono();
 
-const app = new Hono();
+const GROQ_API_KEY = process.env.GROQ_API_KEY;
 
 // Use Groq's text generation API through Cloudflare AI Gateway
-const groqUrl = `https://gateway.ai.cloudflare.com/v1/${this.config.cloudflareAccountId}/${this.config.aiGatewayUrl}/groq/chat/completions`;
+const groqUrl = `https://api.groq.com/openai/v1/chat/completions`;
 
 // Prompt to allow prototyping using Groq API through AI Gateway
 const systemPrompt = `You are a professional and reliable healthcare assistant AI, designed to help busy healthcare professionals (such as doctors, nurses, and clinical coordinators). Your job is to organize patient-related data, answer questions accurately, and support efficient clinical decision-making.
@@ -32,18 +33,14 @@ If data is incomplete or unclear, you must state the limitation clearly.
 Stay efficient, clinically relevant, and clear.`;
 
 
-app.post('/chat', async (c) => {
+chatRouter.post('/chat', async (c) => {
     try {
         const {chatHistory} = await c.req.json();
 
         // Build conversation history for better context
         const conversationMessages = [
-            {
-                role: "system",
-                content: systemPrompt,
-            },
-            // Include all previous conversation history
-            ...session.chatHistory.map((msg) => ({
+            { role: "system", content: systemPrompt },
+            ...chatHistory.map((msg: { role: string; content: string }) => ({
                 role: msg.role,
                 content: msg.content,
             })),
@@ -52,11 +49,11 @@ app.post('/chat', async (c) => {
         const groqResponse = await fetch(groqUrl, {
             method: "POST",
             headers: {
-                Authorization: `Bearer ${this.config.groqApiKey}`,
+                Authorization: `Bearer ${GROQ_API_KEY}`,
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                model: "llama-3.1-8b-instant",
+                model: "llama-3.3-70b-versatile",
                 messages: conversationMessages,
                 temperature: 0.3,
                 max_tokens: 500,
@@ -78,7 +75,7 @@ app.post('/chat', async (c) => {
         // Extract response text from Groq response
         let response =
             groqData.choices[0]?.message?.content ||
-            "I'm not sure about that. Can you ask a different question?";
+            "Sorry I'm not sure about that. Can you ask a different question?";
 
         // Validate and sanitize response
         const urlRegex = /(https?:\/\/[^\s]+)/g;
@@ -125,4 +122,6 @@ app.post('/chat', async (c) => {
         console.error('Server error:', error);
         return c.json({ success: false, error: 'Internal server error' }, 500);
     }
-}
+})
+
+export default chatRouter;
