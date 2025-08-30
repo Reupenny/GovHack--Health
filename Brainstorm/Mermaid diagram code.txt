@@ -1,0 +1,25 @@
+---
+config:
+  layout: dagre
+---
+flowchart LR
+ subgraph Sources["Data Sources"]
+    direction TB
+        DS5[("Private specialist")]
+        DS4[("General Practice")]
+        DS3[("Medical laboratories")]
+        DS2[("Pharmacy")]
+        DS1[("Public Hospital")]
+        DS6[("Private hospital")]
+  end
+    DS1 --> API["Open Health API"]
+    DS2 --> API
+    DS3 --> API
+    DS4 --> API
+    DS5 --> API
+    DS6 --> API
+    API ==> APP["Open Health Portal"]
+    APP -.-> User1(["Doctors"]) & User2(["Nurses"]) & User3(["Pharmacist"]) & User4(["Patients"]) & User5(["Private specialist e.g. Phychiatrist"]) & User6(["Government agencies e.g. ACC"])
+     API:::biggerText
+     APP:::biggerText
+    classDef biggerText font-size:38px
