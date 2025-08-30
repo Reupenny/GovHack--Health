@@ -419,7 +419,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                             className="register-provider-btn"
                             onClick={onRegisterToniq}
                         >
-                            Register Toniq
+                            Register TONIQ
                         </button>
                     )}
                     <input className='search-bar'
@@ -509,9 +509,19 @@ const PatientDashboardContainer: React.FC = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [providers, setProviders] = useState<Provider[]>([]);
-    // Check if specific providers are registered
-    const isDHBRegistered = providers.some(p => p.providerId === 'DHB_1');
-    const isToniqRegistered = providers.some(p => p.providerId === 'TONIQ_1');
+
+    // Load providers on component mount
+    useEffect(() => {
+        const loadProviders = async () => {
+            try {
+                const providersData = await fetchProviders();
+                setProviders(providersData);
+            } catch (error) {
+                console.error('Failed to load providers:', error);
+            }
+        };
+        loadProviders();
+    }, []);
 
     const registerDHB = async () => {
         try {
@@ -547,19 +557,17 @@ const PatientDashboardContainer: React.FC = () => {
                 setLoading(true);
                 setError(null);
 
-                const [patientData, medicationsData, bloodTestsData, documentsData, providersData] = await Promise.all([
+                const [patientData, medicationsData, bloodTestsData, documentsData] = await Promise.all([
                     fetchPatientData(nhi),
                     fetchMedications(nhi, true),
                     fetchBloodTests(nhi),
-                    fetch(`http://localhost:3000/patients/${nhi}/documents`).then(res => res.json()),
-                    fetchProviders()
+                    fetch(`http://localhost:3000/patients/${nhi}/documents`).then(res => res.json())
                 ]);
 
                 setPatient(patientData);
                 setMedications(medicationsData.medications || []);
                 setBloodTests(bloodTestsData.bloodTests || []);
                 setDocuments(documentsData.documents || []);
-                setProviders(providersData);
             } catch (err) {
                 setError(err instanceof Error ? err.message : 'An error occurred');
             } finally {
