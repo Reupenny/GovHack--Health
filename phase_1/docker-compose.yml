@@ -6,7 +6,8 @@ services:
     ports:
       - "3000:3000"  # Central API
       - "3001:3001"  # DHB Service  
-      - "3002:3002"  # Toniq Service
+      - "3002:3002"  # Frontend
+      - "3003:3003"  # Toniq Service
     environment:
       - NODE_ENV=production
     healthcheck:
@@ -34,7 +35,7 @@ services:
         echo 'Registering Toniq service...' &&
         curl -X POST http://openhealth-api:3000/register 
           -H 'Content-Type: application/json' 
-          -d '{\"providerId\": \"toniq-medications\", \"baseUrl\": \"http://localhost:3002/api/v1\"}' &&
+          -d '{\"providerId\": \"toniq-medications\", \"baseUrl\": \"http://localhost:3003/api/v1\"}' &&
         echo 'All services registered successfully!'
       "
     restart: "no"
