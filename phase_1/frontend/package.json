@@ -4,8 +4,8 @@
     "description": "Frontend for OpenHealth API",
     "main": "index.js",
     "scripts": {
-        "dev": "webpack serve --mode development",
-        "build": "webpack --mode production",
+        "dev": "webpack serve --mode development --config webpack.config.new.js",
+        "build": "webpack --mode production --config webpack.config.new.js",
         "start": "serve -s dist -l 8080",
         "type-check": "tsc --noEmit"
     },

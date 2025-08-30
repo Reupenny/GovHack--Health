@@ -10,38 +10,66 @@ import {
 import { Chat } from './components/Chat';
 import type {
     Medication,
-    BloodTest,
     Provider
 } from './types';
 
+interface BloodTestResult {
+    parameter: string;
+    value: string;
+    unit: string;
+    referenceRange: string;
+    status: 'normal' | 'abnormal';
+    flags?: string[];
+}
+
+interface BloodTest {
+    id: string;
+    testName: string;
+    testCode: string;
+    testDate: string;
+    orderingDoctor: string;
+    laboratory: string;
+    status: string;
+    results: BloodTestResult[];
+    clinicalNotes: string;
+}
+
+interface Name {
+    title: string;
+    firstName: string;
+    lastName: string;
+}
+
+interface Address {
+    line1: string;
+    line2?: string;
+    suburb: string;
+    city: string;
+    region: string;
+    postcode: string;
+    country: string;
+}
+
+interface ContactDetails {
+    phone: string;
+    mobile: string;
+    email: string;
+}
+
+interface EmergencyContact {
+    name: string;
+    relationship: string;
+    phone: string;
+}
+
 interface Patient {
     nhi: string;
-    name: {
-        title: string;
-        firstName: string;
-        lastName: string;
-    };
+    name: Name;
     dateOfBirth: string;
     gender: string;
-    address: {
-        line1: string;
-        line2?: string;
-        suburb: string;
-        city: string;
-        region: string;
-        postcode: string;
-        country: string;
-    };
-    contactDetails: {
-        phone: string;
-        mobile: string;
-        email: string;
-    };
-    emergencyContact: {
-        name: string;
-        relationship: string;
-        phone: string;
-    };
+    address: Address;
+    contactDetails: ContactDetails;
+    emergencyContact: EmergencyContact;
     ethnicGroup: string;
     preferredLanguage: string;
 };
@@ -65,11 +93,9 @@ const styles = {
     }
 } as const;
 
-const DEMO_NHI = 'ABC1234'; // Demo NHI for testing
-
 function PatientInfo({ patient }: { patient: Patient }) {
     if (!patient) return null;
-    const { name = {}, contactDetails = {}, address = {}, emergencyContact = {} } = patient;
+    const { name, contactDetails, address, emergencyContact } = patient;
     return (
         <div className="patient-info">
             <div className="info-section">
@@ -160,14 +186,24 @@ function PatientInfo({ patient }: { patient: Patient }) {
 }
 
 function MedicationList({ medications }: { medications: Medication[] }) {
+    if (!medications || medications.length === 0) {
+        return (
+            <div className="medication-list">
+                <p className="no-data">No medications found</p>
+            </div>
+        );
+    }
+
     return (
         <div className="medication-list">
             {medications.map(med => (
                 <div key={med.id} className="medication-item">
                     <h4>{med.name}</h4>
-                    <p>Dosage: {med.dosage}</p>
-                    <p>Frequency: {med.frequency}</p>
-                    <p>Status: {med.status}</p>
+                    <div className="medication-details">
+                        <p><strong>Dosage:</strong> {med.dosage}</p>
+                        <p><strong>Frequency:</strong> {med.frequency}</p>
+                        <p><strong>Status:</strong> <span className={`status-${med.status.toLowerCase()}`}>{med.status}</span></p>
+                    </div>
                 </div>
             ))}
         </div>
@@ -175,14 +211,59 @@ function MedicationList({ medications }: { medications: Medication[] }) {
 }
 
 function BloodTestList({ tests }: { tests: BloodTest[] }) {
+    if (!tests || tests.length === 0) {
+        return (
+            <div className="blood-test-list">
+                <p className="no-data">No test results found</p>
+            </div>
+        );
+    }
+
     return (
         <div className="blood-test-list">
             {tests.map(test => (
                 <div key={test.id} className="blood-test-item">
-                    <h4>{test.type}</h4>
-                    <p>Result: {test.result} {test.unit}</p>
-                    <p>Reference Range: {test.referenceRange}</p>
-                    <p>Date: {new Date(test.testDate).toLocaleDateString()}</p>
+                    <div className="test-header">
+                        <div>
+                            <h4>{test.testName}</h4>
+                            <span className="test-code">{test.testCode}</span>
+                        </div>
+                        <span className={`test-status status-${test.status.toLowerCase()}`}>{test.status}</span>
+                    </div>
+                    <div className="test-meta">
+                        <p><strong>Date:</strong> <time dateTime={test.testDate}>{new Date(test.testDate).toLocaleDateString()}</time></p>
+                        <p><strong>Doctor:</strong> {test.orderingDoctor}</p>
+                        <p><strong>Laboratory:</strong> {test.laboratory}</p>
+                    </div>
+                    <div className="test-results">
+                        {test.results.map((result, index) => (
+                            <div key={index} className={`test-result status-${result.status}`}>
+                                <div className="result-header">
+                                    <span className="parameter">{result.parameter}</span>
+                                    {result.flags && result.flags.length > 0 && (
+                                        <div className="flags">
+                                            {result.flags.map(flag => (
+                                                <span key={flag} className={`flag flag-${flag.toLowerCase()}`}>
+                                                    {flag}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+                                <div className="result-details">
+                                    <span className="value">{result.value}</span>
+                                    <span className="unit">{result.unit}</span>
+                                    <span className="reference">({result.referenceRange})</span>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                    {test.clinicalNotes && (
+                        <div className="clinical-notes">
+                            <h5>Clinical Notes</h5>
+                            <p>{test.clinicalNotes}</p>
+                        </div>
+                    )}
                 </div>
             ))}
         </div>
@@ -423,7 +504,7 @@ const Dashboard: React.FC<DashboardProps> = ({
 };
 
 const PatientDashboardContainer: React.FC = () => {
-    const [nhi, setNhi] = useState(DEMO_NHI);
+    const [nhi, setNhi] = useState('');
     const [patient, setPatient] = useState<Patient | null>(null);
     const [medications, setMedications] = useState<Medication[]>([]);
     const [bloodTests, setBloodTests] = useState<BloodTest[]>([]);
