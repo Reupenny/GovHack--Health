@@ -1,4 +1,20 @@
-/* Add styles */
+:root {
+    --primary: #2196f3;
+    --primary-dark: #1976d2;
+    --success: #27ae60;
+    --success-dark: #219150;
+    --danger: #dc3545;
+    --danger-light: #fff3f3;
+    --gray-bg: #f8f9fa;
+    --gray-border: #e0e0e0;
+    --text-main: #2c3e50;
+    --border-radius: 6px;
+    --transition: 0.2s;
+    --input-bg: #fafdff;
+    --input-border: #ced4da;
+    --input-focus: #80bdff;
+}
+
 .app {
     max-width: 1200px;
     margin: 0 auto;
@@ -44,33 +60,6 @@
     border: 1px solid #e0e0e0;
     padding: 1.5rem;
     height: 200px;
-}
-
-/* Columns */
-.left-column,
-.middle-column,
-.right-column {
-    background: #f8f9fa;
-    padding: 1.5rem;
-    border-radius: 8px;
-    border: 1px solid #e0e0e0;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    overflow-y: auto;
-}
-
-.left-column {
-    background: white;
-}
-
-.middle-column {
-    background: white;
-}
-
-.right-column {
-    background: white;
 }
 
 .chat-container {
@@ -144,38 +133,6 @@
     color: #2c3e50;
 }
 
-.register-dhb-button {
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
-    font-weight: bold;
-    color: white;
-    background-color: #2ecc71;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-}
-
-.register-dhb-button:hover {
-    background-color: #27ae60;
-}
-
-.register-dhb-button:active {
-    transform: translateY(1px);
-}
-
-.search-bar {
-    text-align: center;
-    margin: 20px 0;
-}
-
-.providers-list {
-    min-width: 200px;
-    background: white;
-    padding: 1rem;
-    border-radius: 4px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
 
 .providers-list h3 {
     margin: 0 0 1rem 0;
@@ -223,12 +180,15 @@
     border-bottom: 1px solid #eee;
 }
 
-.search-bar input {
-    padding: 8px 16px;
-    font-size: 16px;
-    width: 200px;
-    border: 2px solid #ccc;
-    border-radius: 4px;
+/* Providers list and other elements */
+.providers-list h3 {
+    margin: 0 0 1rem 0;
+    color: var(--text-main);
+}
+
+.providers-list li {
+    padding: 0.5rem;
+    border-bottom: 1px solid var(--gray-border);
 }
 
 .container {
@@ -386,6 +346,84 @@ h1 {
 h3 {
     margin-top: 0;
     font-size: 1.2em;
+}
+
+/* Unified button style */
+.register-provider-btn {
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 0.5em 1.2em;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background var(--transition), box-shadow var(--transition);
+    margin-bottom: 0.5rem;
+    box-shadow: 0 1px 3px rgba(33, 150, 243, 0.07);
+}
+
+.register-provider-btn:focus {
+    background: var(--primary-dark);
+    outline: none;
+}
+
+.register-provider-btn:hover {
+    background: var(--primary-dark);
+    box-shadow: 0 2px 8px rgba(33, 150, 243, 0.13);
+}
+
+/* Unified search bar style */
+.search-bar {
+    text-align: center;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.search-bar input {
+    padding: 10px 18px;
+    font-size: 1rem;
+    width: 220px;
+    border: 1.5px solid var(--input-border);
+    border-radius: var(--border-radius);
+    background: var(--input-bg);
+    transition: border var(--transition), box-shadow var(--transition);
+    box-shadow: 0 1px 3px rgba(33, 150, 243, 0.06);
+    color: var(--text-main);
+}
+
+.search-bar input:focus {
+    border: 1.5px solid var(--primary);
+    box-shadow: 0 2px 8px rgba(33, 150, 243, 0.10);
+    outline: none;
+}
+
+/* Consistent column backgrounds */
+.left-column,
+.middle-column,
+.right-column {
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--gray-border);
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    overflow-y: auto;
+}
+
+/* Providers list and other elements */
+.providers-list h3 {
+    margin: 0 0 1rem 0;
+    color: var(--text-main);
+}
+
+.providers-list li {
+    padding: 0.5rem;
+    border-bottom: 1px solid var(--gray-border);
 }
 
 /* Responsive adjustments */

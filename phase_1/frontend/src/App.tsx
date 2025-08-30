@@ -4,7 +4,8 @@ import {
     fetchMedications,
     fetchBloodTests,
     registerProvider,
-    fetchDocuments
+    fetchDocuments,
+    fetchProviders
 } from './api';
 import { Chat } from './components/Chat';
 import type {
@@ -325,12 +326,11 @@ const Dashboard: React.FC<DashboardProps> = ({
                     )}
                     <button
                         className="register-provider-btn"
-                        style={{ marginTop: 8, background: '#6c63ff', color: 'white' }}
                         onClick={onRegisterToniq}
                     >
                         Register Toniq
                     </button>
-                    <input
+                    <input className='search-bar'
                         type="text"
                         placeholder="Search NHI"
                         value={nhi}
@@ -425,7 +425,9 @@ const PatientDashboardContainer: React.FC = () => {
                 baseUrl: 'http://localhost:3001/api/v1'
             };
             await registerProvider(newProvider);
-            setProviders(prev => [...prev, newProvider]);
+            // Refresh providers from API after registration
+            const providersData = await fetchProviders();
+            setProviders(providersData);
             setProviderRegistered(true);
         } catch (error) {
             setError('Failed to register DHB provider: ' + (error instanceof Error ? error.message : 'Unknown error'));
@@ -440,17 +442,19 @@ const PatientDashboardContainer: React.FC = () => {
                 setLoading(true);
                 setError(null);
 
-                const [patientData, medicationsData, bloodTestsData, documentsData] = await Promise.all([
+                const [patientData, medicationsData, bloodTestsData, documentsData, providersData] = await Promise.all([
                     fetchPatientData(nhi),
                     fetchMedications(nhi, true),
                     fetchBloodTests(nhi),
-                    fetch(`http://localhost:3000/patients/${nhi}/documents`).then(res => res.json())
+                    fetch(`http://localhost:3000/patients/${nhi}/documents`).then(res => res.json()),
+                    fetchProviders()
                 ]);
 
                 setPatient(patientData);
                 setMedications(medicationsData.medications || []);
                 setBloodTests(bloodTestsData.bloodTests || []);
                 setDocuments(documentsData.documents || []);
+                setProviders(providersData);
             } catch (err) {
                 setError(err instanceof Error ? err.message : 'An error occurred');
             } finally {
@@ -469,7 +473,9 @@ const PatientDashboardContainer: React.FC = () => {
                 baseUrl: 'http://localhost:3003/api/v1'
             };
             await registerProvider(newProvider);
-            setProviders(prev => [...prev, newProvider]);
+            // Refresh providers from API after registration
+            const providersData = await fetchProviders();
+            setProviders(providersData);
         } catch (error) {
             setError('Failed to register Toniq provider: ' + (error instanceof Error ? error.message : 'Unknown error'));
         }

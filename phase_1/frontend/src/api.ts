@@ -1,3 +1,17 @@
+// Fetch all registered providers
+export async function fetchProviders(): Promise<Provider[]> {
+    try {
+        const response = await fetch(`${API_BASE_URL}/providers`);
+        if (!response.ok) {
+            throw new Error(`Failed to fetch providers (${response.status}: ${response.statusText})`);
+        }
+        const data = await response.json();
+        return data.providers || [];
+    } catch (error) {
+        console.error('Error fetching providers:', error);
+        throw error instanceof Error ? error : new Error('Failed to fetch providers');
+    }
+}
 // API base URL
 const API_BASE_URL = (typeof process !== 'undefined' && process.env && process.env.REACT_APP_API_URL) || 'http://localhost:3000';
 
