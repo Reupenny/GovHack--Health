@@ -1,0 +1,90 @@
+/* Document List Styles */
+.document-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.document-item {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 16px;
+}
+
+.document-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+}
+
+.document-header h4 {
+    margin: 0;
+    color: #2c3e50;
+}
+
+.document-type {
+    background: #e3f2fd;
+    color: #1976d2;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.document-description {
+    color: #666;
+    margin-bottom: 16px;
+}
+
+.document-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.detail-item label {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.detail-item span {
+    color: #2c3e50;
+}
+
+.document-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+}
+
+.tag {
+    background: #f5f5f5;
+    color: #666;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+}
+
+.document-download {
+    background: #2196f3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.document-download:hover {
+    background: #1976d2;
+}

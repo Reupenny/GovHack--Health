@@ -1,0 +1,312 @@
+{
+  "info": {
+    "name": "OpenHealth API - Multi-Provider Tests",
+    "description": "Comprehensive health API tests for DHB + Toniq providers via Central API",
+    "version": "2.0.0",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "central_api_url",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "dhb_api_url", 
+      "value": "http://localhost:3001",
+      "type": "string"
+    },
+    {
+      "key": "toniq_api_url",
+      "value": "http://localhost:3002", 
+      "type": "string"
+    },
+    {
+      "key": "api_version",
+      "value": "v1",
+      "type": "string"
+    },
+    {
+      "key": "sample_nhi_1",
+      "value": "ABC1234",
+      "type": "string"
+    },
+    {
+      "key": "sample_nhi_2",
+      "value": "DEF5678",
+      "type": "string"
+    },
+    {
+      "key": "sample_nhi_3",
+      "value": "GHI9012",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Setup - Register DHB Provider",
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"providerId\": \"dhb-auckland\",\n  \"baseUrl\": \"{{dhb_api_url}}/api/{{api_version}}\"\n}"
+        },
+        "url": {
+          "raw": "{{central_api_url}}/register",
+          "host": ["{{central_api_url}}"],
+          "path": ["register"]
+        }
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "exec": [
+            "pm.test('DHB registration successful', function () {",
+            "    pm.response.to.have.status(201);",
+            "    const jsonData = pm.response.json();",
+            "    pm.expect(jsonData.providerId).to.eql('dhb-auckland');",
+            "});"
+          ]
+        }
+      }]
+    },
+    {
+      "name": "Setup - Register Toniq Provider", 
+      "request": {
+        "method": "POST",
+        "header": [{"key": "Content-Type", "value": "application/json"}],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"providerId\": \"toniq-medications\",\n  \"baseUrl\": \"{{toniq_api_url}}/api/{{api_version}}\"\n}"
+        },
+        "url": {
+          "raw": "{{central_api_url}}/register",
+          "host": ["{{central_api_url}}"],
+          "path": ["register"]
+        }
+      },
+      "event": [{
+        "listen": "test", 
+        "script": {
+          "exec": [
+            "pm.test('Toniq registration successful', function () {",
+            "    pm.response.to.have.status(201);",
+            "    const jsonData = pm.response.json();",
+            "    pm.expect(jsonData.providerId).to.eql('toniq-medications');",
+            "    pm.expect(jsonData.totalProviders).to.eql(2);",
+            "});"
+          ]
+        }
+      }]
+    },
+    {
+      "name": "Central API - List Providers",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{central_api_url}}/providers",
+          "host": ["{{central_api_url}}"],
+          "path": ["providers"]
+        }
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "exec": [
+            "pm.test('Both providers registered', function () {",
+            "    pm.response.to.have.status(200);",
+            "    const jsonData = pm.response.json();",
+            "    pm.expect(jsonData.total).to.eql(2);",
+            "    const providerIds = jsonData.providers.map(p => p.providerId);",
+            "    pm.expect(providerIds).to.include('dhb-auckland');",
+            "    pm.expect(providerIds).to.include('toniq-medications');",
+            "});"
+          ]
+        }
+      }]
+    },
+    {
+      "name": "Central API - Get Patient (Consolidated)",
+      "request": {
+        "method": "GET", 
+        "url": {
+          "raw": "{{central_api_url}}/patients/{{sample_nhi_1}}",
+          "host": ["{{central_api_url}}"],
+          "path": ["patients", "{{sample_nhi_1}}"]
+        }
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "exec": [
+            "pm.test('Patient data consolidated from providers', function () {",
+            "    pm.response.to.have.status(200);",
+            "    const jsonData = pm.response.json();",
+            "    pm.expect(jsonData).to.have.property('nhi');",
+            "    pm.expect(jsonData).to.have.property('name');",
+            "    pm.expect(jsonData.nhi).to.eql(pm.collectionVariables.get('sample_nhi_1'));",
+            "});"
+          ]
+        }
+      }]
+    },
+    {
+      "name": "Central API - Get Medications (Toniq Only)",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{central_api_url}}/patients/{{sample_nhi_1}}/medications?current=true",
+          "host": ["{{central_api_url}}"],
+          "path": ["patients", "{{sample_nhi_1}}", "medications"],
+          "query": [{"key": "current", "value": "true"}]
+        }
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "exec": [
+            "pm.test('Medications returned despite DHB not implementing API', function () {",
+            "    pm.response.to.have.status(200);",
+            "    const jsonData = pm.response.json();",
+            "    pm.expect(jsonData).to.have.property('medications');",
+            "    pm.expect(jsonData).to.have.property('total');",
+            "    pm.expect(jsonData.medications).to.be.an('array');",
+            "    // Should get medications from Toniq even though DHB doesn't implement this endpoint",
+            "    if (jsonData.medications.length > 0) {",
+            "        pm.expect(jsonData.medications[0]).to.have.property('name');",
+            "        pm.expect(jsonData.medications[0]).to.have.property('status');",
+            "    }",
+            "});"
+          ]
+        }
+      }]
+    },
+    {
+      "name": "Central API - Get Blood Tests (DHB Only)",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{central_api_url}}/patients/{{sample_nhi_1}}/blood-tests",
+          "host": ["{{central_api_url}}"],
+          "path": ["patients", "{{sample_nhi_1}}", "blood-tests"]
+        }
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "exec": [
+            "pm.test('Blood tests returned despite Toniq not implementing API', function () {",
+            "    pm.response.to.have.status(200);",
+            "    const jsonData = pm.response.json();",
+            "    pm.expect(jsonData).to.have.property('bloodTests');",
+            "    pm.expect(jsonData).to.have.property('total');",
+            "    pm.expect(jsonData.bloodTests).to.be.an('array');",
+            "    // Should get blood tests from DHB even though Toniq doesn't implement this endpoint",
+            "    if (jsonData.bloodTests.length > 0) {",
+            "        pm.expect(jsonData.bloodTests[0]).to.have.property('testName');",
+            "        pm.expect(jsonData.bloodTests[0]).to.have.property('status');",
+            "    }",
+            "});"
+          ]
+        }
+      }]
+    },
+    {
+      "name": "Direct DHB - Patient Info",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{dhb_api_url}}/api/{{api_version}}/patients/{{sample_nhi_1}}",
+          "host": ["{{dhb_api_url}}"],
+          "path": ["api", "{{api_version}}", "patients", "{{sample_nhi_1}}"]
+        }
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "exec": [
+            "pm.test('DHB returns patient info', function () {",
+            "    pm.response.to.have.status(200);",
+            "    const jsonData = pm.response.json();",
+            "    pm.expect(jsonData.nhi).to.eql(pm.collectionVariables.get('sample_nhi_1'));",
+            "});"
+          ]
+        }
+      }]
+    },
+    {
+      "name": "Direct DHB - Blood Tests", 
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{dhb_api_url}}/api/{{api_version}}/patients/{{sample_nhi_1}}/blood-tests",
+          "host": ["{{dhb_api_url}}"],
+          "path": ["api", "{{api_version}}", "patients", "{{sample_nhi_1}}", "blood-tests"]
+        }
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "exec": [
+            "pm.test('DHB returns blood tests', function () {",
+            "    pm.response.to.have.status(200);",
+            "    const jsonData = pm.response.json();",
+            "    pm.expect(jsonData).to.have.property('bloodTests');",
+            "});"
+          ]
+        }
+      }]
+    },
+    {
+      "name": "Direct Toniq - Medications",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{toniq_api_url}}/api/{{api_version}}/patients/{{sample_nhi_1}}/medications?current=true",
+          "host": ["{{toniq_api_url}}"],
+          "path": ["api", "{{api_version}}", "patients", "{{sample_nhi_1}}", "medications"],
+          "query": [{"key": "current", "value": "true"}]
+        }
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "exec": [
+            "pm.test('Toniq returns medications', function () {",
+            "    pm.response.to.have.status(200);",
+            "    const jsonData = pm.response.json();",
+            "    pm.expect(jsonData).to.have.property('medications');",
+            "    jsonData.medications.forEach(function(med) {",
+            "        pm.expect(med.status).to.eql('active');",
+            "    });",
+            "});"
+          ]
+        }
+      }]
+    },
+    {
+      "name": "Test Graceful Degradation - Non-existent Patient",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{central_api_url}}/patients/XYZ9999/medications",
+          "host": ["{{central_api_url}}"],
+          "path": ["patients", "XYZ9999", "medications"]
+        }
+      },
+      "event": [{
+        "listen": "test",
+        "script": {
+          "exec": [
+            "pm.test('Handles non-existent patient gracefully', function () {",
+            "    pm.response.to.have.status(404);",
+            "    const jsonData = pm.response.json();",
+            "    pm.expect(jsonData.error).to.eql('PATIENT_NOT_FOUND');",
+            "});"
+          ]
+        }
+      }]
+    }
+  ]
+}

@@ -3,17 +3,51 @@ import {
     fetchPatientData,
     fetchMedications,
     fetchBloodTests,
-    registerProvider
+    registerProvider,
+    fetchDocuments
 } from './api';
 import { Chat } from './components/Chat';
 import type {
-    Patient,
     Medication,
     BloodTest,
-    Provider,
-    Document
+    Provider
 } from './types';
+
+interface Patient {
+    nhi: string;
+    name: {
+        title: string;
+        firstName: string;
+        lastName: string;
+    };
+    dateOfBirth: string;
+    gender: string;
+    address: {
+        line1: string;
+        line2?: string;
+        suburb: string;
+        city: string;
+        region: string;
+        postcode: string;
+        country: string;
+    };
+    contactDetails: {
+        phone: string;
+        mobile: string;
+        email: string;
+    };
+    emergencyContact: {
+        name: string;
+        relationship: string;
+        phone: string;
+    };
+    ethnicGroup: string;
+    preferredLanguage: string;
+};
 import './App.css';
+import './components/DocumentList.css';
+import './components/PatientInfo.css';
+import './components/ProviderList.css';
 
 // Add styles
 const styles = {
@@ -35,15 +69,81 @@ const DEMO_NHI = 'ABC1234'; // Demo NHI for testing
 function PatientInfo({ patient }: { patient: Patient }) {
     return (
         <div className="patient-info">
-            <h3>{patient.name.first} {patient.name.last}</h3>
-            <p>NHI: {patient.nhi}</p>
-            <p>DOB: {new Date(patient.dateOfBirth).toLocaleDateString()}</p>
-            {patient.address && (
-                <p>
-                    {patient.address.street}<br />
-                    {patient.address.city}, {patient.address.postcode}
-                </p>
-            )}
+            <div className="info-section">
+                <h3>{patient.name.title} {patient.name.firstName} {patient.name.lastName}</h3>
+                <div className="info-grid">
+                    <div className="info-item">
+                        <label>NHI: </label>
+                        <span>{patient.nhi}</span>
+                    </div>
+                    <div className="info-item">
+                        <label>D.O.B: </label>
+                        <span>{new Date(patient.dateOfBirth).toLocaleDateString()}</span>
+                    </div>
+                    <div className="info-item">
+                        <label>Gender: </label>
+                        <span>{patient.gender}</span>
+                    </div>
+                    <div className="info-item">
+                        <label>Ethnicit: y</label>
+                        <span>{patient.ethnicGroup}</span>
+                    </div>
+                    <div className="info-item">
+                        <label>Preferred Language: </label>
+                        <span>{patient.preferredLanguage}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div className="info-section">
+                <h4>Contact Details</h4>
+                <div className="info-grid">
+                    <div className="info-item">
+                        <label>Phone: </label>
+                        <span>{patient.contactDetails.phone}</span>
+                    </div>
+                    <div className="info-item">
+                        <label>Mobile: </label>
+                        <span>{patient.contactDetails.mobile}</span>
+                    </div>
+                    <div className="info-item">
+                        <label>Email: </label>
+                        <span>{patient.contactDetails.email}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div className="info-section">
+                <h4>Address</h4>
+                <div className="info-grid">
+                    <div className="info-item full-width">
+                        <span>
+                            {patient.address.line1}
+                            {patient.address.line2 && <>, {patient.address.line2}</>}<br />
+                            {patient.address.suburb}, {patient.address.city}<br />
+                            {patient.address.region} {patient.address.postcode}<br />
+                            {patient.address.country}
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div className="info-section">
+                <h4>Emergency Contact</h4>
+                <div className="info-grid">
+                    <div className="info-item">
+                        <span>{patient.emergencyContact.name}</span>
+                    </div>
+                    <div className="info-item">
+                        <label>Relationship: </label>
+                        <span>{patient.emergencyContact.relationship}</span>
+                    </div>
+                    <div className="info-item">
+                        <label>Phone: </label>
+                        <span>{patient.emergencyContact.phone}</span>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }
@@ -78,112 +178,121 @@ function BloodTestList({ tests }: { tests: BloodTest[] }) {
     );
 }
 
-function DocumentList({ documents }: { documents: Document[] }) {
+interface Document {
+    id: string;
+    type: string;
+    title: string;
+    description: string;
+    date: string;
+    author: string;
+    specialty: string;
+    facility: string;
+    contentType: string;
+    size: number;
+    tags: string[];
+}
+
+function formatFileSize(bytes: number): string {
+    const kb = bytes / 1024;
+    if (kb < 1024) {
+        return `${kb.toFixed(1)} KB`;
+    }
+    const mb = kb / 1024;
+    return `${mb.toFixed(1)} MB`;
+}
+
+function DocumentList({ documents, nhi }: { documents: Document[], nhi: string }) {
+    const handleDownload = async (documentId: string) => {
+        try {
+            const response = await fetch(`http://localhost:3000/patients/${nhi}/documents/${documentId}`);
+            if (!response.ok) {
+                throw new Error('Failed to download document');
+            }
+
+            // Get the document content
+            const blob = await response.blob();
+
+            // Create a URL for the blob
+            const url = window.URL.createObjectURL(blob);
+
+            // Create a temporary link and click it to trigger download
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `document-${documentId}`; // You might want to use a better filename
+            document.body.appendChild(a);
+            a.click();
+
+            // Clean up
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+        } catch (error) {
+            console.error('Error downloading document:', error);
+            alert('Failed to download document. Please try again.');
+        }
+    };
+
     return (
         <div className="document-list">
             {documents.map(doc => (
                 <div key={doc.id} className="document-item">
-                    <h4>{doc.title}</h4>
-                    <p>Type: {doc.type}</p>
-                    <p>Date: {new Date(doc.date).toLocaleDateString()}</p>
-                    <p>Provider: {doc.provider}</p>
+                    <div className="document-header">
+                        <h4>{doc.title}</h4>
+                        <span className="document-type">{doc.type}</span>
+                    </div>
+                    <p className="document-description">{doc.description}</p>
+                    <div className="document-details">
+                        <div className="detail-item">
+                            <label>Date</label>
+                            <span>{new Date(doc.date).toLocaleDateString()}</span>
+                        </div>
+                        <div className="detail-item">
+                            <label>Author</label>
+                            <span>{doc.author}</span>
+                        </div>
+                        <div className="detail-item">
+                            <label>Specialty</label>
+                            <span>{doc.specialty}</span>
+                        </div>
+                        <div className="detail-item">
+                            <label>Facility</label>
+                            <span>{doc.facility}</span>
+                        </div>
+                        <div className="detail-item">
+                            <label>Size</label>
+                            <span>{formatFileSize(doc.size)}</span>
+                        </div>
+                    </div>
+                    <div className="document-tags">
+                        {doc.tags.map(tag => (
+                            <span key={tag} className="tag">{tag}</span>
+                        ))}
+                    </div>
+                    <button
+                        className="document-download"
+                        onClick={() => handleDownload(doc.id)}
+                    >
+                        View {doc.contentType.split('/')[1].toUpperCase()}
+                    </button>
                 </div>
             ))}
         </div>
     );
 }
 
-const PatientDashboard: React.FC = () => {
-    const [nhi, setNhi] = useState(DEMO_NHI);
-    const [patient, setPatient] = useState<Patient | null>(null);
-    const [medications, setMedications] = useState<Medication[]>([]);
-    const [bloodTests, setBloodTests] = useState<BloodTest[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                setLoading(true);
-                setError(null);
-
-                const [patientData, medicationsData, bloodTestsData] = await Promise.all([
-                    fetchPatientData(nhi),
-                    fetchMedications(nhi, true),
-                    fetchBloodTests(nhi)
-                ]);
-
-                setPatient(patientData);
-                setMedications(medicationsData.medications);
-                setBloodTests(bloodTestsData.bloodTests);
-            } catch (err) {
-                setError(err instanceof Error ? err.message : 'An error occurred');
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchData();
-    }, [nhi]);
-
-    if (loading) {
-        return <div>Loading...</div>;
-    }
-
-    if (error) {
-        return (
-            <div className="error-container">
-                <h2>Error</h2>
-                <p>{error}</p>
-            </div>
-        );
-    }
-
-    if (!patient) {
-        return (
-            <div className="error-container">
-                <h2>Not Found</h2>
-                <p>Could not find patient with NHI: {nhi}</p>
-            </div>
-        );
-    }
-
-    return (
-        <div className="dashboard">
-            <div className="search-container">
-                <input
-                    type="text"
-                    placeholder="Enter NHI number"
-                    value={nhi}
-                    onChange={(e) => setNhi(e.target.value.toUpperCase())}
-                />
-            </div>
-
-            <div className="data-container">
-                <PatientInfo patient={patient} />
-
-                <div className="section">
-                    <h2>Medications</h2>
-                    <MedicationList medications={medications} />
-                </div>
-
-                <div className="section">
-                    <h2>Blood Tests</h2>
-                    <BloodTestList tests={bloodTests} />
-                </div>
-            </div>
-        </div>
-    );
-};
+// Removed duplicate PatientDashboard component as it's replaced by Dashboard
 
 interface DashboardProps {
     nhi: string;
     patient: Patient | null;
     medications: Medication[];
     bloodTests: BloodTest[];
+    documents: Document[];
     loading: boolean;
     error: string | null;
     onNhiChange: (nhi: string) => void;
+    providerRegistered: boolean;
+    onRegisterProvider: () => Promise<void>;
+    providers: Provider[];
 }
 
 const Dashboard: React.FC<DashboardProps> = ({
@@ -191,67 +300,100 @@ const Dashboard: React.FC<DashboardProps> = ({
     patient,
     medications,
     bloodTests,
+    documents,
     loading,
     error,
-    onNhiChange
+    onNhiChange,
+    providerRegistered,
+    onRegisterProvider,
+    providers
 }) => {
     return (
         <div className="dashboard">
-            {/* Top row: Search and Providers */}
-            <div className="top-row">
-                <div className="search-container">
+            {/* Left Column */}
+            <div className="left-sidebar">
+                <div className="left-column">
+                    {!providerRegistered && (
+                        <button
+                            className="register-provider-btn"
+                            onClick={onRegisterProvider}
+                        >
+                            Register provider
+                        </button>
+                    )}
                     <input
                         type="text"
-                        placeholder="Enter NHI number"
+                        placeholder="Search NHI"
                         value={nhi}
                         onChange={(e) => onNhiChange(e.target.value.toUpperCase())}
                     />
                     {!patient && !loading && (
                         <p className="hint">Try: ABC1234, DEF5678, GHI9012</p>
                     )}
+                    <div className="providers-list">
+                        <h3>Registered providers</h3>
+                        {providers.length === 0 ? (
+                            <p className="no-providers">No providers registered</p>
+                        ) : (
+                            <ul>
+                                {providers.map(provider => (
+                                    <li key={provider.providerId} className="provider-item">
+                                        <span className="provider-name">{provider.name}</span>
+                                        <span className="provider-id">ID: {provider.providerId}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
+                    </div>
+                    {patient && (
+                        <div className="patient-sidebar-info">
+                            <PatientInfo patient={patient} />
+                        </div>
+                    )}
                 </div>
-                <div className="providers-list">
-                    <h3>Connected Providers</h3>
-                    <ul>
-                        <li>Local DHB</li>
-                        {/* More providers will be listed here as they're registered */}
-                    </ul>
+            </div>            {/* Main Content Area */}
+            <div className="main-content">
+                <div className="dashboard-grid">
+                    {/* Middle Column */}
+                    <div className="middle-column">
+                        {loading ? (
+                            <div className="status-container">
+                                <p>Loading...</p>
+                            </div>
+                        ) : error ? (
+                            <div className="error-container">
+                                <h2>Error</h2>
+                                <p>{error}</p>
+                            </div>
+                        ) : patient ? (
+                            <div className="health-content">
+                                <div className="section">
+                                    <h2>Documents</h2>
+                                    <DocumentList documents={documents} nhi={nhi} />
+                                </div>
+                                <div className="section">
+                                    <h3>Tests</h3>
+                                    <BloodTestList tests={bloodTests} />
+                                </div>
+                            </div>
+                        ) : (
+                            <div className="error-container">
+                                <p>No patient selected</p>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Right Column */}
+                    <div className="right-column">
+                        <h2>Medications</h2>
+                        {patient && <MedicationList medications={medications} />}
+                    </div>
+                </div>
+
+                <div className="chat-area">
+                    <Chat />
                 </div>
             </div>
-
-            {/* Main content */}
-            {loading ? (
-                <div className="status-container">
-                    <p>Loading...</p>
-                </div>
-            ) : error ? (
-                <div className="error-container">
-                    <h2>Error</h2>
-                    <p>{error}</p>
-                </div>
-            ) : patient ? (
-                <div className="main-content">
-                    <div className="health-info">
-                        <PatientInfo patient={patient} />
-                        <div className="section">
-                            <h2>Blood Tests</h2>
-                            <BloodTestList tests={bloodTests} />
-                        </div>
-                    </div>
-                    <div className="medications">
-                        <h2>Medications</h2>
-                        <MedicationList medications={medications} />
-                    </div>
-                </div>
-            ) : (
-                <div className="error-container">
-                    <h2>Not Found</h2>
-                    <p>Could not find patient with NHI: {nhi}</p>
-                </div>
-            )}
-
-            {/* Chat container at the bottom */}
-            <Chat />
         </div>
     );
 };
@@ -263,6 +405,25 @@ const PatientDashboardContainer: React.FC = () => {
     const [bloodTests, setBloodTests] = useState<BloodTest[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [providers, setProviders] = useState<Provider[]>([]);
+    const [providerRegistered, setProviderRegistered] = useState(false);
+
+    const registerDHB = async () => {
+        try {
+            const newProvider = {
+                providerId: 'DHB_1',
+                name: 'Local DHB',
+                baseUrl: 'http://localhost:3001/api/v1'
+            };
+            await registerProvider(newProvider);
+            setProviders(prev => [...prev, newProvider]);
+            setProviderRegistered(true);
+        } catch (error) {
+            setError('Failed to register DHB provider: ' + (error instanceof Error ? error.message : 'Unknown error'));
+        }
+    };
+
+    const [documents, setDocuments] = useState<Document[]>([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -270,15 +431,17 @@ const PatientDashboardContainer: React.FC = () => {
                 setLoading(true);
                 setError(null);
 
-                const [patientData, medicationsData, bloodTestsData] = await Promise.all([
+                const [patientData, medicationsData, bloodTestsData, documentsData] = await Promise.all([
                     fetchPatientData(nhi),
                     fetchMedications(nhi, true),
-                    fetchBloodTests(nhi)
+                    fetchBloodTests(nhi),
+                    fetch(`http://localhost:3000/patients/${nhi}/documents`).then(res => res.json())
                 ]);
 
                 setPatient(patientData);
                 setMedications(medicationsData.medications || []);
                 setBloodTests(bloodTestsData.bloodTests || []);
+                setDocuments(documentsData.documents || []);
             } catch (err) {
                 setError(err instanceof Error ? err.message : 'An error occurred');
             } finally {
@@ -295,9 +458,13 @@ const PatientDashboardContainer: React.FC = () => {
             patient={patient}
             medications={medications}
             bloodTests={bloodTests}
+            documents={documents}
             loading={loading}
             error={error}
             onNhiChange={setNhi}
+            providerRegistered={providerRegistered}
+            onRegisterProvider={registerDHB}
+            providers={providers}
         />
     );
 };
@@ -323,145 +490,8 @@ const App: React.FC = () => {
         <div className="app">
             <header className="app-header">
                 <h1>OpenHealth Patient Portal</h1>
-                {!providerRegistered && (
-                    <button
-                        className="register-dhb-button"
-                        onClick={registerDHB}
-                    >
-                        Register DHB Provider
-                    </button>
-                )}
             </header>
             <PatientDashboardContainer />
-        </div>
-    );
-
-    const fetchData = async () => {
-        try {
-            setLoading(true);
-            setError(null);
-
-            // Fetch all data in parallel
-            const [
-                patientData,
-                medicationsData,
-                bloodTestsData,
-            ] = await Promise.all([
-                fetchPatientData(nhi),
-                fetchMedications(nhi, true),
-                fetchBloodTests(nhi)
-            ]);
-
-            setPatient(patientData);
-            setMedications(medicationsData.medications);
-            setBloodTests(bloodTestsData.bloodTests);
-        } catch (err) {
-            setError(err instanceof Error ? err.message : 'An error occurred');
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    useEffect(() => {
-        void fetchData();
-    }, [nhi]);
-
-    const renderContent = () => {
-        if (loading) {
-            return <div className="loading">Loading patient data...</div>;
-        }
-
-        if (error) {
-            return (
-                <div className="error-container">
-                    <div className="error">
-                        <h3>Error Loading Data</h3>
-                        <p>{error}</p>
-                        <button onClick={() => window.location.reload()}>
-                            Retry
-                        </button>
-                    </div>
-                </div>
-            );
-        }
-
-        if (!patient) {
-            return (
-                <div className="error-container">
-                    <div className="error">
-                        <h3>No Patient Found</h3>
-                        <p>Could not find patient with NHI: {nhi}</p>
-                        <p>Please check the NHI number and try again.</p>
-                    </div>
-                </div>
-            );
-        }
-
-        return null;
-    };
-
-    const content = renderContent();
-    if (content) return content;
-
-    return (
-        <div className="App">
-            <h1>OpenHealth API Frontend</h1>
-
-            <div className="search-bar">
-                <input
-                    type="text"
-                    value={nhi}
-                    onChange={(e) => setNhi(e.target.value.toUpperCase())}
-                    placeholder="Enter NHI number"
-                    pattern="^[A-Z]{3}\d{4}$"
-                />
-            </div>
-
-            <div className="container">
-                <div className="column">
-                    <h2>Add Provider</h2>
-                    {showProviderForm ? (
-                        <ProviderRegistrationForm
-                            onRegister={async (providerData: Provider) => {
-                                try {
-                                    await registerProvider(providerData);
-                                    setProviderRegistered(true);
-                                    setShowProviderForm(false);
-                                    void fetchData();
-                                } catch (err) {
-                                    setError(err instanceof Error ? err.message : 'Failed to register provider');
-                                }
-                            }}
-                            onCancel={() => setShowProviderForm(false)}
-                        />
-                    ) : (
-                        <div className="provider-actions">
-                            <p>Register a healthcare provider to access patient data.</p>
-                            <button onClick={() => setShowProviderForm(true)}>
-                                Register New Provider
-                            </button>
-                        </div>
-                    )}
-                </div>
-
-                <div className="column">
-                    <h2>Health Information</h2>
-                    {patient && (
-                        <div className="health-info">
-                            <PatientInfo patient={patient} />
-                            <div className="blood-tests">
-                                <h3>Recent Blood Tests</h3>
-                                <BloodTestList tests={bloodTests} />
-                            </div>
-                        </div>
-                    )}
-                </div>
-
-                <div className="column">
-                    <h2>Medications</h2>
-                    <MedicationList medications={medications} />
-                </div>
-            </div>
         </div>
     );
 }

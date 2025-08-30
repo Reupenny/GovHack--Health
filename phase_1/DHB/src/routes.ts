@@ -1,19 +1,15 @@
 import { Hono } from 'hono';
 import { 
   mockPatients, 
-  mockMedications, 
   mockBloodTests, 
   mockDocuments, 
   mockDocumentContent 
 } from './mockData.js';
 import type { 
-  Patient, 
-  Medication, 
   BloodTest, 
   Document, 
   DocumentContent,
   ErrorResponse,
-  MedicationsResponse,
   BloodTestsResponse,
   DocumentsResponse
 } from './types.js';
@@ -35,42 +31,6 @@ api.get('/patients/:nhi', validateNHI, (c) => {
   }
   
   return c.json(patient);
-});
-
-api.get('/patients/:nhi/medications', validateNHI, (c) => {
-  const nhi = c.req.param('nhi');
-  const current = c.req.query('current') === 'true';
-  
-  const validation = validateQueryParams(c);
-  if (validation.error) {
-    return c.json(validation.error, 400);
-  }
-  const limit = validation.parsedLimit!;
-  
-  if (!mockPatients[nhi]) {
-    const error: ErrorResponse = {
-      error: 'PATIENT_NOT_FOUND',
-      message: `Patient with NHI ${nhi} not found`,
-      timestamp: new Date().toISOString()
-    };
-    return c.json(error, 404);
-  }
-  
-  let medications = mockMedications[nhi] || [];
-  
-  if (current) {
-    medications = medications.filter((med: Medication) => med.status === 'active');
-  }
-  
-  const total = medications.length;
-  medications = medications.slice(0, limit);
-  
-  const response: MedicationsResponse = {
-    medications,
-    total
-  };
-  
-  return c.json(response);
 });
 
 api.get('/patients/:nhi/blood-tests', validateNHI, (c) => {

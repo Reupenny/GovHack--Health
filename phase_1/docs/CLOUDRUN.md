@@ -1,11 +1,13 @@
 # Google Cloud Run Setup
 
 ## Prerequisites
+
 1. Install Google Cloud CLI: https://cloud.google.com/sdk/docs/install
 2. Create Google Cloud project or use existing one
 3. Enable billing on your project
 
 ## Quick Setup
+
 ```bash
 # Login to Google Cloud
 gcloud auth login
@@ -22,16 +24,19 @@ gcloud services enable cloudbuild.googleapis.com
 ## Deployment Options
 
 ### Option 1: Simple Deploy (Recommended)
+
 ```bash
-npm run deploy:gcloud
+bun run deploy:gcloud
 ```
 
 ### Option 2: Full Deploy Script
+
 ```bash
-npm run deploy
+bun run deploy
 ```
 
 ### Option 3: Manual Steps
+
 ```bash
 # Build and deploy
 gcloud run deploy openhealth-services \
@@ -44,17 +49,21 @@ gcloud run deploy openhealth-services \
 ```
 
 ## Key Features
+
 - **Scale to Zero**: No cost when idle
 - **Auto-scaling**: 0-10 instances based on traffic
 - **Container**: Uses your Docker setup with PM2
 - **Multi-service**: Both APIs in one container
 
 ## After Deployment
+
 - Service URL will be provided
 - Central API accessible at: `https://your-service-url/`
 - DHB API accessible at: `https://your-service-url/` (internal port routing)
 
 ## Cost
+
 - **$0 when idle** (scale to zero)
 - ~$0.00002400 per request when active
 - Much cheaper than always-on services
+
