@@ -80,7 +80,7 @@ export const Chat: React.FC<ChatProps> = ({
                 providers: getProviders(),
                 documents: getDocuments()
             };
-            
+
             const systemPromptWithContext = `${baseSystemPrompt}\n\nContext Data:\n${JSON.stringify(contextData, null, 2)}`;
 
             // Build conversation history for better context
