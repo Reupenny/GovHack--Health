@@ -59,6 +59,15 @@ This runs both services locally:
 - Central API: http://localhost:3000
 - DHB API: http://localhost:3001
 
+## Local Build Alternative with Docker Desktop
+```bash
+# Build and run locally (from root)
+npm run build
+cd phase_1
+docker compose up -d --build
+```
+
+
 ## Deployment Options
 
 ### 1. Quick Deploy (Recommended)
