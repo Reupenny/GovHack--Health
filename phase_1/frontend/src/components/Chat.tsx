@@ -1,16 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState } from 'react';
 import chatIcon from "../resources/chat-icon.png";
-import type {UnidentifiedPatient, Medication, BloodTest} from '../types';
-import {fetchBloodTests, fetchMedications, fetchPatientData, fetchProviders} from "../api";
-const [nhi, setNhi] = useState('');
-const [patient, setPatient] = useState<UnidentifiedPatient | null>(null);
-const [medications, setMedications] = useState<Medication[]>([]);
-const [bloodTests, setBloodTests] = useState<BloodTest[]>([]);
+import type { Patient, Medication, BloodTest, Provider } from '../types';
 
 interface ChatProps {
-    getPatient: () => UnidentifiedPatient | null;
+    getPatient: () => Patient | null;
     getMedications: () => Medication[];
     getBloodTests: () => BloodTest[];
+    getProviders: () => Provider[];
     getDocuments: () => any[];
 }
 
@@ -25,7 +21,7 @@ const GROQ_API_KEY = process.env.REACT_APP_GROQ_API_KEY;
 const groqUrl = `https://api.groq.com/openai/v1/chat/completions`;
 
 // Prompt to allow prototyping using Groq API through AI Gateway
-const systemPrompt = `You are a professional and reliable healthcare assistant AI, designed to help busy healthcare professionals (such as doctors, nurses, and clinical coordinators). Your job is to organize patient-related data, answer questions accurately, and support efficient clinical decision-making.
+const baseSystemPrompt = `You are a professional and reliable healthcare assistant AI, designed to help busy healthcare professionals (such as doctors, nurses, and clinical coordinators). Your job is to organize patient-related data, answer questions accurately, and support efficient clinical decision-making.
 
 🎯 Your key objectives:
 Summarize patient records and clinical notes clearly and concisely.
@@ -50,34 +46,15 @@ Keep conversation short when unrelated to clinical information.
 "Has this patient had any recent abnormal lab results?"
 "What are the discharge instructions based on this treatment?"
 
-Stay clinically relevant, clear, and concise.
+Stay clinically relevant, clear, and concise.`;
 
-Context Data:`;
-
-useEffect(() => {
-    const fetchData = async () => {
-        try {
-            const [patientData, medicationsData, bloodTestsData, documentsData, providersData] = await Promise.all([
-                fetchPatientData(nhi),
-                fetchMedications(nhi, true),
-                fetchBloodTests(nhi),
-                fetchProviders()
-            ]);
-
-            setPatient(patientData);
-            setMedications(medicationsData.medications || []);
-            setBloodTests(bloodTestsData.bloodTests || []);
-        } catch (err) {
-            setError(err instanceof Error ? err.message : 'An error occurred');
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    fetchData();
-}, [nhi]);
-
-export const Chat: React.FC = () => {
+export const Chat: React.FC<ChatProps> = ({
+    getPatient,
+    getMedications,
+    getBloodTests,
+    getProviders,
+    getDocuments
+}) => {
     const [input, setInput] = useState('');
     const [chatHistory, setChatHistory] = useState<Message[]>([]);
     const [loading, setLoading] = useState(false);
@@ -95,9 +72,20 @@ export const Chat: React.FC = () => {
         setError(null);
 
         try {
+            // Create the system prompt with current context data
+            const contextData = {
+                patient: getPatient(),
+                medications: getMedications(),
+                bloodTests: getBloodTests(),
+                providers: getProviders(),
+                documents: getDocuments()
+            };
+            
+            const systemPromptWithContext = `${baseSystemPrompt}\n\nContext Data:\n${JSON.stringify(contextData, null, 2)}`;
+
             // Build conversation history for better context
             const conversationMessages = [
-                { role: "system", content: systemPrompt },
+                { role: "system", content: systemPromptWithContext },
                 ...chatHistory.map((msg: { role: string; content: string }) => ({
                     role: msg.role,
                     content: msg.content,
@@ -281,4 +269,4 @@ export const Chat: React.FC = () => {
             )}
         </div>
     );
-}, [nhi]);
+}
