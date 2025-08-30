@@ -236,6 +236,12 @@
     margin-bottom: 0;
 }
 
+.medication-list {
+    gap: .5em;
+    display: flex;
+    flex-direction: column;
+}
+
 .medication-item {
     background: var(--gray-bg);
     border: 1px solid var(--gray-border);
