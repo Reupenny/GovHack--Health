@@ -479,7 +479,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                                     <DocumentList documents={documents} nhi={nhi} />
                                 </div>
                                 <div className="section">
-                                    <h3>Tests</h3>
+                                    <h2>Tests</h2>
                                     <BloodTestList tests={bloodTests} />
                                 </div>
                             </div>
