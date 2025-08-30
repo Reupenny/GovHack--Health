@@ -6,7 +6,8 @@ import {
     fetchBloodTests,
     registerProvider,
     fetchDocuments,
-    fetchProviders
+    fetchProviders,
+    clearAllProviders
 } from './api';
 // import { Chat } from './components/Chat';
 import { Chat } from './components/ChatMock';
@@ -386,6 +387,7 @@ interface DashboardProps {
     onNhiChange: (nhi: string) => void;
     onRegisterProvider: () => Promise<void>;
     onRegisterToniq: () => Promise<void>;
+    onClearProviders: () => Promise<void>;
     providers: Provider[];
 }
 
@@ -398,9 +400,9 @@ const Dashboard: React.FC<DashboardProps> = ({
     loading,
     error,
     onNhiChange,
-    providerRegistered,
     onRegisterProvider,
     onRegisterToniq,
+    onClearProviders,
     providers
 }) => {
     return (
@@ -424,6 +426,12 @@ const Dashboard: React.FC<DashboardProps> = ({
                             Register TONIQ
                         </button>
                     )}
+                    <button
+                        className="register-provider-btn clear-providers-btn"
+                        onClick={onClearProviders}
+                    >
+                        Clear All Providers
+                    </button>
                     <input className='search-bar'
                         type="text"
                         placeholder="Search NHI"
@@ -446,7 +454,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                             </ul>
                         )}
                     </div>
-                    {patient && !error && (
+                    {patient && (
                         <div className="patient-sidebar-info">
                             <PatientInfo patient={patient} />
                         </div>
@@ -470,10 +478,6 @@ const Dashboard: React.FC<DashboardProps> = ({
                             <div className="status-container">
                                 <p>Loading...</p>
                             </div>
-                        ) : error && !error.includes('404: Not Found') ? (
-                            <div className="error-container">
-                                <p>{error}</p>
-                            </div>
                         ) : patient ? (
                             <div className="health-content">
                                 <div className="section">
@@ -495,7 +499,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                     {/* Right Column */}
                     <div className="right-column">
                         <h2>Medications</h2>
-                        {patient && !error && <MedicationList medications={medications} />}
+                        <MedicationList medications={medications} />
                     </div>
                 </div>
             </div>
@@ -559,17 +563,51 @@ const PatientDashboardContainer: React.FC = () => {
                 setLoading(true);
                 setError(null);
 
-                const [patientData, medicationsData, bloodTestsData, documentsData] = await Promise.all([
+                const results = await Promise.allSettled([
                     fetchPatientData(nhi),
                     fetchMedications(nhi, true),
                     fetchBloodTests(nhi),
                     fetch(`http://localhost:3000/patients/${nhi}/documents`).then(res => res.json())
                 ]);
 
-                setPatient(patientData);
-                setMedications(medicationsData.medications || []);
-                setBloodTests(bloodTestsData.bloodTests || []);
-                setDocuments(documentsData.documents || []);
+                const errors: string[] = [];
+
+                // Handle patient data
+                if (results[0].status === 'fulfilled') {
+                    setPatient(results[0].value);
+                } else {
+                    setPatient(null);
+                    errors.push(`Patient data: ${results[0].reason?.message || 'Failed to load'}`);
+                }
+
+                // Handle medications data
+                if (results[1].status === 'fulfilled') {
+                    setMedications(results[1].value.medications || []);
+                } else {
+                    setMedications([]);
+                    errors.push(`Medications: ${results[1].reason?.message || 'Failed to load'}`);
+                }
+
+                // Handle blood tests data
+                if (results[2].status === 'fulfilled') {
+                    setBloodTests(results[2].value.bloodTests || []);
+                } else {
+                    setBloodTests([]);
+                    errors.push(`Blood tests: ${results[2].reason?.message || 'Failed to load'}`);
+                }
+
+                // Handle documents data
+                if (results[3].status === 'fulfilled') {
+                    setDocuments(results[3].value.documents || []);
+                } else {
+                    setDocuments([]);
+                    errors.push(`Documents: ${results[3].reason?.message || 'Failed to load'}`);
+                }
+
+                // Set error message if any requests failed
+                if (errors.length > 0) {
+                    setError(`Some data failed to load: ${errors.join(', ')}`);
+                }
             } catch (err) {
                 setError(err instanceof Error ? err.message : 'An error occurred');
             } finally {
@@ -595,6 +633,18 @@ const PatientDashboardContainer: React.FC = () => {
             setError('Failed to register Toniq provider: ' + (error instanceof Error ? error.message : 'Unknown error'));
         }
     };
+
+    const clearProviders = async () => {
+        try {
+            const result = await clearAllProviders();
+            // Refresh providers from API after clearing
+            const providersData = await fetchProviders();
+            setProviders(providersData);
+            alert(`All providers cleared successfully! Cleared ${result.clearedCount} providers.`);
+        } catch (error) {
+            setError('Failed to clear providers: ' + (error instanceof Error ? error.message : 'Unknown error'));
+        }
+    };
     return (
         <Dashboard
             nhi={nhi}
@@ -607,6 +657,7 @@ const PatientDashboardContainer: React.FC = () => {
             onNhiChange={setNhi}
             onRegisterProvider={registerDHB}
             onRegisterToniq={registerToniq}
+            onClearProviders={clearProviders}
             providers={providers}
         />
     );

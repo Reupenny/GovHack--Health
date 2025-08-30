@@ -19,6 +19,7 @@ npm install
 Create a `.env` file in the frontend directory with the following content:
 ```env
 REACT_APP_API_URL=http://localhost:3000
+REACT_APP_DHB_API_URL=http://localhost:3001
 ```
 
 3. Start the development server:
