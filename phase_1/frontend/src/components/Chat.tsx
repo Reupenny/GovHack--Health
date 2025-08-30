@@ -60,6 +60,7 @@ export const Chat: React.FC = () => {
                 width: isOpen ? 350 : 'auto',
                 transition: 'width 0.3s ease',
                 boxShadow: '0 2px 12px rgba(0,0,0,0.2)',
+                borderRadius: isOpen ? 8 : '50%'
 
             }}
         >
