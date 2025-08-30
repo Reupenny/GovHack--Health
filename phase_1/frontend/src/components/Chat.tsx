@@ -6,6 +6,37 @@ interface Message {
     content: string;
 }
 
+const GROQ_API_KEY = process.env.REACT_APP_GROQ_API_KEY;
+
+// Use Groq's text generation API through Cloudflare AI Gateway
+const groqUrl = `https://api.groq.com/openai/v1/chat/completions`;
+
+// Prompt to allow prototyping using Groq API through AI Gateway
+const systemPrompt = `You are a professional and reliable healthcare assistant AI, designed to help busy healthcare professionals (such as doctors, nurses, and clinical coordinators). Your job is to organize patient-related data, answer questions accurately, and support efficient clinical decision-making.
+
+🎯 Your key objectives:
+Summarize patient records and clinical notes clearly and concisely.
+Answer clinical questions based on available patient data and standard medical guidelines.
+Flag missing information or inconsistencies in records.
+Help structure data for reports, discharge summaries, or referrals.
+Maintain a calm, concise, and respectful tone appropriate for clinical settings.
+
+🛑 Rules & Constraints:
+You do not make medical decisions or diagnoses.
+You must defer to human professionals for clinical judgment.
+You always cite your sources when answering clinical questions (e.g. guidelines, referenced data).
+When referencing external information, always include a reliable source link (URL), preferably to guidelines, PubMed, or institutional websites.
+If data is incomplete or unclear, you must state the limitation clearly.
+
+🔍 Example queries you should be able to help with:
+"Summarize this patient's history and key concerns."
+"What medications is the patient currently on?"
+"When is the last time patient had medication X?"
+"Has this patient had any recent abnormal lab results?"
+"What are the discharge instructions based on this treatment?"
+
+Stay efficient, clinically relevant, and clear.`;
+
 export const Chat: React.FC = () => {
     const [input, setInput] = useState('');
     const [chatHistory, setChatHistory] = useState<Message[]>([]);
@@ -13,7 +44,6 @@ export const Chat: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const [sources, setSources] = useState<string[]>([]);
     const [isOpen, setIsOpen] = useState(false); // For toggle
-    const centralAPI = 'http://localhost:3000/';
 
     const sendMessage = async () => {
         if (!input.trim()) return;
@@ -25,32 +55,85 @@ export const Chat: React.FC = () => {
         setError(null);
 
         try {
-            const res = await fetch(centralAPI + '/api/chat', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+            // Build conversation history for better context
+            const conversationMessages = [
+                { role: "system", content: systemPrompt },
+                ...chatHistory.map((msg: { role: string; content: string }) => ({
+                    role: msg.role,
+                    content: msg.content,
+                })),
+            ];
+
+            const groqResponse = await fetch(groqUrl, {
+                method: "POST",
+                headers: {
+                    Authorization: `Bearer ${GROQ_API_KEY}`,
+                    "Content-Type": "application/json",
+                },
                 body: JSON.stringify({
-                    chatHistory: [
-                        { role: 'user', content: 'Hello!' },
-                        { role: 'assistant', content: 'Hi there!' }
-                    ]
-                })
+                    model: "llama-3.3-70b-versatile",
+                    messages: conversationMessages,
+                    temperature: 0.3,
+                    max_tokens: 500,
+                }),
             });
 
-            console.log("Raw Response:", res);
+            const groqData = (await groqResponse.json()) as {
+                choices: Array<{
+                    message: {
+                        content: string;
+                    };
+                }>;
+            };
 
-            const data = await res.json();
-            console.log("Response:", data);
+            // Extract response text from Groq response
+            let response =
+                groqData.choices[0]?.message?.content ||
+                "Sorry I'm not sure about that. Can you ask a different question?";
 
-            if (data.success) {
-                const newAssistantMessage: Message = {
-                    role: 'assistant',
-                    content: data.sanitizedResponse,
-                };
-                setChatHistory([...updatedHistory, newAssistantMessage]);
-                setSources(data.verifiedUrls || []);
-            } else {
-                setError(data.error || 'Unknown error');
-            }
+            // Validate and sanitize response
+            const urlRegex = /(https?:\/\/[^\s]+)/g;
+            const urls = response.match(urlRegex) || [];
+
+            const trustedDomains = [
+                "nice.org.uk",
+                "cdc.gov",
+                "nih.gov",
+                "who.int",
+                "healthify.nz",
+                "info.health.nz",
+                "health.govt.nz",
+                "healthinfo.org.nz",
+                "nzf.org.nz",
+                "dermnetnz.org"
+            ];
+
+            const verifiedUrls = urls.filter((url) => {
+                try {
+                    const parsedUrl = new URL(url);
+                    return trustedDomains.some(domain => parsedUrl.hostname.endsWith(domain));
+                } catch {
+                    return false;
+                }
+            });
+
+            const sanitizedResponse = response.replace(urlRegex, (url) => {
+                try {
+                    const parsedUrl = new URL(url);
+                    const isTrusted = trustedDomains.some(domain => parsedUrl.hostname.endsWith(domain));
+                    return isTrusted ? url : "[Unverified source]";
+                } catch {
+                    return "[Invalid URL]";
+                }
+            });
+
+            const newAssistantMessage: Message = {
+                role: 'assistant',
+                content: sanitizedResponse,
+            };
+            setChatHistory([...updatedHistory, newAssistantMessage]);
+            setSources(verifiedUrls || []);
+
         } catch {
             console.error("Error during request:", error);
             setError('Network error');
