@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import icon from '../resources/chat-icon.png'; // Ensure you have a chat icon in this path
+import chatIcon from "../resources/chat-icon.png";
 
 interface Message {
     role: 'user' | 'assistant' | 'system';
@@ -60,6 +60,7 @@ export const Chat: React.FC = () => {
                 width: isOpen ? 350 : 'auto',
                 transition: 'width 0.3s ease',
                 boxShadow: '0 2px 12px rgba(0,0,0,0.2)',
+
             }}
         >
             {isOpen ? (
@@ -74,7 +75,7 @@ export const Chat: React.FC = () => {
                     flexDirection: 'column'
                 }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <h4 style={{ margin: 0 }}>Health Assistant</h4>
+                        <h4 style={{ margin: 0 }}>OpenHealth Assistant</h4>
                         <button onClick={() => setIsOpen(false)} style={{ fontSize: 16 }}>✖</button>
                     </div>
 
@@ -130,7 +131,7 @@ export const Chat: React.FC = () => {
                         borderRadius: '50%',
                         width: 60,
                         height: 60,
-                        backgroundColor: '#007bff',
+                        backgroundColor: '#ADD8E6',
                         border: 'none',
                         cursor: 'pointer',
                         padding: 0,
@@ -140,7 +141,7 @@ export const Chat: React.FC = () => {
                     }}
                     title="Open chat"
                 >
-                    <img src={icon} alt="Chat Icon" width={32} height={32} />
+                    <img src={chatIcon} alt="Chat Icon" width={50} height={50} />
                 </button>
             )}
         </div>
