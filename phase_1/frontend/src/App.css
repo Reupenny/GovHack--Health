@@ -145,11 +145,6 @@
     margin: 0;
 }
 
-.providers-list li {
-    padding: 0.5rem;
-    border-bottom: 1px solid #eee;
-}
-
 .providers-list li:last-child {
     border-bottom: none;
 }
@@ -184,11 +179,6 @@
 .providers-list h3 {
     margin: 0 0 1rem 0;
     color: var(--text-main);
-}
-
-.providers-list li {
-    padding: 0.5rem;
-    border-bottom: 1px solid var(--gray-border);
 }
 
 .container {
@@ -419,11 +409,6 @@ h3 {
 .providers-list h3 {
     margin: 0 0 1rem 0;
     color: var(--text-main);
-}
-
-.providers-list li {
-    padding: 0.5rem;
-    border-bottom: 1px solid var(--gray-border);
 }
 
 /* Responsive adjustments */

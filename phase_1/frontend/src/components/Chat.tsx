@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import icon from '../resources/chat-icon.png'; // Ensure you have a chat icon in this path
 
 interface Message {
     role: 'user' | 'assistant' | 'system';
@@ -139,7 +140,7 @@ export const Chat: React.FC = () => {
                     }}
                     title="Open chat"
                 >
-                    <img src="../resources/chat-icon.png" alt="Chat Icon" width={32} height={32} />
+                    <img src={icon} alt="Chat Icon" width={32} height={32} />
                 </button>
             )}
         </div>

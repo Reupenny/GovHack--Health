@@ -348,7 +348,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                                 {providers.map(provider => (
                                     <li key={provider.providerId} className="provider-item">
                                         <span className="provider-name">{provider.name}</span>
-                                        <span className="provider-id">ID: {provider.providerId}</span>
+                                        <span className="provider-id">{provider.providerId}</span>
                                     </li>
                                 ))}
                             </ul>
@@ -400,7 +400,13 @@ const Dashboard: React.FC<DashboardProps> = ({
                 </div>
 
                 <div className="chat-area">
-                    <Chat />
+                    <Chat
+                        getPatient={() => patient}
+                        getMedications={() => medications}
+                        getBloodTests={() => bloodTests}
+                        getProviders={() => providers}
+                        getDocuments={() => documents}
+                    />
                 </div>
             </div>
         </div>
