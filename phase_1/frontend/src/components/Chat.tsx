@@ -11,6 +11,7 @@ export const Chat: React.FC = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [sources, setSources] = useState<string[]>([]);
+    const [isOpen, setIsOpen] = useState(false); // For toggle
 
     const sendMessage = async () => {
         if (!input.trim()) return;
@@ -49,55 +50,97 @@ export const Chat: React.FC = () => {
     };
 
     return (
-        <div className="chat-container" style={{ maxWidth: 600, margin: '0 auto', padding: 20 }}>
-            <h2>Health Assistant Chat</h2>
-
-            <div
-                style={{
-                    border: '1px solid #ccc',
+        <div
+            style={{
+                position: 'fixed',
+                bottom: 20,
+                right: 20,
+                zIndex: 9999,
+                width: isOpen ? 350 : 'auto',
+                transition: 'width 0.3s ease',
+                boxShadow: '0 2px 12px rgba(0,0,0,0.2)',
+            }}
+        >
+            {isOpen ? (
+                <div style={{
+                    backgroundColor: '#fff',
+                    borderRadius: 8,
                     padding: 10,
-                    height: 300,
-                    overflowY: 'auto',
-                    marginBottom: 10,
-                }}
-            >
-                {chatHistory.map((msg, idx) => (
-                    <p key={idx} style={{ color: msg.role === 'user' ? 'blue' : 'green' }}>
-                        <strong>{msg.role === 'user' ? 'You:' : 'Assistant:'}</strong> {msg.content}
-                    </p>
-                ))}
+                    width: '100%',
+                    maxHeight: 500,
+                    overflow: 'hidden',
+                    display: 'flex',
+                    flexDirection: 'column'
+                }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <h4 style={{ margin: 0 }}>Health Assistant</h4>
+                        <button onClick={() => setIsOpen(false)} style={{ fontSize: 16 }}>✖</button>
+                    </div>
 
-                {loading && <p><em>Loading...</em></p>}
-            </div>
-
-            <textarea
-                rows={3}
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder="Type your question here..."
-                style={{ width: '100%', marginBottom: 10 }}
-                disabled={loading}
-            />
-
-            <button onClick={sendMessage} disabled={loading || !input.trim()}>
-                Send
-            </button>
-
-            {error && <p style={{ color: 'red' }}>Error: {error}</p>}
-
-            {sources.length > 0 && (
-                <div style={{ marginTop: 20 }}>
-                    <h4>Verified Sources:</h4>
-                    <ul>
-                        {sources.map((url, i) => (
-                            <li key={i}>
-                                <a href={url} target="_blank" rel="noopener noreferrer">
-                                    {url}
-                                </a>
-                            </li>
+                    <div
+                        style={{
+                            flexGrow: 1,
+                            border: '1px solid #ccc',
+                            padding: 10,
+                            marginTop: 10,
+                            overflowY: 'auto',
+                        }}
+                    >
+                        {chatHistory.map((msg, idx) => (
+                            <p key={idx} style={{ color: msg.role === 'user' ? 'blue' : 'green' }}>
+                                <strong>{msg.role === 'user' ? 'You:' : 'Assistant:'}</strong> {msg.content}
+                            </p>
                         ))}
-                    </ul>
+
+                        {loading && <p><em>Loading...</em></p>}
+                    </div>
+
+                    <textarea
+                        rows={2}
+                        value={input}
+                        onChange={(e) => setInput(e.target.value)}
+                        placeholder="Type your question..."
+                        style={{ width: '100%', marginTop: 10 }}
+                        disabled={loading}
+                    />
+                    <button onClick={sendMessage} disabled={loading || !input.trim()} style={{ marginTop: 8 }}>
+                        Send
+                    </button>
+
+                    {error && <p style={{ color: 'red' }}>Error: {error}</p>}
+
+                    {sources.length > 0 && (
+                        <div style={{ marginTop: 10 }}>
+                            <strong>Sources:</strong>
+                            <ul style={{ fontSize: '0.8em' }}>
+                                {sources.map((url, i) => (
+                                    <li key={i}>
+                                        <a href={url} target="_blank" rel="noopener noreferrer">{url}</a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
                 </div>
+            ) : (
+                <button
+                    onClick={() => setIsOpen(true)}
+                    style={{
+                        borderRadius: '50%',
+                        width: 60,
+                        height: 60,
+                        backgroundColor: '#007bff',
+                        border: 'none',
+                        cursor: 'pointer',
+                        padding: 0,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}
+                    title="Open chat"
+                >
+                    {/*<img src="/resources/chat-icon.svg" alt="Chat Icon" width={32} height={32} />*/}
+                </button>
             )}
         </div>
     );

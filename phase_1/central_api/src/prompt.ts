@@ -1,5 +1,6 @@
 import { Hono } from 'hono';
-const app = new Hono();
+const chatRouter = new Hono();
+
 const GROQ_API_KEY = process.env.GROQ_API_KEY;
 
 // Use Groq's text generation API through Cloudflare AI Gateway
@@ -32,7 +33,7 @@ If data is incomplete or unclear, you must state the limitation clearly.
 Stay efficient, clinically relevant, and clear.`;
 
 
-app.post('/chat', async (c) => {
+chatRouter.post('/chat', async (c) => {
     try {
         const {chatHistory} = await c.req.json();
 
@@ -122,3 +123,5 @@ app.post('/chat', async (c) => {
         return c.json({ success: false, error: 'Internal server error' }, 500);
     }
 })
+
+export default chatRouter;
