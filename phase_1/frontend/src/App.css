@@ -236,17 +236,6 @@
     margin-bottom: 0;
 }
 
-/* Medication Styles */
-.medication-list {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    padding: 20px;
-    background: white;
-    border: 1px solid var(--gray-border);
-    border-radius: var(--border-radius);
-}
-
 .medication-item {
     background: var(--gray-bg);
     border: 1px solid var(--gray-border);
