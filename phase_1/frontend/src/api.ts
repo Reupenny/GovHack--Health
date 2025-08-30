@@ -47,6 +47,27 @@ export async function registerProvider(provider: Provider) {
     }
 }
 
+export async function clearAllProviders() {
+    try {
+        const response = await fetch(`${API_BASE_URL}/providers`, {
+            method: 'DELETE',
+        });
+
+        if (!response.ok) {
+            const data = await response.json().catch(() => null);
+            throw new Error(
+                data?.message ||
+                `Failed to clear providers (${response.status}: ${response.statusText})`
+            );
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error('Error clearing providers:', error);
+        throw error instanceof Error ? error : new Error('Failed to clear providers');
+    }
+}
+
 export async function fetchPatientData(nhi: string) {
     try {
         const response = await fetch(`${API_BASE_URL}/patients/${nhi}`);

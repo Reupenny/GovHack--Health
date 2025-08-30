@@ -557,6 +557,16 @@ h3 {
     box-shadow: 0 2px 8px rgba(33, 150, 243, 0.13);
 }
 
+.clear-providers-btn {
+    background: var(--danger) !important;
+}
+
+.clear-providers-btn:hover,
+.clear-providers-btn:focus {
+    background: #c82333 !important;
+    box-shadow: 0 2px 8px rgba(220, 53, 69, 0.13) !important;
+}
+
 /* Unified search bar style */
 
 .search-bar {

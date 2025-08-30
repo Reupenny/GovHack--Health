@@ -191,6 +191,17 @@ app.get('/providers', (c) => {
   })
 })
 
+app.delete('/providers', (c) => {
+  const clearedCount = serviceProviders.size
+  serviceProviders.clear()
+  
+  return c.json({
+    message: 'All providers cleared successfully',
+    clearedCount,
+    totalProviders: serviceProviders.size
+  })
+})
+
 app.get('/patients/:nhi', async (c) => {
   const nhi = c.req.param('nhi')
   

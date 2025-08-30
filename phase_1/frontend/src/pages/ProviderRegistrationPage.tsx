@@ -1,6 +1,5 @@
 import React from 'react';
-import { ProviderRegistrationForm } from '../components/ProviderRegistrationForm';
-import { registerProvider } from '../api';
+import { registerProvider, clearAllProviders } from '../api';
 import './ProviderRegistrationPage.css';
 
 export const ProviderRegistrationPage: React.FC = () => {
@@ -30,6 +29,40 @@ export const ProviderRegistrationPage: React.FC = () => {
                         }}
                     >
                         Quick Register DHB Provider
+                    </button>
+
+                    <button
+                        className="quick-register-button"
+                        onClick={async () => {
+                            try {
+                                await registerProvider({
+                                    providerId: 'TONIQ_1',
+                                    name: 'Toniq Provider',
+                                    baseUrl: 'http://localhost:3003'
+                                });
+                                alert('Toniq provider registered successfully!');
+                                window.location.href = '/';
+                            } catch (error) {
+                                alert('Failed to register Toniq provider: ' + (error instanceof Error ? error.message : 'Unknown error'));
+                            }
+                        }}
+                    >
+                        Quick Register Toniq Provider
+                    </button>
+
+                    <button
+                        className="quick-register-button clear-button"
+                        onClick={async () => {
+                            try {
+                                const result = await clearAllProviders();
+                                alert(`All providers cleared successfully! Cleared ${result.clearedCount} providers.`);
+                                window.location.href = '/';
+                            } catch (error) {
+                                alert('Failed to clear providers: ' + (error instanceof Error ? error.message : 'Unknown error'));
+                            }
+                        }}
+                    >
+                        Clear All Providers
                     </button>
                 </div>
 

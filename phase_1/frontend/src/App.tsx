@@ -6,7 +6,8 @@ import {
     fetchBloodTests,
     registerProvider,
     fetchDocuments,
-    fetchProviders
+    fetchProviders,
+    clearAllProviders
 } from './api';
 // import { Chat } from './components/Chat';
 import { Chat } from './components/ChatMock';
@@ -386,6 +387,7 @@ interface DashboardProps {
     onNhiChange: (nhi: string) => void;
     onRegisterProvider: () => Promise<void>;
     onRegisterToniq: () => Promise<void>;
+    onClearProviders: () => Promise<void>;
     providers: Provider[];
 }
 
@@ -398,9 +400,9 @@ const Dashboard: React.FC<DashboardProps> = ({
     loading,
     error,
     onNhiChange,
-    providerRegistered,
     onRegisterProvider,
     onRegisterToniq,
+    onClearProviders,
     providers
 }) => {
     return (
@@ -424,6 +426,12 @@ const Dashboard: React.FC<DashboardProps> = ({
                             Register TONIQ
                         </button>
                     )}
+                    <button
+                        className="register-provider-btn clear-providers-btn"
+                        onClick={onClearProviders}
+                    >
+                        Clear All Providers
+                    </button>
                     <input className='search-bar'
                         type="text"
                         placeholder="Search NHI"
@@ -595,6 +603,18 @@ const PatientDashboardContainer: React.FC = () => {
             setError('Failed to register Toniq provider: ' + (error instanceof Error ? error.message : 'Unknown error'));
         }
     };
+
+    const clearProviders = async () => {
+        try {
+            const result = await clearAllProviders();
+            // Refresh providers from API after clearing
+            const providersData = await fetchProviders();
+            setProviders(providersData);
+            alert(`All providers cleared successfully! Cleared ${result.clearedCount} providers.`);
+        } catch (error) {
+            setError('Failed to clear providers: ' + (error instanceof Error ? error.message : 'Unknown error'));
+        }
+    };
     return (
         <Dashboard
             nhi={nhi}
@@ -607,6 +627,7 @@ const PatientDashboardContainer: React.FC = () => {
             onNhiChange={setNhi}
             onRegisterProvider={registerDHB}
             onRegisterToniq={registerToniq}
+            onClearProviders={clearProviders}
             providers={providers}
         />
     );
