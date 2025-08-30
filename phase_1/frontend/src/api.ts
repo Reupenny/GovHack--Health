@@ -14,6 +14,7 @@ export async function fetchProviders(): Promise<Provider[]> {
 }
 // API base URL
 const API_BASE_URL = (typeof process !== 'undefined' && process.env && process.env.REACT_APP_API_URL) || 'http://localhost:3000';
+const DHB_API_URL = (typeof process !== 'undefined' && process.env && process.env.REACT_APP_DHB_API_URL) || 'http://localhost:3001';
 
 export interface Provider {
     providerId: string;

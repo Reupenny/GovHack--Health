@@ -4,18 +4,18 @@ services:
   openhealth-api:
     build: .
     ports:
-      - "3000:3000"  # Central API
-      - "3001:3001"  # DHB Service  
-      - "3002:3002"  # Frontend
-      - "3003:3003"  # Toniq Service
+      - "8080:8080"  # Frontend (Cloud Run compatible)
+      - "3000:3000"  # Central API (internal)
+      - "3001:3001"  # DHB Service (internal) 
+      - "3003:3003"  # Toniq Service (internal)
     environment:
       - NODE_ENV=production
     healthcheck:
-      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:3000/ || exit 1"]
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:8080/ || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 3
-      start_period: 10s
+      start_period: 15s
     restart: unless-stopped
     
   # Service registration container - runs once to register providers
@@ -27,7 +27,7 @@ services:
     command: >
       sh -c "
         echo 'Waiting for services to be ready...' &&
-        sleep 2 &&
+        sleep 5 &&
         echo 'Registering DHB service...' &&
         curl -X POST http://openhealth-api:3000/register 
           -H 'Content-Type: application/json' 

@@ -19,15 +19,9 @@ WORKDIR /app/Toniq
 RUN bun install && bun run build
 
 WORKDIR /app/frontend
-RUN bun install && bun run build
-
-WORKDIR /app/DHB
-RUN bun install && bun run build
-
-WORKDIR /app/Toniq
-RUN bun install && bun run build
-
-WORKDIR /app/frontend
+# Set React environment variables for build
+ENV REACT_APP_API_URL=http://localhost:3000
+ENV REACT_APP_DHB_API_URL=http://localhost:3001
 RUN bun install && bun run build
 
 # Switch to Node.js for PM2 runtime
@@ -58,8 +52,8 @@ COPY --from=base /app/frontend/package.json ./frontend/
 # Copy PM2 ecosystem file
 COPY ecosystem.config.js .
 
-# Expose all four ports
-EXPOSE 3000 3001 3002 3003
+# Expose port 8080 for Cloud Run and internal ports
+EXPOSE 8080 3000 3001 3003
 
 # Start all services with PM2
 CMD ["pm2-runtime", "start", "ecosystem.config.js"]

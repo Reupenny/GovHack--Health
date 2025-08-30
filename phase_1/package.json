@@ -7,7 +7,7 @@
     "dev": "docker build -t govhack-health . && docker run -p 3000:3000 -p 3001:3001 govhack-health",
     "build": "docker build -t govhack-health .",
     "deploy": "./deploy.sh",
-    "deploy:gcloud": "gcloud run deploy openhealth-services --source . --region us-central1 --allow-unauthenticated --port 3000 --min-instances 0 --max-instances 10",
+    "deploy:gcloud": "gcloud run deploy openhealth-services --source . --region us-central1 --allow-unauthenticated --port 8080 --min-instances 0 --max-instances 10",
     "logs": "gcloud run services logs read openhealth-services --region us-central1",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -139,7 +139,7 @@ export const Chat: React.FC = () => {
                     }}
                     title="Open chat"
                 >
-                    {/*<img src="/resources/chat-icon.svg" alt="Chat Icon" width={32} height={32} />*/}
+                    <img src="../resources/chat-icon.png" alt="Chat Icon" width={32} height={32} />
                 </button>
             )}
         </div>
