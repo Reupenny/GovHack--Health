@@ -1,0 +1,17 @@
+{
+  "name": "@phase_1/shared",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Shared utilities for OpenHealth services",
+  "main": "dist/database.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "pg": "^8.12.0"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.11.6",
+    "typescript": "^5.2.2"
+  }
+}

@@ -1,6 +1,24 @@
 version: '3.8'
 
 services:
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: openhealth
+      POSTGRES_USER: openhealth_user
+      POSTGRES_PASSWORD: openhealth_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db/init:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U openhealth_user -d openhealth"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
   openhealth-api:
     build: .
     ports:
@@ -10,12 +28,21 @@ services:
       - "3003:3003"  # Toniq Service (internal)
     environment:
       - NODE_ENV=production
+      - DATABASE_URL=postgresql://openhealth_user:openhealth_password@postgres:5432/openhealth
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_NAME=openhealth
+      - DB_USER=openhealth_user
+      - DB_PASSWORD=openhealth_password
+    depends_on:
+      postgres:
+        condition: service_healthy
     healthcheck:
       test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:8080/ || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 3
-      start_period: 15s
+      start_period: 30s
     restart: unless-stopped
     
   # Service registration container - runs once to register providers
@@ -27,7 +54,7 @@ services:
     command: >
       sh -c "
         echo 'Waiting for services to be ready...' &&
-        sleep 5 &&
+        sleep 10 &&
         echo 'Registering DHB service...' &&
         curl -X POST http://openhealth-api:3000/register 
           -H 'Content-Type: application/json' 
@@ -39,6 +66,9 @@ services:
         echo 'All services registered successfully!'
       "
     restart: "no"
+
+volumes:
+  postgres_data:
 
 networks:
   default:
