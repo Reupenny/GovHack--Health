@@ -35,7 +35,9 @@ If data is incomplete or unclear, you must state the limitation clearly.
 "Has this patient had any recent abnormal lab results?"
 "What are the discharge instructions based on this treatment?"
 
-Stay efficient, clinically relevant, and clear.`;
+Stay clinically relevant, clear, and concise.
+
+Context Data:`;
 
 export const Chat: React.FC = () => {
     const [input, setInput] = useState('');
