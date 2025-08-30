@@ -12,3 +12,16 @@ shorter waiting times being observed among hospitals
 Patients reported greater empowerment
 Timely access to information, including laboratory results, radiology images and medication history were mentioned as supporting and speeding up care processes
 https://pmc.ncbi.nlm.nih.gov/articles/PMC7761950/
+
+Editorial: Public health and health research data: availability, needs and challenges
+https://www.frontiersin.org/journals/public-health/articles/10.3389/fpubh.2023.1340663/full
+
+Improving health literacy using the power of digital communications to achieve better health outcomes for patients and practitioners
+https://pmc.ncbi.nlm.nih.gov/articles/PMC10693297/
+
+Low health literacy and health outcomes: an updated systematic review
+https://pubmed.ncbi.nlm.nih.gov/21768583/
+
+Data and Information Strategy for Health and Disability
+https://www.health.govt.nz/system/files/2021-11/13308_data_strategy_document_final_9_dec.pdf
+
