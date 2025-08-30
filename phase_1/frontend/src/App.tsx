@@ -452,6 +452,15 @@ const Dashboard: React.FC<DashboardProps> = ({
                 </div>
             </div>            {/* Main Content Area */}
             <div className="main-content">
+                <div className="chat-area">
+                    <Chat
+                        getPatient={() => patient || null}
+                        getMedications={() => Array.isArray(medications) ? medications : []}
+                        getBloodTests={() => Array.isArray(bloodTests) ? bloodTests : []}
+                        getProviders={() => Array.isArray(providers) ? providers : []}
+                        getDocuments={() => Array.isArray(documents) ? documents : []}
+                    />
+                </div>
                 <div className="dashboard-grid">
                     {/* Middle Column */}
                     <div className="middle-column">
@@ -487,16 +496,6 @@ const Dashboard: React.FC<DashboardProps> = ({
                         <h2>Medications</h2>
                         {patient && <MedicationList medications={medications} />}
                     </div>
-                </div>
-
-                <div className="chat-area">
-                    <Chat
-                        getPatient={() => patient || null}
-                        getMedications={() => Array.isArray(medications) ? medications : []}
-                        getBloodTests={() => Array.isArray(bloodTests) ? bloodTests : []}
-                        getProviders={() => Array.isArray(providers) ? providers : []}
-                        getDocuments={() => Array.isArray(documents) ? documents : []}
-                    />
                 </div>
             </div>
         </div>
