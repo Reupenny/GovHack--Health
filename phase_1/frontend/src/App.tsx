@@ -444,7 +444,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                             </ul>
                         )}
                     </div>
-                    {patient && (
+                    {patient && !error && (
                         <div className="patient-sidebar-info">
                             <PatientInfo patient={patient} />
                         </div>
@@ -468,9 +468,8 @@ const Dashboard: React.FC<DashboardProps> = ({
                             <div className="status-container">
                                 <p>Loading...</p>
                             </div>
-                        ) : error ? (
+                        ) : error && !error.includes('404: Not Found') ? (
                             <div className="error-container">
-                                <h2>Error</h2>
                                 <p>{error}</p>
                             </div>
                         ) : patient ? (
@@ -486,7 +485,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                             </div>
                         ) : (
                             <div className="error-container">
-                                <p>No patient selected</p>
+                                <p>Please enter a patient NHI number to view their data</p>
                             </div>
                         )}
                     </div>
@@ -494,7 +493,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                     {/* Right Column */}
                     <div className="right-column">
                         <h2>Medications</h2>
-                        {patient && <MedicationList medications={medications} />}
+                        {patient && !error && <MedicationList medications={medications} />}
                     </div>
                 </div>
             </div>
@@ -534,6 +533,16 @@ const PatientDashboardContainer: React.FC = () => {
 
     useEffect(() => {
         const fetchData = async () => {
+            if (!nhi.trim()) {
+                setPatient(null);
+                setMedications([]);
+                setBloodTests([]);
+                setDocuments([]);
+                setLoading(false);
+                setError(null);
+                return;
+            }
+
             try {
                 setLoading(true);
                 setError(null);
