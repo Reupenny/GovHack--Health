@@ -2,11 +2,16 @@ FROM oven/bun:1.1-alpine AS base
 
 WORKDIR /app
 
-# Copy all services including frontend
+# Copy all services including frontend and shared utilities
 COPY central_api ./central_api
 COPY DHB ./DHB
 COPY Toniq ./Toniq
 COPY frontend ./frontend
+COPY shared ./shared
+
+# Install dependencies and build shared utilities first
+WORKDIR /app/shared
+RUN bun install && bun run build
 
 # Install dependencies and build all services
 WORKDIR /app/central_api
@@ -33,6 +38,10 @@ WORKDIR /app
 RUN npm install -g pm2 && apk add --no-cache wget
 
 # Copy built applications from build stage
+COPY --from=base /app/shared/dist ./shared/dist
+COPY --from=base /app/shared/node_modules ./shared/node_modules
+COPY --from=base /app/shared/package.json ./shared/
+
 COPY --from=base /app/central_api/dist ./central_api/dist
 COPY --from=base /app/central_api/node_modules ./central_api/node_modules
 COPY --from=base /app/central_api/package.json ./central_api/
