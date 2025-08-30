@@ -292,6 +292,7 @@ interface DashboardProps {
     onNhiChange: (nhi: string) => void;
     providerRegistered: boolean;
     onRegisterProvider: () => Promise<void>;
+    onRegisterToniq: () => Promise<void>;
     providers: Provider[];
 }
 
@@ -306,6 +307,7 @@ const Dashboard: React.FC<DashboardProps> = ({
     onNhiChange,
     providerRegistered,
     onRegisterProvider,
+    onRegisterToniq,
     providers
 }) => {
     return (
@@ -318,9 +320,16 @@ const Dashboard: React.FC<DashboardProps> = ({
                             className="register-provider-btn"
                             onClick={onRegisterProvider}
                         >
-                            Register provider
+                            Register DHB
                         </button>
                     )}
+                    <button
+                        className="register-provider-btn"
+                        style={{ marginTop: 8, background: '#6c63ff', color: 'white' }}
+                        onClick={onRegisterToniq}
+                    >
+                        Register Toniq
+                    </button>
                     <input
                         type="text"
                         placeholder="Search NHI"
@@ -452,6 +461,19 @@ const PatientDashboardContainer: React.FC = () => {
         fetchData();
     }, [nhi]);
 
+    const registerToniq = async () => {
+        try {
+            const newProvider = {
+                providerId: 'TONIQ_1',
+                name: 'Toniq',
+                baseUrl: 'http://localhost:3002/api/v1'
+            };
+            await registerProvider(newProvider);
+            setProviders(prev => [...prev, newProvider]);
+        } catch (error) {
+            setError('Failed to register Toniq provider: ' + (error instanceof Error ? error.message : 'Unknown error'));
+        }
+    };
     return (
         <Dashboard
             nhi={nhi}
@@ -464,6 +486,7 @@ const PatientDashboardContainer: React.FC = () => {
             onNhiChange={setNhi}
             providerRegistered={providerRegistered}
             onRegisterProvider={registerDHB}
+            onRegisterToniq={registerToniq}
             providers={providers}
         />
     );
