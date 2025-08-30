@@ -1,57 +1,120 @@
-# OpenHealth: Connecting Healthcare Across New Zealand
+# OpenHealth: Transforming Healthcare Decision Making
 
-## Opening Scene (0:00-0:15)
-[Soft, professional background music]
-[Show split screen of different healthcare scenarios]
+## Opening Scene (0:00-0:20)
 
-Narrator: "In today's healthcare system, information is power. But what happens when that information is scattered across different systems, regions, and providers?"
+[Professional, optimistic background music]
+[Split screen showing two contrasting medical scenarios: emergency room and therapy office]
 
-## Scene 1: The Emergency Doctor's Dilemma (0:15-0:45)
-[Show emergency room setting]
+Narrator: "In healthcare, making the right decision quickly can change lives. But with critical patient information scattered across different systems, healthcare providers face a challenging reality..."
 
-Narrator: "Meet Dr. Williams, an emergency room physician in Christchurch. When every second counts, he needs immediate access to patient information - regardless of where it's stored."
+## Scene 1: Emergency Care Transformation (0:20-1:00)
 
-[Demo screen showing quick access to patient records]
-"With OpenHealth, Dr. Williams can instantly access critical patient information from anywhere in New Zealand. Blood test results, medications, allergies - all available in seconds, not hours."
+[Show busy emergency room setting]
 
-[Show AI summary feature]
-"Our AI-powered system automatically highlights potential concerns, helping doctors make informed decisions faster."
+Narrator: "Dr. Williams, an emergency physician in Christchurch, receives a patient with a complex medical history..."
 
-## Scene 2: The Psychologist's Challenge (0:45-1:15)
-[Show therapy office setting]
+[Demo screen showing rapid information access]
 
-Narrator: "For Dr. Sharma, a psychologist, understanding her patients' complete medical history is crucial for effective treatment."
+- Patient arrives unconscious
+- Doctor scans NHI number
+- System instantly pulls comprehensive medical history
+- AI highlights critical information:
+  * Current medications
+  * Recent blood test anomalies
+  * Known allergies
+  * Previous emergency visits
 
-[Demo medication history and AI analysis]
-"OpenHealth provides a comprehensive view of patient medications, lab results, and medical history. The AI assistant can identify patterns and potential interactions, helping Dr. Sharma make more informed decisions about her patients' mental health treatment."
+[Show Dr. Williams interacting with the system]
+"Within seconds, not hours, Dr. Williams has a complete picture. OpenHealth's AI assistant has already flagged potential drug interactions and highlighted recent concerning lab results."
 
-## Scene 3: The Patient's Perspective (1:15-1:45)
-[Show rural home setting]
+[Demonstrate real-time updates]
+"As new test results come in, the system automatically updates."
 
-Narrator: "Sarah, living in rural Otago, used to drive hours just to access her test results. Now..."
+## Scene 2: Mental Health Care Enhancement (1:00-1:30)
 
-[Demo patient portal]
-"With OpenHealth, she can securely access her medical records from home, share them with family members, and stay on top of her health journey."
+[Transition to calm therapy office setting]
 
-## Scene 4: Public Health Innovation (1:45-2:15)
-[Show data analysis environment]
+Narrator: "Meanwhile, across town, Dr. Sharma, a psychologist, is preparing for a new patient consultation..."
 
-Narrator: "For Dr. Vance, an epidemiologist at Health NZ, population health insights are critical."
+[Show system interface during preparation]
 
-[Show data visualization and AI forecasting]
-"OpenHealth's advanced analytics help identify trends, predict outbreaks, and inform public health policies - all while maintaining individual privacy."
+- AI-generated patient summary appears
+- Timeline of medications and treatments
+- Correlation between medication changes and health events
+- Integration of physical and mental health data
 
-## Closing (2:15-2:30)
-[Return to split screen of healthcare scenarios, now showing them working seamlessly together]
+[Demonstrate analytical features]
+"OpenHealth's intelligent analysis helps Dr. Sharma understand potential connections between her patient's physical and mental health. The system identifies patterns in:
 
-Narrator: "OpenHealth: Breaking down barriers in healthcare, connecting providers and patients, and building a healthier New Zealand. Together."
+- Medication effectiveness over time
+- Blood test results that might impact mental health
+- Historical treatment responses
+- Potential medication interactions"
 
-[Show logo and final tagline]
-"OpenHealth: Healthcare Connected"
+[Show decision support interface]
+"With this comprehensive view, Dr. Sharma can make more informed decisions about her patient's treatment plan, considering both their mental and physical health needs."
+
+## Closing (1:30-1:50)
+
+[Show split screen of emergency room and therapy office, each showing positive outcomes]
+
+Narrator: "From emergency care to mental health treatment, OpenHealth empowers healthcare providers to make better decisions, faster. When every moment counts, having the right information makes all the difference."
+
+[Show platform logo with final tagline]
+"OpenHealth: Empowering Better Healthcare Decisions"
 
 ---
 
 ## Technical Notes for Video Production:
+
+### Key UI Elements to Showcase:
+
+1. Emergency Scenario:
+
+   - Quick-access dashboard
+   - Critical alerts system
+   - Real-time test result integration
+   - AI-powered warning system
+2. Mental Health Scenario:
+
+   - Comprehensive patient timeline
+   - Medication correlation analysis
+   - Cross-provider communication portal
+   - Treatment effectiveness tracking
+
+### Visual Style:
+
+- Clean, professional medical interface
+- Clear color coding for different alert levels
+- Smooth transitions between scenarios
+- Focus on real New Zealand medical context
+- Show actual system interactions
+
+### Audio:
+
+- Professional, confident narration
+- Subtle background music that builds trust
+- Include ambient medical environment sounds
+- Clear sound design for system interactions
+
+### Accessibility:
+
+- Include subtitles
+- Ensure color choices work for color-blind viewers
+- Clear visual hierarchy
+- High contrast for key information
+
+### Filming Locations:
+
+- Authentic New Zealand medical settings
+- Modern emergency room environment
+- Professional therapy office setting
+- Show genuine medical staff interactions (actors)
+
+---
+
+## Technical Notes for Video Production:
+
 - Use clean, modern visual style
 - Incorporate actual UI demonstrations from the platform
 - Show seamless transitions between different user perspectives
