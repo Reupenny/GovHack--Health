@@ -68,30 +68,32 @@ const styles = {
 const DEMO_NHI = 'ABC1234'; // Demo NHI for testing
 
 function PatientInfo({ patient }: { patient: Patient }) {
+    if (!patient) return null;
+    const { name = {}, contactDetails = {}, address = {}, emergencyContact = {} } = patient;
     return (
         <div className="patient-info">
             <div className="info-section">
-                <h3>{patient.name.title} {patient.name.firstName} {patient.name.lastName}</h3>
+                <h3>{name.title} {name.firstName} {name.lastName}</h3>
                 <div className="info-grid">
                     <div className="info-item">
                         <label>NHI: </label>
-                        <span>{patient.nhi}</span>
+                        <span>{patient.nhi || ''}</span>
                     </div>
                     <div className="info-item">
                         <label>D.O.B: </label>
-                        <span>{new Date(patient.dateOfBirth).toLocaleDateString()}</span>
+                        <span>{patient.dateOfBirth ? new Date(patient.dateOfBirth).toLocaleDateString() : ''}</span>
                     </div>
                     <div className="info-item">
                         <label>Gender: </label>
-                        <span>{patient.gender}</span>
+                        <span>{patient.gender || ''}</span>
                     </div>
                     <div className="info-item">
-                        <label>Ethnicit: y</label>
-                        <span>{patient.ethnicGroup}</span>
+                        <label>Ethnicity:</label>
+                        <span>{patient.ethnicGroup || ''}</span>
                     </div>
                     <div className="info-item">
                         <label>Preferred Language: </label>
-                        <span>{patient.preferredLanguage}</span>
+                        <span>{patient.preferredLanguage || ''}</span>
                     </div>
                 </div>
             </div>
@@ -101,15 +103,15 @@ function PatientInfo({ patient }: { patient: Patient }) {
                 <div className="info-grid">
                     <div className="info-item">
                         <label>Phone: </label>
-                        <span>{patient.contactDetails.phone}</span>
+                        <span>{contactDetails.phone || ''}</span>
                     </div>
                     <div className="info-item">
                         <label>Mobile: </label>
-                        <span>{patient.contactDetails.mobile}</span>
+                        <span>{contactDetails.mobile || ''}</span>
                     </div>
                     <div className="info-item">
                         <label>Email: </label>
-                        <span>{patient.contactDetails.email}</span>
+                        <span>{contactDetails.email || ''}</span>
                     </div>
                 </div>
             </div>
@@ -119,32 +121,40 @@ function PatientInfo({ patient }: { patient: Patient }) {
                 <div className="info-grid">
                     <div className="info-item full-width">
                         <span>
-                            {patient.address.line1}
-                            {patient.address.line2 && <>, {patient.address.line2}</>}<br />
-                            {patient.address.suburb}, {patient.address.city}<br />
-                            {patient.address.region} {patient.address.postcode}<br />
-                            {patient.address.country}
+                            {address.line1 || ''}
+                            {address.line2 ? <>, {address.line2}</> : null}<br />
+                            {[address.suburb, address.city].filter(Boolean).join(', ')}<br />
+                            {[address.region, address.postcode].filter(Boolean).join(' ')}<br />
+                            {address.country || ''}
                         </span>
                     </div>
                 </div>
             </div>
 
-            <div className="info-section">
-                <h4>Emergency Contact</h4>
-                <div className="info-grid">
-                    <div className="info-item">
-                        <span>{patient.emergencyContact.name}</span>
-                    </div>
-                    <div className="info-item">
-                        <label>Relationship: </label>
-                        <span>{patient.emergencyContact.relationship}</span>
-                    </div>
-                    <div className="info-item">
-                        <label>Phone: </label>
-                        <span>{patient.emergencyContact.phone}</span>
+            {emergencyContact && (emergencyContact.name || emergencyContact.relationship || emergencyContact.phone) && (
+                <div className="info-section">
+                    <h4>Emergency Contact</h4>
+                    <div className="info-grid">
+                        {emergencyContact.name && (
+                            <div className="info-item">
+                                <span>{emergencyContact.name}</span>
+                            </div>
+                        )}
+                        {emergencyContact.relationship && (
+                            <div className="info-item">
+                                <label>Relationship: </label>
+                                <span>{emergencyContact.relationship}</span>
+                            </div>
+                        )}
+                        {emergencyContact.phone && (
+                            <div className="info-item">
+                                <label>Phone: </label>
+                                <span>{emergencyContact.phone}</span>
+                            </div>
+                        )}
                     </div>
                 </div>
-            </div>
+            )}
         </div>
     );
 }
@@ -291,7 +301,6 @@ interface DashboardProps {
     loading: boolean;
     error: string | null;
     onNhiChange: (nhi: string) => void;
-    providerRegistered: boolean;
     onRegisterProvider: () => Promise<void>;
     onRegisterToniq: () => Promise<void>;
     providers: Provider[];
@@ -316,7 +325,7 @@ const Dashboard: React.FC<DashboardProps> = ({
             {/* Left Column */}
             <div className="left-sidebar">
                 <div className="left-column">
-                    {!providerRegistered && (
+                    {!providers.some(p => p.providerId === 'DHB_1') && (
                         <button
                             className="register-provider-btn"
                             onClick={onRegisterProvider}
@@ -324,21 +333,21 @@ const Dashboard: React.FC<DashboardProps> = ({
                             Register DHB
                         </button>
                     )}
-                    <button
-                        className="register-provider-btn"
-                        onClick={onRegisterToniq}
-                    >
-                        Register Toniq
-                    </button>
+                    {!providers.some(p => p.providerId === 'TONIQ_1') && (
+                        <button
+                            className="register-provider-btn"
+                            onClick={onRegisterToniq}
+                        >
+                            Register Toniq
+                        </button>
+                    )}
                     <input className='search-bar'
                         type="text"
                         placeholder="Search NHI"
                         value={nhi}
                         onChange={(e) => onNhiChange(e.target.value.toUpperCase())}
                     />
-                    {!patient && !loading && (
-                        <p className="hint">Try: ABC1234, DEF5678, GHI9012</p>
-                    )}
+                    <p className="hint">Try: ABC1234, DEF5678, GHI9012</p>
                     <div className="providers-list">
                         <h3>Registered providers</h3>
                         {providers.length === 0 ? (
@@ -401,11 +410,11 @@ const Dashboard: React.FC<DashboardProps> = ({
 
                 <div className="chat-area">
                     <Chat
-                        getPatient={() => patient}
-                        getMedications={() => medications}
-                        getBloodTests={() => bloodTests}
-                        getProviders={() => providers}
-                        getDocuments={() => documents}
+                        getPatient={() => patient || null}
+                        getMedications={() => Array.isArray(medications) ? medications : []}
+                        getBloodTests={() => Array.isArray(bloodTests) ? bloodTests : []}
+                        getProviders={() => Array.isArray(providers) ? providers : []}
+                        getDocuments={() => Array.isArray(documents) ? documents : []}
                     />
                 </div>
             </div>
@@ -421,7 +430,9 @@ const PatientDashboardContainer: React.FC = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
     const [providers, setProviders] = useState<Provider[]>([]);
-    const [providerRegistered, setProviderRegistered] = useState(false);
+    // Check if specific providers are registered
+    const isDHBRegistered = providers.some(p => p.providerId === 'DHB_1');
+    const isToniqRegistered = providers.some(p => p.providerId === 'TONIQ_1');
 
     const registerDHB = async () => {
         try {
@@ -434,7 +445,6 @@ const PatientDashboardContainer: React.FC = () => {
             // Refresh providers from API after registration
             const providersData = await fetchProviders();
             setProviders(providersData);
-            setProviderRegistered(true);
         } catch (error) {
             setError('Failed to register DHB provider: ' + (error instanceof Error ? error.message : 'Unknown error'));
         }
@@ -496,7 +506,6 @@ const PatientDashboardContainer: React.FC = () => {
             loading={loading}
             error={error}
             onNhiChange={setNhi}
-            providerRegistered={providerRegistered}
             onRegisterProvider={registerDHB}
             onRegisterToniq={registerToniq}
             providers={providers}
