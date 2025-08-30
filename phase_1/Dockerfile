@@ -19,6 +19,9 @@ WORKDIR /app/Toniq
 RUN bun install && bun run build
 
 WORKDIR /app/frontend
+# Set React environment variables for build
+ENV REACT_APP_API_URL=http://localhost:3000
+ENV REACT_APP_DHB_API_URL=http://localhost:3001
 RUN bun install && bun run build
 
 # Switch to Node.js for PM2 runtime
