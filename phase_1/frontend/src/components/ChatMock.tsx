@@ -21,6 +21,10 @@ const GROQ_API_KEY = process.env.REACT_APP_GROQ_API_KEY;
 // Use Groq's text generation API through Cloudflare AI Gateway
 const groqUrl = `https://api.groq.com/openai/v1/chat/completions`;
 
+// Rate limiting configuration
+const RATE_LIMIT_DELAY = 2000; // 2 seconds between requests
+const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
 // Prompt to allow prototyping using Groq API through AI Gateway
 const summaryPrompt = `Summarize only recent key clinical points:
 - Active medications and their purpose
@@ -81,6 +85,7 @@ export const Chat: React.FC<ChatProps> = ({
     const [sources, setSources] = useState<string[]>([]);
     const [isOpen, setIsOpen] = useState(false); // For toggle
     const [summary, setSummary] = useState<string>('');
+    const [lastRequestTime, setLastRequestTime] = useState<number>(0);
 
     React.useEffect(() => {
         const generateSummary = async () => {
@@ -88,6 +93,12 @@ export const Chat: React.FC<ChatProps> = ({
             if (!patient) {
                 setSummary('');
                 return;
+            }
+
+            const now = Date.now();
+            const timeSinceLastRequest = now - lastRequestTime;
+            if (timeSinceLastRequest < RATE_LIMIT_DELAY) {
+                await sleep(RATE_LIMIT_DELAY - timeSinceLastRequest);
             }
 
             const contextData = {
@@ -128,11 +139,19 @@ export const Chat: React.FC<ChatProps> = ({
     const sendMessage = async () => {
         if (!input.trim()) return;
 
+        const now = Date.now();
+        const timeSinceLastRequest = now - lastRequestTime;
+        if (timeSinceLastRequest < RATE_LIMIT_DELAY) {
+            setError('Please wait a moment before sending another message');
+            return;
+        }
+
         const newUserMessage: Message = { role: 'user', content: input.trim() };
         const updatedHistory = [...chatHistory, newUserMessage];
         setChatHistory(updatedHistory);
         setLoading(true);
         setError(null);
+        setLastRequestTime(now);
 
         try {
             // Create the system prompt with current context data
@@ -166,6 +185,13 @@ export const Chat: React.FC<ChatProps> = ({
                     messages: conversationMessages
                 }),
             });
+
+            if (!groqResponse.ok) {
+                if (groqResponse.status === 429) {
+                    throw new Error('Please wait a moment and try again (rate limit reached)');
+                }
+                throw new Error(`HTTP error! status: ${groqResponse.status}`);
+            }
 
             const groqData = (await groqResponse.json()) as {
                 choices: Array<{
@@ -223,9 +249,9 @@ export const Chat: React.FC<ChatProps> = ({
             setChatHistory([...updatedHistory, newAssistantMessage]);
             setSources(verifiedUrls || []);
 
-        } catch {
+        } catch (error) {
             console.error("Error during request:", error);
-            setError('Network error');
+            setError(error instanceof Error ? error.message : 'Network error');
         } finally {
             console.log("Finished Request");
             setLoading(false);

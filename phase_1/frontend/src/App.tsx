@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Logo from './resources/Logo.png'
 import {
     fetchPatientData,
     fetchMedications,
@@ -7,8 +8,8 @@ import {
     fetchDocuments,
     fetchProviders
 } from './api';
-import { Chat } from './components/Chat';
-// import { Chat } from './components/ChatMock';
+// import { Chat } from './components/Chat';
+import { Chat } from './components/ChatMock';
 import type {
     Medication,
     Provider
@@ -631,7 +632,8 @@ const App: React.FC = () => {
     return (
         <div className="app">
             <header className="app-header">
-                <h1>OpenHealth Patient Portal</h1>
+                <img src={Logo} className="app-logo" alt="logo" />
+                <h1>Patient Portal</h1>
             </header>
             <PatientDashboardContainer />
         </div>

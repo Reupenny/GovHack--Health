@@ -15,6 +15,33 @@
     --input-focus: #80bdff;
 }
 
+/* Import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700&family=Roboto:wght@300;400;500&display=swap');
+
+/* Set base fonts */
+:root {
+    --font-header: 'Heebo', sans-serif;
+    --font-body: 'Roboto', sans-serif;
+}
+
+/* Base typography */
+body {
+    font-family: var(--font-body);
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-header);
+    font-weight: 500;
+    margin-bottom: 0.5em;
+}
+
 .app {
     max-width: 1200px;
     margin: 0 auto;
@@ -89,7 +116,7 @@
 
 .app-header {
     display: flex;
-    justify-content: space-between;
+    gap: 1em;
     align-items: center;
     margin-bottom: 2rem;
     padding-bottom: 1rem;
@@ -98,9 +125,9 @@
 
 .app-header h1 {
     margin: 0;
-    color: #2c3e50;
+    font-family: var(--font-header);
+    font-weight: 700;
 }
-
 
 .providers-list h3 {
     margin: 0 0 1rem 0;
@@ -562,6 +589,12 @@ h3 {
     flex-direction: column;
     gap: 1rem;
     overflow-y: auto;
+}
+
+.app-logo {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
 }
 
 /* Providers list and other elements */
