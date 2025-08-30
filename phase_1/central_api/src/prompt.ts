@@ -1,7 +1,6 @@
 import { Hono } from 'hono';
-
 const app = new Hono();
-const GROQ_API_KEY = "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";
+const GROQ_API_KEY = process.env.GROQ_API_KEY;
 
 // Use Groq's text generation API through Cloudflare AI Gateway
 const groqUrl = `https://api.groq.com/openai/v1/chat/completions`;

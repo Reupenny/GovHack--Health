@@ -9,7 +9,14 @@ A centralized API gateway that aggregates health data from multiple service prov
 - **OpenAPI Compliant**: Implements the complete OpenHealth API specification
 - **Shared Types**: Uses TypeScript types shared across all health services
 
-## Quick Start
+
+### Step 1. Configure environment variables
+Create a `.env` file in central_api directory with the following content:
+```env
+REACT_APP_API_URL=http://localhost:3000
+```
+
+## Step 2. Quick Start
 
 ```bash
 bun install
