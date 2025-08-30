@@ -18,7 +18,7 @@ app.get("/", (c) => {
     endpoints: {
       medications: "/api/v1/patients/{nhi}/medications",
     },
-    baseUrl: "http://localhost:3002",
+    baseUrl: "http://localhost:3003",
     sampleNHI: ["ABC1234", "DEF5678", "GHI9012"],
   })
 })
@@ -95,7 +95,7 @@ app.notFound((c) => {
 serve(
   {
     fetch: app.fetch,
-    port: 3002,
+    port: 3003,
   },
   (info) => {
     console.log(`🚀 Toniq Medication API running on http://localhost:${info.port}`)
