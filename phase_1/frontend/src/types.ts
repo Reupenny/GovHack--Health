@@ -23,6 +23,11 @@ export interface Patient {
     };
 }
 
+export interface UnidentifiedPatient {
+    dateOfBirth: string;
+    gender: string;
+}
+
 export interface Medication {
     id: string;
     name: string;

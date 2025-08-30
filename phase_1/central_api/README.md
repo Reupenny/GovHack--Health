@@ -10,14 +10,7 @@ A centralized API gateway that aggregates health data from multiple service prov
 - **Shared Types**: Uses TypeScript types shared across all health services
 
 
-### Step 1. Configure environment variables
-Create a `.env` file in central_api directory with the following content:
-```env
-REACT_APP_API_URL=http://localhost:3000
-GROQ_API_KEY="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"
-```
-
-## Step 2. Quick Start
+##  Quick Start
 
 ```bash
 bun install

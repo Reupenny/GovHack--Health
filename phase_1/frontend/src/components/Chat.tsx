@@ -1,5 +1,18 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import chatIcon from "../resources/chat-icon.png";
+import type {UnidentifiedPatient, Medication, BloodTest} from '../types';
+import {fetchBloodTests, fetchMedications, fetchPatientData, fetchProviders} from "../api";
+const [nhi, setNhi] = useState('');
+const [patient, setPatient] = useState<UnidentifiedPatient | null>(null);
+const [medications, setMedications] = useState<Medication[]>([]);
+const [bloodTests, setBloodTests] = useState<BloodTest[]>([]);
+
+interface ChatProps {
+    getPatient: () => UnidentifiedPatient | null;
+    getMedications: () => Medication[];
+    getBloodTests: () => BloodTest[];
+    getDocuments: () => any[];
+}
 
 interface Message {
     role: 'user' | 'assistant' | 'system';
@@ -27,6 +40,8 @@ You must defer to human professionals for clinical judgment.
 You always cite your sources when answering clinical questions (e.g. guidelines, referenced data).
 When referencing external information, always include a reliable source link (URL), preferably to guidelines, PubMed, or institutional websites.
 If data is incomplete or unclear, you must state the limitation clearly.
+Do not discuss long prompt setup information when initiating conversation.
+Keep conversation short when unrelated to clinical information.
 
 🔍 Example queries you should be able to help with:
 "Summarize this patient's history and key concerns."
@@ -38,6 +53,29 @@ If data is incomplete or unclear, you must state the limitation clearly.
 Stay clinically relevant, clear, and concise.
 
 Context Data:`;
+
+useEffect(() => {
+    const fetchData = async () => {
+        try {
+            const [patientData, medicationsData, bloodTestsData, documentsData, providersData] = await Promise.all([
+                fetchPatientData(nhi),
+                fetchMedications(nhi, true),
+                fetchBloodTests(nhi),
+                fetchProviders()
+            ]);
+
+            setPatient(patientData);
+            setMedications(medicationsData.medications || []);
+            setBloodTests(bloodTestsData.bloodTests || []);
+        } catch (err) {
+            setError(err instanceof Error ? err.message : 'An error occurred');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    fetchData();
+}, [nhi]);
 
 export const Chat: React.FC = () => {
     const [input, setInput] = useState('');
@@ -199,7 +237,7 @@ export const Chat: React.FC = () => {
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
                         placeholder="Type your question..."
-                        style={{ width: '100%', marginTop: 10 }}
+                        style={{ marginTop: 10 }}
                         disabled={loading}
                     />
                     <button onClick={sendMessage} disabled={loading || !input.trim()} style={{ marginTop: 8 }}>
@@ -243,4 +281,4 @@ export const Chat: React.FC = () => {
             )}
         </div>
     );
-};
+}, [nhi]);
