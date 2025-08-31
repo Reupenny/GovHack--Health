@@ -215,10 +215,10 @@ body {
 /* Architecture slide styling */
 .architecture-main-content {
   display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: 40px;
+  grid-template-columns: 1fr 1.8fr; /* enlarged right column by 20% */
+  gap: 30px;
   align-items: center;
-  margin: 20px 0;
+  margin: 10px 0;
 }
 
 .architecture-description-left p {
@@ -248,6 +248,8 @@ body {
   box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
 
+.full-image-slide { padding:10px 10px 20px; }
+.full-portal-image { max-width:95%; max-height:78vh; width:auto; height:auto; border-radius:15px; box-shadow:0 15px 35px rgba(0,0,0,0.15); border:2px solid #ecf0f1; }
 /* Frontend slide styling */
 .frontend-main-content {
   display: grid;

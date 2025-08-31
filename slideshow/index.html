@@ -128,51 +128,59 @@
         </div>
       </div>
 
-      <!-- Slide 5: Frontend Portal -->
+      <!-- Slide 5: Frontend Portal + Key Features (text only) -->
       <div class="slide">
         <div class="slide-content">
-          <h1>📱 Patient Portal Experience</h1>
+          <h1>📱 Patient Portal & Key Features</h1>
           <div class="frontend-main-content">
-            <div class="frontend-description-left">
+            <div class="frontend-description-left" style="grid-column: 1 / -1">
               <p class="frontend-intro">
                 Intuitive patient portal providing secure access to
                 comprehensive health information with AI-powered insights.
               </p>
-              <div class="frontend-features">
-                <div class="frontend-feature">
-                  <h3>🔍 Comprehensive Patient Summary</h3>
+              <div class="features-grid">
+                <div class="feature-card">
+                  <div class="feature-icon">🔗</div>
+                  <h3>Unified Data Access</h3>
+                  <p>
+                    Integrates data from hospitals, GP clinics, pharmacies,
+                    laboratories, and specialists
+                  </p>
+                </div>
+                <div class="feature-card">
+                  <div class="feature-icon">🤖</div>
+                  <h3>AI-Powered Insights</h3>
+                  <p>
+                    Highlights critical results, drug interactions, treatment
+                    patterns
+                  </p>
+                </div>
+                <div class="feature-card">
+                  <div class="feature-icon">🔍</div>
+                  <h3>Comprehensive Patient Summary</h3>
                   <p>
                     Complete medical history, medications, and test results in
                     one view
                   </p>
                 </div>
-                <div class="frontend-feature">
-                  <h3>🤖 AI Health Assistant</h3>
-                  <p>
-                    Intelligent analysis of blood tests and health
-                    recommendations
-                  </p>
-                </div>
-                <div class="frontend-feature">
-                  <h3>📋 Provider Integration</h3>
-                  <p>
-                    Seamless data from DHBs, clinics, and specialists across NZ
-                  </p>
-                </div>
               </div>
-            </div>
-            <div class="frontend-image-right">
-              <img
-                src="assets/web_frontend.png"
-                alt="OpenHealth Patient Portal Interface"
-                class="frontend-showcase"
-              />
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Slide 6: Personas -->
+      <!-- Slide 6: Patient Portal Image (image only) -->
+      <div class="slide">
+        <div class="slide-content full-image-slide">
+          <img
+            src="assets/web_frontend.png"
+            alt="Patient Portal Interface"
+            class="full-portal-image"
+          />
+        </div>
+      </div>
+
+      <!-- Slide 7: Personas -->
       <div class="slide">
         <div class="slide-content">
           <h1>Personas</h1>
@@ -207,39 +215,6 @@
               <p>
                 Centralized data for disease surveillance and public health
                 forecasting
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Slide 7: Key Features -->
-      <div class="slide">
-        <div class="slide-content">
-          <h1>Key Features</h1>
-          <div class="features-grid">
-            <div class="feature-card">
-              <div class="feature-icon">🔗</div>
-              <h3>Unified Data Access</h3>
-              <p>
-                Integrates data from hospitals, GP clinics, pharmacies,
-                laboratories, and specialists
-              </p>
-            </div>
-            <div class="feature-card">
-              <div class="feature-icon">🤖</div>
-              <h3>AI-Powered Insights</h3>
-              <p>
-                Intelligent analysis highlights critical information, drug
-                interactions, and treatment patterns
-              </p>
-            </div>
-            <div class="feature-card">
-              <div class="feature-icon">⚡</div>
-              <h3>Real-Time Updates</h3>
-              <p>
-                Instant access to test results and medical records across all
-                providers
               </p>
             </div>
           </div>
@@ -329,11 +304,10 @@
         <span class="dot" onclick="currentSlide(6)"></span>
         <span class="dot" onclick="currentSlide(7)"></span>
         <span class="dot" onclick="currentSlide(8)"></span>
-            <span class="dot" onclick="currentSlide(9)"></span>
+        <span class="dot" onclick="currentSlide(9)"></span>
       </div>
     </div>
 
     <script src="script.js"></script>
   </body>
 </html>
-
