@@ -6,7 +6,14 @@
   "scripts": {
     "dev": "cd phase_1 && bun run dev",
     "build": "cd phase_1 && bun run build",
-    "deploy": "cd phase_1 && bun run deploy",
+    "deploy": "sst deploy",
+    "dev:sst": "sst dev", 
+    "remove": "sst remove",
+    "build:all": "bun run build:central && bun run build:dhb && bun run build:toniq && bun run build:frontend",
+    "build:central": "cd phase_1/central_api && bun run build",
+    "build:dhb": "cd phase_1/DHB && bun run build", 
+    "build:toniq": "cd phase_1/Toniq && bun run build",
+    "build:frontend": "cd phase_1/frontend && bun run build",
     "deploy:gcloud": "cd phase_1 && bun run deploy:gcloud",
     "logs": "cd phase_1 && bun run logs"
   },
@@ -20,5 +27,9 @@
     "hono": "^4.9.5",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
+  },
+  "devDependencies": {
+    "aws-cdk-lib": "^2.213.0",
+    "sst": "^3.17.12"
   }
 }

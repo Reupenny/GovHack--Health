@@ -298,7 +298,7 @@ function formatFileSize(bytes: number): string {
 function DocumentList({ documents, nhi }: { documents: Document[], nhi: string }) {
     const handleDownload = async (documentId: string) => {
         try {
-            const response = await fetch(`http://localhost:3000/patients/${nhi}/documents/${documentId}`);
+            const response = await fetch(`https://jg4wo5swesujsvbli2zrcicfjy0bpqbp.lambda-url.ap-southeast-2.on.aws/patients/${nhi}/documents/${documentId}`);
             if (!response.ok) {
                 throw new Error('Failed to download document');
             }
@@ -532,7 +532,7 @@ const PatientDashboardContainer: React.FC = () => {
             const newProvider = {
                 providerId: 'South_Island_Health_Service',
                 name: 'South Island Health Service',
-                baseUrl: 'http://localhost:3001/api/v1'
+                baseUrl: 'https://oyi4jwlu2s74brzah3effulx3i0dlexu.lambda-url.ap-southeast-2.on.aws/api/v1'
             };
             await registerProvider(newProvider);
             // Refresh providers from API after registration
@@ -565,7 +565,7 @@ const PatientDashboardContainer: React.FC = () => {
                     fetchPatientData(nhi),
                     fetchMedications(nhi, true),
                     fetchBloodTests(nhi),
-                    fetch(`http://localhost:3000/patients/${nhi}/documents`).then(res => res.json())
+                    fetch(`https://jg4wo5swesujsvbli2zrcicfjy0bpqbp.lambda-url.ap-southeast-2.on.aws/patients/${nhi}/documents`).then(res => res.json())
                 ]);
 
                 const errors: string[] = [];
@@ -621,7 +621,7 @@ const PatientDashboardContainer: React.FC = () => {
             const newProvider = {
                 providerId: 'GovHack_Pharmacy',
                 name: 'GovHack Pharmacy',
-                baseUrl: 'http://localhost:3003/api/v1'
+                baseUrl: 'https://fpsmmuwjil6aqcmgluipbr7kxm0onchb.lambda-url.ap-southeast-2.on.aws/api/v1'
             };
             await registerProvider(newProvider);
             // Refresh providers from API after registration
@@ -669,7 +669,7 @@ const App: React.FC = () => {
             await registerProvider({
                 providerId: 'South_Island_Health_Service',
                 name: 'South Island Health Service',
-                baseUrl: 'http://localhost:3001'
+                baseUrl: 'https://oyi4jwlu2s74brzah3effulx3i0dlexu.lambda-url.ap-southeast-2.on.aws'
             });
             alert('Regional Health Service provider registered successfully!');
             setProviderRegistered(true);
