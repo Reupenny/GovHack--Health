@@ -298,7 +298,8 @@ function formatFileSize(bytes: number): string {
 function DocumentList({ documents, nhi }: { documents: Document[], nhi: string }) {
     const handleDownload = async (documentId: string) => {
         try {
-            const response = await fetch(`http://localhost:3000/patients/${nhi}/documents/${documentId}`);
+            const base = (window as any).__CONFIG__?.DHB_API_BASE_URL || '/dhb';
+            const response = await fetch(`${base}/patients/${nhi}/documents/${documentId}`);
             if (!response.ok) {
                 throw new Error('Failed to download document');
             }
@@ -565,7 +566,7 @@ const PatientDashboardContainer: React.FC = () => {
                     fetchPatientData(nhi),
                     fetchMedications(nhi, true),
                     fetchBloodTests(nhi),
-                    fetch(`http://localhost:3000/patients/${nhi}/documents`).then(res => res.json())
+                    (() => { const base = (window as any).__CONFIG__?.DHB_API_BASE_URL || '/dhb'; return fetch(`${base}/patients/${nhi}/documents`).then(res => res.json()); })()
                 ]);
 
                 const errors: string[] = [];

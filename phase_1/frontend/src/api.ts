@@ -13,8 +13,32 @@ export async function fetchProviders(): Promise<Provider[]> {
     }
 }
 // API base URL
-const API_BASE_URL = (typeof process !== 'undefined' && process.env && process.env.REACT_APP_API_URL) || 'http://localhost:3000';
-const DHB_API_URL = (typeof process !== 'undefined' && process.env && process.env.REACT_APP_DHB_API_URL) || 'http://localhost:3001';
+// Determine API base URL with multiple fallback strategies
+// 1. Window runtime config (for container/runtime injection)
+// 2. Build-time env var (Webpack DefinePlugin)
+// 3. Same-origin relative path (assumes reverse proxy)
+// 4. Local development default
+// In reverse proxy mode we rely on path prefixes served by a gateway:
+// /api -> central api, /dhb -> DHB service, /pharmacy -> pharmacy service
+// Runtime config/env can still override; defaults are path prefixes (same-origin)
+// In reverse proxy setup, use path prefixes that the gateway maps to real services.
+// Gateway (nginx) will proxy /api -> central_api, /dhb -> dhb service, /pharmacy -> toniq service.
+// Local dev can still override with env vars if desired.
+const API_BASE_URL = (
+    (typeof window !== 'undefined' && (window as any).__CONFIG__?.API_BASE_URL) ||
+    (typeof process !== 'undefined' && process.env?.REACT_APP_API_URL) ||
+    '/api'
+);
+const DHB_API_URL = (
+    (typeof window !== 'undefined' && (window as any).__CONFIG__?.DHB_API_BASE_URL) ||
+    (typeof process !== 'undefined' && process.env?.REACT_APP_DHB_API_URL) ||
+    '/dhb'
+);
+const PHARMACY_API_URL = (
+    (typeof window !== 'undefined' && (window as any).__CONFIG__?.PHARMACY_API_BASE_URL) ||
+    (typeof process !== 'undefined' && (process.env as any)?.REACT_APP_PHARMACY_API_URL) ||
+    '/pharmacy'
+);
 
 export interface Provider {
     providerId: string;

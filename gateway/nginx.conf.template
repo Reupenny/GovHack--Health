@@ -1,0 +1,57 @@
+worker_processes  1;
+error_log  /var/log/nginx/error.log warn;
+pid        /var/run/nginx.pid;
+
+events { worker_connections 1024; }
+
+http {
+  include       /etc/nginx/mime.types;
+  default_type  application/octet-stream;
+  sendfile        on;
+  keepalive_timeout  65;
+  gzip on;
+  gzip_types text/plain text/css application/json application/javascript application/xml+rss application/javascript;
+
+  resolver 8.8.8.8 ipv6=off;
+
+  map $http_upgrade $connection_upgrade { default upgrade; '' close; }
+
+  server {
+    listen 8080;
+
+    # Frontend SPA
+    root /usr/share/nginx/html;
+    index index.html;
+
+    # API proxy routes
+    location /api/ {
+      proxy_pass ${CENTRAL_API_URL}/; # expects env var
+      proxy_set_header Host $host;
+      proxy_set_header X-Forwarded-For $remote_addr;
+      proxy_http_version 1.1;
+    }
+    location /dhb/ {
+      proxy_pass ${DHB_API_URL}/;
+      proxy_set_header Host $host;
+      proxy_set_header X-Forwarded-For $remote_addr;
+      proxy_http_version 1.1;
+    }
+    location /pharmacy/ {
+      proxy_pass ${TONIQ_API_URL}/;
+      proxy_set_header Host $host;
+      proxy_set_header X-Forwarded-For $remote_addr;
+      proxy_http_version 1.1;
+    }
+
+    # Static assets (cache aggressively)
+    location ~* \.(?:js|css|png|jpg|jpeg|gif|svg|ico)$ {
+      try_files $uri =404;
+      add_header Cache-Control "public, max-age=31536000, immutable";
+    }
+
+    # SPA fallback
+    location / {
+      try_files $uri /index.html;
+    }
+  }
+}
