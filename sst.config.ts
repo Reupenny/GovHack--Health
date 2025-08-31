@@ -14,6 +14,9 @@ export default $config({
     };
   },
   async run() {
+    // Create secret for Gemini API key
+    const geminiApiKey = new sst.Secret("GeminiApiKey");
+
     // OPTIONS handler Lambda for CORS preflight
     const optionsHandler = new sst.aws.Function("OptionsHandler", {
       handler: "phase_1/central_api/dist/options.handler",
@@ -68,12 +71,15 @@ export default $config({
     api.route("ANY /toniq/{proxy+}", toniqApi.arn);
     api.route("ANY /toniq", toniqApi.arn);
 
-    // Frontend hosting
+    // Frontend hosting with Gemini API key as environment variable
     const frontend = new sst.aws.StaticSite("Frontend", {
       path: "phase_1/frontend",
       build: {
         command: "./build.sh",
         output: "dist",
+      },
+      environment: {
+        REACT_APP_GEMINI_API_KEY: geminiApiKey.value,
       },
     });
 
