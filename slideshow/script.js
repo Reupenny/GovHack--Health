@@ -1,5 +1,5 @@
 let slideIndex = 1;
-const totalSlides = 8;
+const totalSlides = 9;
 
 function changeSlide(n) {
     showSlide(slideIndex += n);
