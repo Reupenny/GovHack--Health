@@ -241,7 +241,10 @@ export const Chat: React.FC<ChatProps> = ({
                 "info.health.nz",
                 "health.govt.nz",
                 "healthinfo.org.nz",
+                "wellsouth.nz",
                 "nzf.org.nz",
+                "nzf.org",
+                "nzf",
                 "dermnetnz.org"
             ];
 

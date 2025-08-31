@@ -17,8 +17,8 @@ export const ProviderRegistrationPage: React.FC = () => {
                         onClick={async () => {
                             try {
                                 await registerProvider({
-                                    providerId: 'DHB_1',
-                                    name: 'Local DHB',
+                                    providerId: 'South_Island_Health_Service',
+                                    name: 'South Island Health Service',
                                     baseUrl: 'http://localhost:3001'
                                 });
                                 alert('DHB provider registered successfully!');
@@ -28,7 +28,7 @@ export const ProviderRegistrationPage: React.FC = () => {
                             }
                         }}
                     >
-                        Quick Register DHB Provider
+                        Quick Register Regional Health Service Provider
                     </button>
 
                     <button
@@ -36,18 +36,18 @@ export const ProviderRegistrationPage: React.FC = () => {
                         onClick={async () => {
                             try {
                                 await registerProvider({
-                                    providerId: 'TONIQ_1',
-                                    name: 'Toniq Provider',
+                                    providerId: 'GovHack_Pharmacy',
+                                    name: 'GovHack Pharmacy',
                                     baseUrl: 'http://localhost:3003'
                                 });
-                                alert('Toniq provider registered successfully!');
+                                alert('GovHack Pharmacy registered successfully!');
                                 window.location.href = '/';
                             } catch (error) {
-                                alert('Failed to register Toniq provider: ' + (error instanceof Error ? error.message : 'Unknown error'));
+                                alert('Failed to register GovHack Pharmacy: ' + (error instanceof Error ? error.message : 'Unknown error'));
                             }
                         }}
                     >
-                        Quick Register Toniq Provider
+                        Quick Register Pharmacy Service Provider
                     </button>
 
                     <button

@@ -409,20 +409,20 @@ const Dashboard: React.FC<DashboardProps> = ({
             {/* Left Column */}
             <div className="left-sidebar">
                 <div className="left-column">
-                    {!providers.some(p => p.providerId === 'DHB_1') && (
+                    {!providers.some(p => p.providerId === 'South_Island_Health_Service') && (
                         <button
                             className="register-provider-btn"
                             onClick={onRegisterProvider}
                         >
-                            Register DHB
+                            Register Regional Health Service
                         </button>
                     )}
-                    {!providers.some(p => p.providerId === 'TONIQ_1') && (
+                    {!providers.some(p => p.providerId === 'GovHack_Pharmacy') && (
                         <button
                             className="register-provider-btn"
                             onClick={onRegisterToniq}
                         >
-                            Register TONIQ
+                            Register Pharmacy Service
                         </button>
                     )}
                     <button
@@ -446,8 +446,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                             <ul>
                                 {providers.map(provider => (
                                     <li key={provider.providerId} className="provider-item">
-                                        <span className="provider-name">{provider.name}</span>
-                                        <span className="provider-id">{provider.providerId}</span>
+                                        <span className="provider-id">{provider.providerId.replace(/_/g, ' ')}</span>
                                     </li>
                                 ))}
                             </ul>
@@ -531,8 +530,8 @@ const PatientDashboardContainer: React.FC = () => {
     const registerDHB = async () => {
         try {
             const newProvider = {
-                providerId: 'DHB_1',
-                name: 'Local DHB',
+                providerId: 'South_Island_Health_Service',
+                name: 'South Island Health Service',
                 baseUrl: 'http://localhost:3001/api/v1'
             };
             await registerProvider(newProvider);
@@ -540,7 +539,7 @@ const PatientDashboardContainer: React.FC = () => {
             const providersData = await fetchProviders();
             setProviders(providersData);
         } catch (error) {
-            setError('Failed to register DHB provider: ' + (error instanceof Error ? error.message : 'Unknown error'));
+            setError('Failed to register Regional Health Service provider: ' + (error instanceof Error ? error.message : 'Unknown error'));
         }
     };
 
@@ -620,8 +619,8 @@ const PatientDashboardContainer: React.FC = () => {
     const registerToniq = async () => {
         try {
             const newProvider = {
-                providerId: 'TONIQ_1',
-                name: 'Toniq',
+                providerId: 'GovHack_Pharmacy',
+                name: 'GovHack Pharmacy',
                 baseUrl: 'http://localhost:3003/api/v1'
             };
             await registerProvider(newProvider);
@@ -629,7 +628,7 @@ const PatientDashboardContainer: React.FC = () => {
             const providersData = await fetchProviders();
             setProviders(providersData);
         } catch (error) {
-            setError('Failed to register Toniq provider: ' + (error instanceof Error ? error.message : 'Unknown error'));
+            setError('Failed to register Pharmacy Service provider: ' + (error instanceof Error ? error.message : 'Unknown error'));
         }
     };
 
@@ -668,14 +667,14 @@ const App: React.FC = () => {
     const registerDHB = async () => {
         try {
             await registerProvider({
-                providerId: 'DHB_1',
-                name: 'Local DHB',
+                providerId: 'South_Island_Health_Service',
+                name: 'South Island Health Service',
                 baseUrl: 'http://localhost:3001'
             });
-            alert('DHB provider registered successfully!');
+            alert('Regional Health Service provider registered successfully!');
             setProviderRegistered(true);
         } catch (error) {
-            alert('Failed to register DHB provider: ' + (error instanceof Error ? error.message : 'Unknown error'));
+            alert('Failed to register Regional Health Service provider: ' + (error instanceof Error ? error.message : 'Unknown error'));
         }
     };
 
