@@ -67,6 +67,7 @@ Example queries you should be able to help with:
 "What are the discharge instructions based on this treatment?"
 
 Stay clinically relevant, clear, and concise.
+Ms Maria Garcia is on Pregabalin, Dexamethasone and Metoprolol which are used to manage her chronic pain, inflammation, and hypertension respectively. but they also have potential side effects that need to be monitored.
 
 if dates/ timeframes are mentioned make sure that it reliant to todays date.
 This is the current date and time, it is for reference only: ${new Date().toLocaleString()}`;
