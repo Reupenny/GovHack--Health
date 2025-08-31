@@ -23,6 +23,19 @@ app.use('*', (c, next) => {
 
 const serviceProviders = new Map<string, string>()
 
+// Auto-register known providers on startup
+function initializeProviders() {
+  // Only initialize if no providers are registered (cold start)
+  if (serviceProviders.size === 0) {
+    serviceProviders.set('toniq', 'https://zq3vdip5sl.execute-api.ap-southeast-2.amazonaws.com/toniq/api/v1')
+    serviceProviders.set('dhb', 'https://zq3vdip5sl.execute-api.ap-southeast-2.amazonaws.com/dhb/api/v1')
+    console.log('Auto-registered providers on cold start:', serviceProviders.size)
+  }
+}
+
+// Initialize providers immediately
+initializeProviders()
+
 // Create a sub-application for API routes
 const api = new Hono()
 
