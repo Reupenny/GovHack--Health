@@ -1,0 +1,9 @@
+https://www.tewhatuora.govt.nz/health-services-and-programmes/health-identity/national-health-index/upcoming-changes-nhi#nhi-records-mod23
+Mock Datasets for patient info
+https://www.tewhatuora.govt.nz/assets/Our-health-system/Digital-health/Health-identity/National-Health-Index/UAT-NHI-Records-Mod23-v2.xlsx
+
+languages
+https://www.ethniccommunities.govt.nz/resources/our-languages-o-tatou-reo/languages-in-nz
+
+Ethnicity
+https://www.tewhatuora.govt.nz/assets/Our-health-system/Digital-health/Health-information-standards/Ethnicity-Classification-Levels-List.xlsx
