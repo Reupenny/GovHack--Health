@@ -9,6 +9,7 @@ const app = new Hono();
 app.use('*', errorHandler);
 
 app.route('/api/v1', api);
+app.route('/dhb/api/v1', api);
 
 app.get('/', (c) => {
   return c.json({
@@ -21,6 +22,23 @@ app.get('/', (c) => {
       bloodTests: '/api/v1/patients/{nhi}/blood-tests',
       documents: '/api/v1/patients/{nhi}/documents',
       documentContent: '/api/v1/patients/{nhi}/documents/{documentId}'
+    },
+    baseUrl: 'http://localhost:3001',
+    sampleNHI: ['ABC1234', 'DEF5678', 'GHI9012']
+  });
+});
+
+app.get('/dhb', (c) => {
+  return c.json({
+    message: 'OpenHealth API',
+    version: '1.0.0',
+    status: 'running',
+    endpoints: {
+      patients: '/dhb/api/v1/patients/{nhi}',
+      medications: '/dhb/api/v1/patients/{nhi}/medications',
+      bloodTests: '/dhb/api/v1/patients/{nhi}/blood-tests',
+      documents: '/dhb/api/v1/patients/{nhi}/documents',
+      documentContent: '/dhb/api/v1/patients/{nhi}/documents/{documentId}'
     },
     baseUrl: 'http://localhost:3001',
     sampleNHI: ['ABC1234', 'DEF5678', 'GHI9012']

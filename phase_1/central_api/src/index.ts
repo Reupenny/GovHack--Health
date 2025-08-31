@@ -11,16 +11,20 @@ import type {
   DocumentsResponse
 } from './types.js'
 
-interface ServiceProvider {
-  providerId: string
-  baseUrl: string
-}
+const app = new Hono({ strict: false })
 
-const app = new Hono()
-
-// NO CORS middleware - let's see what happens
+// CORS middleware - add headers to all responses
+app.use('*', (c, next) => {
+  c.header('Access-Control-Allow-Origin', '*')
+  c.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS')
+  c.header('Access-Control-Allow-Headers', 'Content-Type,Authorization,X-Requested-With')
+  return next()
+})
 
 const serviceProviders = new Map<string, string>()
+
+// Create a sub-application for API routes
+const api = new Hono()
 
 async function makeRequest(url: string, timeoutMs = 5000): Promise<any> {
   const controller = new AbortController()
@@ -149,7 +153,16 @@ app.get('/', (c) => {
   })
 })
 
-app.post('/register', async (c) => {
+// Add corresponding routes with /central prefix for API Gateway
+app.get('/central', (c) => {
+  return c.json({ 
+    message: 'OpenHealth Central API',
+    version: '1.0.0',
+    registeredProviders: serviceProviders.size
+  })
+})
+
+api.post('/register', async (c) => {
   try {
     const body = await c.req.json()
     const { providerId, baseUrl } = body
@@ -176,7 +189,7 @@ app.post('/register', async (c) => {
   }
 })
 
-app.get('/providers', (c) => {
+api.get('/providers', (c) => {
   return c.json({
     providers: Array.from(serviceProviders.entries()).map(([id, url]) => ({
       providerId: id,
@@ -186,7 +199,7 @@ app.get('/providers', (c) => {
   })
 })
 
-app.delete('/providers', (c) => {
+api.delete('/providers', (c) => {
   const clearedCount = serviceProviders.size
   serviceProviders.clear()
   
@@ -197,7 +210,7 @@ app.delete('/providers', (c) => {
   })
 })
 
-app.get('/patients/:nhi', async (c) => {
+api.get('/patients/:nhi', async (c) => {
   const nhi = c.req.param('nhi')
   
   if (serviceProviders.size === 0) {
@@ -227,7 +240,7 @@ app.get('/patients/:nhi', async (c) => {
   }
 })
 
-app.get('/patients/:nhi/medications', async (c) => {
+api.get('/patients/:nhi/medications', async (c) => {
   const nhi = c.req.param('nhi')
   const queryParams = new URLSearchParams()
   
@@ -267,7 +280,7 @@ app.get('/patients/:nhi/medications', async (c) => {
   }
 })
 
-app.get('/patients/:nhi/blood-tests', async (c) => {
+api.get('/patients/:nhi/blood-tests', async (c) => {
   const nhi = c.req.param('nhi')
   const queryParams = new URLSearchParams()
   
@@ -309,7 +322,7 @@ app.get('/patients/:nhi/blood-tests', async (c) => {
   }
 })
 
-app.get('/patients/:nhi/documents', async (c) => {
+api.get('/patients/:nhi/documents', async (c) => {
   const nhi = c.req.param('nhi')
   const queryParams = new URLSearchParams()
   
@@ -353,7 +366,7 @@ app.get('/patients/:nhi/documents', async (c) => {
   }
 })
 
-app.get('/patients/:nhi/documents/:documentId', async (c) => {
+api.get('/patients/:nhi/documents/:documentId', async (c) => {
   const nhi = c.req.param('nhi')
   const documentId = c.req.param('documentId')
   
@@ -382,6 +395,25 @@ app.get('/patients/:nhi/documents/:documentId', async (c) => {
     }, 500)
   }
 })
+
+// Handle OPTIONS at the app level first - must be before route mounting
+app.options('*', (c) => {
+  return c.text('', 200)
+})
+
+// Handle specific OPTIONS routes that might be needed
+app.options('/central/*', (c) => {
+  return c.text('', 200)
+})
+
+// Add OPTIONS handler for the API routes too
+api.options('*', () => {
+  return new Response('', { status: 200 })
+})
+
+// Mount the API routes at both root level and /central path
+app.route('/', api)
+app.route('/central', api)
 
 if (process.env.NODE_ENV !== 'production') {
   serve({

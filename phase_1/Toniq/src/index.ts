@@ -9,6 +9,7 @@ const app = new Hono()
 app.use("*", errorHandler)
 
 app.route("/api/v1", api)
+app.route("/toniq/api/v1", api)
 
 app.get("/", (c) => {
   return c.json({
@@ -17,6 +18,19 @@ app.get("/", (c) => {
     status: "running",
     endpoints: {
       medications: "/api/v1/patients/{nhi}/medications",
+    },
+    baseUrl: "http://localhost:3003",
+    sampleNHI: ["ABC1234", "DEF5678", "GHI9012"],
+  })
+})
+
+app.get("/toniq", (c) => {
+  return c.json({
+    message: "Toniq Medication API",
+    version: "1.0.0",
+    status: "running",
+    endpoints: {
+      medications: "/toniq/api/v1/patients/{nhi}/medications",
     },
     baseUrl: "http://localhost:3003",
     sampleNHI: ["ABC1234", "DEF5678", "GHI9012"],

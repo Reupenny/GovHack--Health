@@ -340,7 +340,7 @@ function DocumentList({
   const handleDownload = async (documentId: string) => {
     try {
       const response = await fetch(
-        `https://hsuigdnufgjkgneoviwrnkmeem0mbytz.lambda-url.ap-southeast-2.on.aws/patients/${nhi}/documents/${documentId}`,
+        `https://zq3vdip5sl.execute-api.ap-southeast-2.amazonaws.com/central/patients/${nhi}/documents/${documentId}`,
       )
       if (!response.ok) {
         throw new Error("Failed to download document")
@@ -583,7 +583,7 @@ const PatientDashboardContainer: React.FC = () => {
         providerId: "South_Island_Health_Service",
         name: "South Island Health Service",
         baseUrl:
-          "https://k26nr6p5pecced2cchwefkfuym0bvxsk.lambda-url.ap-southeast-2.on.aws/api/v1",
+          "https://zq3vdip5sl.execute-api.ap-southeast-2.amazonaws.com/dhb/api/v1",
       }
       await registerProvider(newProvider)
       // Refresh providers from API after registration
@@ -620,7 +620,7 @@ const PatientDashboardContainer: React.FC = () => {
           fetchMedications(nhi, true),
           fetchBloodTests(nhi),
           fetch(
-            `https://hsuigdnufgjkgneoviwrnkmeem0mbytz.lambda-url.ap-southeast-2.on.aws/patients/${nhi}/documents`,
+            `https://zq3vdip5sl.execute-api.ap-southeast-2.amazonaws.com/central/patients/${nhi}/documents`,
           ).then((res) => res.json()),
         ])
 
@@ -686,7 +686,7 @@ const PatientDashboardContainer: React.FC = () => {
         providerId: "GovHack_Pharmacy",
         name: "GovHack Pharmacy",
         baseUrl:
-          "https://xsxdjmlue3vwgxvlqu57mg4rci0fxvne.lambda-url.ap-southeast-2.on.aws/api/v1",
+          "https://zq3vdip5sl.execute-api.ap-southeast-2.amazonaws.com/toniq/api/v1",
       }
       await registerProvider(newProvider)
       // Refresh providers from API after registration
@@ -743,7 +743,7 @@ const App: React.FC = () => {
         providerId: "South_Island_Health_Service",
         name: "South Island Health Service",
         baseUrl:
-          "https://k26nr6p5pecced2cchwefkfuym0bvxsk.lambda-url.ap-southeast-2.on.aws",
+          "https://zq3vdip5sl.execute-api.ap-southeast-2.amazonaws.com/dhb",
       })
       alert("Regional Health Service provider registered successfully!")
       setProviderRegistered(true)

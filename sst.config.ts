@@ -14,15 +14,21 @@ export default $config({
     };
   },
   async run() {
+    // OPTIONS handler Lambda for CORS preflight
+    const optionsHandler = new sst.aws.Function("OptionsHandler", {
+      handler: "phase_1/central_api/dist/options.handler",
+      runtime: "nodejs20.x",
+      environment: {
+        NODE_ENV: "production",
+      },
+    });
+
     // Central API Lambda
     const centralApi = new sst.aws.Function("CentralApi", {
       handler: "phase_1/central_api/dist/lambda.handler",
       runtime: "nodejs20.x",
       environment: {
         NODE_ENV: "production",
-      },
-      url: {
-        cors: true
       },
     });
 
@@ -33,7 +39,6 @@ export default $config({
       environment: {
         NODE_ENV: "production",
       },
-      url: true,
     });
 
     // Toniq API Lambda
@@ -43,8 +48,25 @@ export default $config({
       environment: {
         NODE_ENV: "production",
       },
-      url: true,
     });
+
+    // API Gateway without CORS - let Lambda handle all CORS
+    const api = new sst.aws.ApiGatewayV2("OpenHealthApi");
+
+    // Route all central API requests - use dedicated OPTIONS handler
+    api.route("OPTIONS /central/register", optionsHandler.arn);
+    api.route("OPTIONS /central/{proxy+}", optionsHandler.arn);
+    api.route("OPTIONS /central", optionsHandler.arn);
+    api.route("ANY /central/{proxy+}", centralApi.arn);
+    api.route("ANY /central", centralApi.arn);
+    
+    // Route DHB API requests  
+    api.route("ANY /dhb/{proxy+}", dhbApi.arn);
+    api.route("ANY /dhb", dhbApi.arn);
+    
+    // Route Toniq API requests
+    api.route("ANY /toniq/{proxy+}", toniqApi.arn);
+    api.route("ANY /toniq", toniqApi.arn);
 
     // Frontend hosting
     const frontend = new sst.aws.StaticSite("Frontend", {
@@ -56,9 +78,10 @@ export default $config({
     });
 
     return {
-      centralApi: centralApi.url,
-      dhbApi: dhbApi.url, 
-      toniqApi: toniqApi.url,
+      api: api.url,
+      centralApi: $interpolate`${api.url}/central`,
+      dhbApi: $interpolate`${api.url}/dhb`, 
+      toniqApi: $interpolate`${api.url}/toniq`,
       frontend: frontend.url,
     };
   },
