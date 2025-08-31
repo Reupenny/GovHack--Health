@@ -1,0 +1,482 @@
+{
+  "ZAK21MS": {
+    "nhi": "ZAK21MS",
+    "name": {
+      "title": "",
+      "firstName": "Ava",
+      "middleName": "Grace",
+      "lastName": "Lila"
+    },
+    "dateOfBirth": "1986-02-08",
+    "gender": "female",
+    "address": {
+      "line1": "66 Manukau Road",
+      "line2": "",
+      "suburb": "Hamilton Lake",
+      "city": "Hamilton",
+      "region": "Waikato",
+      "postcode": "3204",
+      "country": "NZ"
+    },
+    "contactDetails": {
+      "phone": "+64 987 654",
+      "mobile": "+64 987 654",
+      "email": "Ava-7Lilac@gmail.com"
+    },
+    "emergencyContact": {
+      "name": "Ava Williams",
+      "relationship": "Friend",
+      "phone": ""
+    },
+    "ethnicGroup": "New Zealand European",
+    "preferredLanguage": "English"
+  },
+  "ZAP28LA": {
+    "nhi": "ZAP28LA",
+    "name": {
+      "title": "",
+      "firstName": "Eliot",
+      "middleName": "Kia",
+      "lastName": "Tait"
+    },
+    "dateOfBirth": "1992-11-19",
+    "gender": "male",
+    "address": {
+      "line1": "236 Madras Street",
+      "line2": "",
+      "suburb": "Riccarton",
+      "city": "Christchurch",
+      "region": "Canterbury",
+      "postcode": "8041",
+      "country": "NZ"
+    },
+    "contactDetails": {
+      "phone": "+64 123 456",
+      "mobile": "+64 123 456",
+      "email": ""
+    },
+    "emergencyContact": {
+      "name": "Noah Harris",
+      "relationship": "Parent",
+      "phone": ""
+    },
+    "ethnicGroup": "New Zealand European",
+    "preferredLanguage": "Te Reo Māori"
+  },
+  "ZBD33XL": {
+    "nhi": "ZBD33XL",
+    "name": {
+      "title": "",
+      "firstName": "Alex",
+      "middleName": "Carter",
+      "lastName": "Harris"
+    },
+    "dateOfBirth": "1976-08-11",
+    "gender": "male",
+    "address": {
+      "line1": "240 King Street",
+      "line2": "",
+      "suburb": "Ponsonby",
+      "city": "Auckland",
+      "region": "Auckland",
+      "postcode": "1011",
+      "country": "NZ"
+    },
+    "contactDetails": {
+      "phone": "",
+      "mobile": "27851285",
+      "email": "Alex-8Harris@xtra.co.nz"
+    },
+    "emergencyContact": {
+      "name": "Aria Brown",
+      "relationship": "College",
+      "phone": ""
+    },
+    "ethnicGroup": "New Zealand European",
+    "preferredLanguage": "English"
+  },
+  "ZBJ59LE": {
+    "nhi": "ZBJ59LE",
+    "name": {
+      "title": "",
+      "firstName": "James",
+      "middleName": "Michael",
+      "lastName": "Scott"
+    },
+    "dateOfBirth": "1984-08-18",
+    "gender": "male",
+    "address": {
+      "line1": "103 Durham Street",
+      "line2": "",
+      "suburb": "Ponsonby",
+      "city": "Auckland",
+      "region": "Auckland",
+      "postcode": "1011",
+      "country": "NZ"
+    },
+    "contactDetails": {
+      "phone": "+64 123 456",
+      "mobile": "+64 123 456",
+      "email": "James-5Scott@hotmal.com"
+    },
+    "emergencyContact": {
+      "name": "John Doe",
+      "relationship": "Parent",
+      "phone": ""
+    },
+    "ethnicGroup": "New Zealand European",
+    "preferredLanguage": "English"
+  },
+  "ZBK58TM": {
+    "nhi": "ZBK58TM",
+    "name": {
+      "title": "",
+      "firstName": "Olivia",
+      "middleName": "Noah",
+      "lastName": "Grace"
+    },
+    "dateOfBirth": "1982-10-15",
+    "gender": "female",
+    "address": {
+      "line1": "95 Clyde Road",
+      "line2": "",
+      "suburb": "Hamilton Lake",
+      "city": "Hamilton",
+      "region": "Waikato",
+      "postcode": "3204",
+      "country": "NZ"
+    },
+    "contactDetails": {
+      "phone": "+64 987 654",
+      "mobile": "+64 987 654",
+      "email": "Olivia-6Grace@outlook.com"
+    },
+    "emergencyContact": {
+      "name": "Amara Anderson",
+      "relationship": "Friend",
+      "phone": ""
+    },
+    "ethnicGroup": "New Zealand European",
+    "preferredLanguage": "English"
+  },
+  "ZBS45LD": {
+    "nhi": "ZBS45LD",
+    "name": {
+      "title": "",
+      "firstName": "Noah",
+      "middleName": "Emily",
+      "lastName": "Samuel"
+    },
+    "dateOfBirth": "1975-09-28",
+    "gender": "unknown",
+    "address": {
+      "line1": "136 Great North Road",
+      "line2": "",
+      "suburb": "Christchurch Central",
+      "city": "Christchurch",
+      "region": "Canterbury",
+      "postcode": "8011",
+      "country": "NZ"
+    },
+    "contactDetails": {
+      "phone": "+64 887 654",
+      "mobile": "+64 887 654",
+      "email": ""
+    },
+    "emergencyContact": {
+      "name": "Aiden Brown",
+      "relationship": "Work",
+      "phone": ""
+    },
+    "ethnicGroup": "Māori",
+    "preferredLanguage": "English"
+  },
+  "ZCL47UF": {
+    "nhi": "ZCL47UF",
+    "name": {
+      "title": "",
+      "firstName": "Jordan",
+      "middleName": "Frank",
+      "lastName": "Michael"
+    },
+    "dateOfBirth": "2007-07-14",
+    "gender": "male",
+    "address": {
+      "line1": "130 King Street",
+      "line2": "",
+      "suburb": "St Albans",
+      "city": "Christchurch",
+      "region": "Canterbury",
+      "postcode": "8014",
+      "country": "NZ"
+    },
+    "contactDetails": {
+      "phone": "+64 887 654",
+      "mobile": "+64 887 654",
+      "email": ""
+    },
+    "emergencyContact": {
+      "name": "Ethan Hicks",
+      "relationship": "Work",
+      "phone": ""
+    },
+    "ethnicGroup": "Other European",
+    "preferredLanguage": "English"
+  },
+  "ZCL83GC": {
+    "nhi": "ZCL83GC",
+    "name": {
+      "title": "",
+      "firstName": "Taylor",
+      "middleName": "Aviva",
+      "lastName": "Zane"
+    },
+    "dateOfBirth": "1980-10-09",
+    "gender": "female",
+    "address": {
+      "line1": "61 Madras Street",
+      "line2": "",
+      "suburb": "Riccarton",
+      "city": "Christchurch",
+      "region": "Canterbury",
+      "postcode": "8041",
+      "country": "NZ"
+    },
+    "contactDetails": {
+      "phone": "+64 798 654",
+      "mobile": "+64 798 654",
+      "email": "Taylor-12Zane@icloud.com"
+    },
+    "emergencyContact": {
+      "name": "Aria Brown",
+      "relationship": "College",
+      "phone": ""
+    },
+    "ethnicGroup": "European nfd",
+    "preferredLanguage": "English"
+  },
+  "ZCM16EW": {
+    "nhi": "ZCM16EW",
+    "name": {
+      "title": "",
+      "firstName": "Benjamin",
+      "middleName": "Aaron",
+      "lastName": "Lila"
+    },
+    "dateOfBirth": "1997-02-15",
+    "gender": "male",
+    "address": {
+      "line1": "297 Great North Road",
+      "line2": "",
+      "suburb": "Mosgiel",
+      "city": "Dunedin",
+      "region": "Otago",
+      "postcode": "9024",
+      "country": "NZ"
+    },
+    "contactDetails": {
+      "phone": "+64 887 654",
+      "mobile": "+64 887 654",
+      "email": "Benjamin-13Lila@me.com"
+    },
+    "emergencyContact": {
+      "name": "Ethan Hicks",
+      "relationship": "Work",
+      "phone": ""
+    },
+    "ethnicGroup": "New Zealand European",
+    "preferredLanguage": "English"
+  },
+  "ZDJ24ZS": {
+    "nhi": "ZDJ24ZS",
+    "name": {
+      "title": "",
+      "firstName": "Matthew",
+      "middleName": "Brooke",
+      "lastName": "Ethan"
+    },
+    "dateOfBirth": "1984-07-02",
+    "gender": "male",
+    "address": {
+      "line1": "26 Lincoln Road",
+      "line2": "",
+      "suburb": "St Albans",
+      "city": "Christchurch",
+      "region": "Canterbury",
+      "postcode": "8014",
+      "country": "NZ"
+    },
+    "contactDetails": {
+      "phone": "+64 798 654",
+      "mobile": "+64 798 654",
+      "email": "Matthew-14Ethan@protonmail.ch"
+    },
+    "emergencyContact": {
+      "name": "Mila Hendricks",
+      "relationship": "College",
+      "phone": ""
+    },
+    "ethnicGroup": "New Zealand European",
+    "preferredLanguage": "English"
+  },
+  "ZDP92ZR": {
+    "nhi": "ZDP92ZR",
+    "name": {
+      "title": "",
+      "firstName": "Olivia",
+      "middleName": "Daniel",
+      "lastName": "Hunter"
+    },
+    "dateOfBirth": "1995-10-01",
+    "gender": "unknown",
+    "address": {
+      "line1": "292 Main Road",
+      "line2": "",
+      "suburb": "Mosgiel",
+      "city": "Dunedin",
+      "region": "Otago",
+      "postcode": "9024",
+      "country": "NZ"
+    },
+    "contactDetails": {
+      "phone": "+64 798 654",
+      "mobile": "+64 798 654",
+      "email": "Olivia-15Hunter@fastmail.fm"
+    },
+    "emergencyContact": {
+      "name": "Mila Hendricks",
+      "relationship": "College",
+      "phone": ""
+    },
+    "ethnicGroup": "New Zealand European",
+    "preferredLanguage": "English"
+  },
+  "ZES76BM": {
+    "nhi": "ZES76BM",
+    "name": {
+      "title": "",
+      "firstName": "Noah",
+      "middleName": "Morgan",
+      "lastName": "Felix"
+    },
+    "dateOfBirth": "2000-03-02",
+    "gender": "male",
+    "address": {
+      "line1": "115 Manukau Road",
+      "line2": "",
+      "suburb": "Newtown",
+      "city": "Wellington",
+      "region": "Wellington",
+      "postcode": "6021",
+      "country": "NZ"
+    },
+    "contactDetails": {
+      "phone": "+64 887 654",
+      "mobile": "+64 887 654",
+      "email": "Noah-16Felix@digitalocean.com"
+    },
+    "emergencyContact": {
+      "name": "Aiden Brown",
+      "relationship": "Work",
+      "phone": ""
+    },
+    "ethnicGroup": "New Zealand European",
+    "preferredLanguage": "English"
+  },
+  "ZFE35PQ": {
+    "nhi": "ZFE35PQ",
+    "name": {
+      "title": "",
+      "firstName": "Mia",
+      "middleName": "Carter",
+      "lastName": "Aurora"
+    },
+    "dateOfBirth": "1995-09-03",
+    "gender": "male",
+    "address": {
+      "line1": "110 Lambton Quay",
+      "line2": "",
+      "suburb": "Hamilton Lake",
+      "city": "Hamilton",
+      "region": "Waikato",
+      "postcode": "3204",
+      "country": "NZ"
+    },
+    "contactDetails": {
+      "phone": "+64 987 654",
+      "mobile": "+64 987 654",
+      "email": ""
+    },
+    "emergencyContact": {
+      "name": "Jane Smith",
+      "relationship": "Friend",
+      "phone": ""
+    },
+    "ethnicGroup": "Chinese",
+    "preferredLanguage": "English"
+  },
+  "ZFZ57UL": {
+    "nhi": "ZFZ57UL",
+    "name": {
+      "title": "",
+      "firstName": "Jordan",
+      "middleName": "Te Hīnāpapa",
+      "lastName": "Tait"
+    },
+    "dateOfBirth": "1986-12-30",
+    "gender": "female",
+    "address": {
+      "line1": "48 Cuba Street",
+      "line2": "",
+      "suburb": "Riccarton",
+      "city": "Christchurch",
+      "region": "Canterbury",
+      "postcode": "8041",
+      "country": "NZ"
+    },
+    "contactDetails": {
+      "phone": "+64 798 654",
+      "mobile": "+64 798 654",
+      "email": "Jordan-18Tait@googlemail.com"
+    },
+    "emergencyContact": {
+      "name": "Sophia Davies",
+      "relationship": "College",
+      "phone": ""
+    },
+    "ethnicGroup": "Southeast Asian",
+    "preferredLanguage": "Te Reo Māori"
+  },
+  "ZGA02YJ": {
+    "nhi": "ZGA02YJ",
+    "name": {
+      "title": "",
+      "firstName": "Jordan",
+      "middleName": "Grace",
+      "lastName": "Seraphina"
+    },
+    "dateOfBirth": "1978-08-30",
+    "gender": "female",
+    "address": {
+      "line1": "99 Lincoln Road",
+      "line2": "",
+      "suburb": "Hamilton Lake",
+      "city": "Hamilton",
+      "region": "Waikato",
+      "postcode": "3204",
+      "country": "NZ"
+    },
+    "contactDetails": {
+      "phone": "+64 798 654",
+      "mobile": "+64 798 654",
+      "email": ""
+    },
+    "emergencyContact": {
+      "name": "Aria Brown",
+      "relationship": "College",
+      "phone": ""
+    },
+    "ethnicGroup": "New Zealand European",
+    "preferredLanguage": "English"
+  }
+}

@@ -1,0 +1,870 @@
+{
+  "ZAK21MS": [
+    {
+      "id": "1",
+      "name": "Amoxicillin",
+      "dosage": "500mg",
+      "frequency": "Oral tablet",
+      "route": "oral",
+      "prescribingDoctor": "Dr Charlotte Desai",
+      "prescriptionDate": "2025-08-28T00:00:00.000Z",
+      "startDate": "2025-08-28T00:00:00.000Z",
+      "endDate": "2025-09-27T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "2",
+      "name": "Hydrocortisone",
+      "dosage": "Apply thinly",
+      "frequency": "Topical cream",
+      "route": "topical",
+      "prescribingDoctor": "Dr Tāne Kapoor",
+      "prescriptionDate": "2025-08-29T00:00:00.000Z",
+      "startDate": "2025-08-29T00:00:00.000Z",
+      "endDate": "2025-09-12T00:00:00.000Z",
+      "status": "active"
+    }
+  ],
+  "ZAP28LA": [
+    {
+      "id": "4",
+      "name": "Prednisone",
+      "dosage": "50mcg",
+      "frequency": "Oral tablet",
+      "route": "oral",
+      "prescribingDoctor": "Dr Wiremu Sharma",
+      "prescriptionDate": "2025-08-30T00:00:00.000Z",
+      "startDate": "2025-08-30T00:00:00.000Z",
+      "endDate": "2025-09-28T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "5",
+      "name": "Betamethasone valerate",
+      "dosage": "Apply sparingly",
+      "frequency": "Topical cream",
+      "route": "topical",
+      "prescribingDoctor": "Dr Wiremu Sharma",
+      "prescriptionDate": "2025-08-30T00:00:00.000Z",
+      "startDate": "2025-08-30T00:00:00.000Z",
+      "endDate": "2025-09-13T00:00:00.000Z",
+      "status": "active"
+    }
+  ],
+  "ZBD33XL": [
+    {
+      "id": "6",
+      "name": "Paracetamol",
+      "dosage": "500mg",
+      "frequency": "Oral tablet",
+      "route": "oral",
+      "prescribingDoctor": "Dr Wiremu Sharma",
+      "prescriptionDate": "2025-08-31T00:00:00.000Z",
+      "startDate": "2025-08-31T00:00:00.000Z",
+      "endDate": "2025-09-10T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "7",
+      "name": "Mometasone furoate",
+      "dosage": "Apply thinly",
+      "frequency": "Topical cream",
+      "route": "topical",
+      "prescribingDoctor": "Dr Tāne Kapoor",
+      "prescriptionDate": "2025-08-31T00:00:00.000Z",
+      "startDate": "2025-08-31T00:00:00.000Z",
+      "endDate": "2025-09-14T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "10",
+      "name": "Atorvastatin",
+      "dosage": "20mg",
+      "frequency": "Oral tablet",
+      "route": "oral",
+      "prescribingDoctor": "Dr Moana Singh",
+      "prescriptionDate": "2025-08-31T00:00:00.000Z",
+      "startDate": "2025-08-31T00:00:00.000Z",
+      "endDate": "2025-09-30T00:00:00.000Z",
+      "status": "active"
+    }
+  ],
+  "ZBJ59LE": [
+    {
+      "id": "11",
+      "name": "Triamcinolone acetonide",
+      "dosage": "Apply thinly",
+      "frequency": "Topical cream",
+      "route": "topical",
+      "prescribingDoctor": "Dr James Kaur",
+      "prescriptionDate": "2025-08-31T00:00:00.000Z",
+      "startDate": "2025-08-31T00:00:00.000Z",
+      "endDate": "2025-09-15T00:00:00.000Z",
+      "status": "active"
+    }
+  ],
+  "ZBK58TM": [
+    {
+      "id": "15",
+      "name": "Omeprazole",
+      "dosage": "20mg",
+      "frequency": "Oral tablet",
+      "route": "oral",
+      "prescribingDoctor": "Dr Mereana Joshi",
+      "prescriptionDate": "2025-08-31T00:00:00.000Z",
+      "startDate": "2025-08-31T00:00:00.000Z",
+      "endDate": "2025-09-30T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "16",
+      "name": "Fusidic acid",
+      "dosage": "Apply nightly",
+      "frequency": "Topical cream",
+      "route": "topical",
+      "prescribingDoctor": "Dr Charlotte Desai",
+      "prescriptionDate": "2025-08-31T00:00:00.000Z",
+      "startDate": "2025-08-31T00:00:00.000Z",
+      "endDate": "2025-09-14T00:00:00.000Z",
+      "status": "active"
+    }
+  ],
+  "ZBS45LD": [
+    {
+      "id": "17",
+      "name": "Aspirin",
+      "dosage": "100mg",
+      "frequency": "Oral tablet",
+      "route": "oral",
+      "prescribingDoctor": "Dr Priya Clarke",
+      "prescriptionDate": "2025-08-31T00:00:00.000Z",
+      "startDate": "2025-08-31T00:00:00.000Z",
+      "endDate": "2025-09-30T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "18",
+      "name": "Sertraline",
+      "dosage": "500mg",
+      "frequency": "Oral tablet",
+      "route": "oral",
+      "prescribingDoctor": "Dr Rohan Te Rangi",
+      "prescriptionDate": "2025-08-31T00:00:00.000Z",
+      "startDate": "2025-08-31T00:00:00.000Z",
+      "endDate": "2025-09-30T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "19",
+      "name": "Clobetasol propionate",
+      "dosage": "Apply thinly",
+      "frequency": "Topical cream",
+      "route": "topical",
+      "prescribingDoctor": "Dr Anika Thompson",
+      "prescriptionDate": "2025-08-31T00:00:00.000Z",
+      "startDate": "2025-08-31T00:00:00.000Z",
+      "endDate": "2025-09-14T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "20",
+      "name": "Amlodipine",
+      "dosage": "16mg",
+      "frequency": "Oral tablet",
+      "route": "oral",
+      "prescribingDoctor": "Dr Harpreet Ngatai",
+      "prescriptionDate": "2025-08-31T00:00:00.000Z",
+      "startDate": "2025-08-31T00:00:00.000Z",
+      "endDate": "2025-09-30T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "21",
+      "name": "Diclofenac sodium",
+      "dosage": "Apply to joints",
+      "frequency": "Topical cream",
+      "route": "topical",
+      "prescribingDoctor": "Dr Arjun Wainui",
+      "prescriptionDate": "2025-08-31T00:00:00.000Z",
+      "startDate": "2025-08-31T00:00:00.000Z",
+      "endDate": "2025-09-14T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "22",
+      "name": "Loratadine",
+      "dosage": "10mg",
+      "frequency": "Oral tablet",
+      "route": "oral",
+      "prescribingDoctor": "Dr Aroha Patel",
+      "prescriptionDate": "2025-08-31T00:00:00.000Z",
+      "startDate": "2025-08-31T00:00:00.000Z",
+      "endDate": "2025-09-30T00:00:00.000Z",
+      "status": "active"
+    }
+  ],
+  "ZCL47UF": [
+    {
+      "id": "23",
+      "name": "Cetirizine hydrochloride",
+      "dosage": "5mg",
+      "frequency": "Oral tablet",
+      "route": "oral",
+      "prescribingDoctor": "Dr Neha Rawiri",
+      "prescriptionDate": "2025-08-31T00:00:00.000Z",
+      "startDate": "2025-08-31T00:00:00.000Z",
+      "endDate": "2025-09-30T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "24",
+      "name": "Colecalciferol",
+      "dosage": "1000 IU",
+      "frequency": "Oral tablet",
+      "route": "oral",
+      "prescribingDoctor": "Dr Moana Singh",
+      "prescriptionDate": "2025-08-31T00:00:00.000Z",
+      "startDate": "2025-08-31T00:00:00.000Z",
+      "endDate": "2025-09-30T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "25",
+      "name": "Fluoxetine",
+      "dosage": "30mg",
+      "frequency": "Oral tablet",
+      "route": "oral",
+      "prescribingDoctor": "Dr James Kaur",
+      "prescriptionDate": "2025-08-31T00:00:00.000Z",
+      "startDate": "2025-08-31T00:00:00.000Z",
+      "endDate": "2025-09-15T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "26",
+      "name": "Celecoxib",
+      "dosage": "7.5mg",
+      "frequency": "Oral tablet",
+      "route": "oral",
+      "prescribingDoctor": "Dr Mereana Joshi",
+      "prescriptionDate": "2025-08-31T00:00:00.000Z",
+      "startDate": "2025-08-31T00:00:00.000Z",
+      "endDate": "2025-09-14T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "27",
+      "name": "Codeine phosphate",
+      "dosage": "15mg",
+      "frequency": "Oral tablet",
+      "route": "oral",
+      "prescribingDoctor": "Dr Charlotte Desai",
+      "prescriptionDate": "2025-08-31T00:00:00.000Z",
+      "startDate": "2025-08-31T00:00:00.000Z",
+      "endDate": "2025-09-30T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "28",
+      "name": "Medroxyprogesterone acetate",
+      "dosage": "Apply to scalp",
+      "frequency": "",
+      "prescribingDoctor": "Dr Tāne Kapoor",
+      "prescriptionDate": "2025-08-31T00:00:00.000Z",
+      "startDate": "2025-08-31T00:00:00.000Z",
+      "endDate": "2025-09-14T00:00:00.000Z",
+      "status": "active"
+    }
+  ],
+  "ZCL83GC": [
+    {
+      "id": "29",
+      "name": "Ibuprofen",
+      "dosage": "200mg",
+      "frequency": "Oral tablet",
+      "route": "oral",
+      "prescribingDoctor": "Dr Priya Clarke",
+      "prescriptionDate": "2025-08-31T00:00:00.000Z",
+      "startDate": "2025-08-31T00:00:00.000Z",
+      "endDate": "2025-09-14T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "30",
+      "name": "Levothyroxine",
+      "dosage": "100mcg",
+      "frequency": "Oral tablet",
+      "route": "oral",
+      "prescribingDoctor": "Dr Wiremu Sharma",
+      "prescriptionDate": "2025-08-31T00:00:00.000Z",
+      "startDate": "2025-08-31T00:00:00.000Z",
+      "endDate": "2025-09-30T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "31",
+      "name": "Zopiclone",
+      "dosage": "5mg",
+      "frequency": "Oral tablet",
+      "route": "oral",
+      "prescribingDoctor": "Dr Anika Thompson",
+      "prescriptionDate": "2025-08-31T00:00:00.000Z",
+      "startDate": "2025-08-31T00:00:00.000Z",
+      "endDate": "2025-09-14T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "32",
+      "name": "Metoprolol succinate",
+      "dosage": "50mg",
+      "frequency": "Oral tablet",
+      "route": "oral",
+      "prescribingDoctor": "Dr Harpreet Ngatai",
+      "prescriptionDate": "2025-08-31T00:00:00.000Z",
+      "startDate": "2025-08-31T00:00:00.000Z",
+      "endDate": "2025-09-30T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "33",
+      "name": "Mometasone furoate",
+      "dosage": "Apply to rash",
+      "frequency": "Topical cream",
+      "route": "topical",
+      "prescribingDoctor": "Dr Arjun Wainui",
+      "prescriptionDate": "2025-08-31T00:00:00.000Z",
+      "startDate": "2025-08-31T00:00:00.000Z",
+      "endDate": "2025-09-14T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "34",
+      "name": "Candesartan cilexetil",
+      "dosage": "8mg",
+      "frequency": "Oral tablet",
+      "route": "oral",
+      "prescribingDoctor": "Dr Aroha Patel",
+      "prescriptionDate": "2025-08-31T00:00:00.000Z",
+      "startDate": "2025-08-31T00:00:00.000Z",
+      "endDate": "2025-09-30T00:00:00.000Z",
+      "status": "active"
+    }
+  ],
+  "ZCM16EW": [
+    {
+      "id": "35",
+      "name": "Fluoxetine",
+      "dosage": "20mg",
+      "frequency": "Oral tablet",
+      "route": "oral",
+      "prescribingDoctor": "Dr Neha Rawiri",
+      "prescriptionDate": "2025-08-31T00:00:00.000Z",
+      "startDate": "2025-08-31T00:00:00.000Z",
+      "endDate": "2025-09-30T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "36",
+      "name": "Prednisone",
+      "dosage": "75mcg",
+      "frequency": "Oral tablet",
+      "route": "oral",
+      "prescribingDoctor": "Dr Moana Singh",
+      "prescriptionDate": "2025-08-31T00:00:00.000Z",
+      "startDate": "2025-08-31T00:00:00.000Z",
+      "endDate": "2025-09-30T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "37",
+      "name": "Paracetamol",
+      "dosage": "500mg",
+      "frequency": "Oral tablet",
+      "route": "oral",
+      "prescribingDoctor": "Dr James Kaur",
+      "prescriptionDate": "2025-08-31T00:00:00.000Z",
+      "startDate": "2025-08-31T00:00:00.000Z",
+      "endDate": "2025-09-14T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "38",
+      "name": "Fusidic acid",
+      "dosage": "Apply to wound",
+      "frequency": "Topical cream",
+      "route": "topical",
+      "prescribingDoctor": "Dr Mereana Joshi",
+      "prescriptionDate": "2025-08-31T00:00:00.000Z",
+      "startDate": "2025-08-31T00:00:00.000Z",
+      "endDate": "2025-09-14T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "39",
+      "name": "Calcipotriol",
+      "dosage": "Apply to skin",
+      "frequency": "Topical cream",
+      "route": "topical",
+      "prescribingDoctor": "Dr Charlotte Desai",
+      "prescriptionDate": "2025-08-31T00:00:00.000Z",
+      "startDate": "2025-08-31T00:00:00.000Z",
+      "endDate": "2025-09-14T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "40",
+      "name": "Metoprolol succinate",
+      "dosage": "25mg",
+      "frequency": "Oral tablet",
+      "route": "oral",
+      "prescribingDoctor": "Dr Tāne Kapoor",
+      "prescriptionDate": "2025-08-31T00:00:00.000Z",
+      "startDate": "2025-08-31T00:00:00.000Z",
+      "endDate": "2025-09-30T00:00:00.000Z",
+      "status": "active"
+    }
+  ],
+  "ZDJ24ZS": [
+    {
+      "id": "41",
+      "name": "Atorvastatin",
+      "dosage": "10mg",
+      "frequency": "Oral tablet",
+      "route": "oral",
+      "prescribingDoctor": "Dr Priya Clarke",
+      "prescriptionDate": "2025-08-31T00:00:00.000Z",
+      "startDate": "2025-08-31T00:00:00.000Z",
+      "endDate": "2025-09-30T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "42",
+      "name": "Amoxicillin",
+      "dosage": "500mg",
+      "frequency": "Oral tablet",
+      "route": "oral",
+      "prescribingDoctor": "Dr Wiremu Sharma",
+      "prescriptionDate": "2025-08-31T00:00:00.000Z",
+      "startDate": "2025-08-31T00:00:00.000Z",
+      "endDate": "2025-09-14T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "43",
+      "name": "Hydrocortisone",
+      "dosage": "Apply to rash",
+      "frequency": "Topical cream",
+      "route": "topical",
+      "prescribingDoctor": "Dr Anika Thompson",
+      "prescriptionDate": "2025-08-31T00:00:00.000Z",
+      "startDate": "2025-08-31T00:00:00.000Z",
+      "endDate": "2025-09-14T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "44",
+      "name": "Betamethasone valerate",
+      "dosage": "Apply sparingly",
+      "frequency": "Topical cream",
+      "route": "topical",
+      "prescribingDoctor": "Dr Harpreet Ngatai",
+      "prescriptionDate": "2025-08-31T00:00:00.000Z",
+      "startDate": "2025-08-31T00:00:00.000Z",
+      "endDate": "2025-09-14T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "45",
+      "name": "Metformin hydrochloride",
+      "dosage": "500mg",
+      "frequency": "Oral tablet",
+      "route": "oral",
+      "prescribingDoctor": "Dr Arjun Wainui",
+      "prescriptionDate": "2025-08-31T00:00:00.000Z",
+      "startDate": "2025-08-31T00:00:00.000Z",
+      "endDate": "2025-09-30T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "46",
+      "name": "Colecalciferol",
+      "dosage": "1000 IU",
+      "frequency": "Oral tablet",
+      "route": "oral",
+      "prescribingDoctor": "Dr Aroha Patel",
+      "prescriptionDate": "2025-08-31T00:00:00.000Z",
+      "startDate": "2025-08-31T00:00:00.000Z",
+      "endDate": "2025-09-30T00:00:00.000Z",
+      "status": "active"
+    }
+  ],
+  "ZDP92ZR": [
+    {
+      "id": "47",
+      "name": "Omeprazole",
+      "dosage": "20mg",
+      "frequency": "Oral tablet",
+      "route": "oral",
+      "prescribingDoctor": "Dr Neha Rawiri",
+      "prescriptionDate": "2025-06-01T00:00:00.000Z",
+      "startDate": "2025-06-01T00:00:00.000Z",
+      "endDate": "2025-07-01T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "48",
+      "name": "Hydrocortisone",
+      "dosage": "Apply to rash",
+      "frequency": "Topical cream",
+      "route": "topical",
+      "prescribingDoctor": "Dr Moana Singh",
+      "prescriptionDate": "2025-06-15T00:00:00.000Z",
+      "startDate": "2025-06-15T00:00:00.000Z",
+      "endDate": "2025-06-29T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "49",
+      "name": "Prednisone",
+      "dosage": "50mcg",
+      "frequency": "Oral tablet",
+      "route": "oral",
+      "prescribingDoctor": "Dr James Kaur",
+      "prescriptionDate": "2025-07-10T00:00:00.000Z",
+      "startDate": "2025-07-10T00:00:00.000Z",
+      "endDate": "2025-08-09T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "50",
+      "name": "Calcipotriol",
+      "dosage": "Apply to skin",
+      "frequency": "Topical cream",
+      "route": "topical",
+      "prescribingDoctor": "Dr Mereana Joshi",
+      "prescriptionDate": "2025-08-01T00:00:00.000Z",
+      "startDate": "2025-08-01T00:00:00.000Z",
+      "endDate": "2025-08-15T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "51",
+      "name": "Amlodipine",
+      "dosage": "8mg",
+      "frequency": "Oral tablet",
+      "route": "oral",
+      "prescribingDoctor": "Dr Charlotte Desai",
+      "prescriptionDate": "2025-08-15T00:00:00.000Z",
+      "startDate": "2025-08-15T00:00:00.000Z",
+      "endDate": "2025-09-14T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "52",
+      "name": "Loratadine",
+      "dosage": "10mg",
+      "frequency": "Oral tablet",
+      "route": "oral",
+      "prescribingDoctor": "Dr Tāne Kapoor",
+      "prescriptionDate": "2025-08-30T00:00:00.000Z",
+      "startDate": "2025-08-30T00:00:00.000Z",
+      "endDate": "2025-09-29T00:00:00.000Z",
+      "status": "active"
+    }
+  ],
+  "ZES76BM": [
+    {
+      "id": "53",
+      "name": "Atorvastatin",
+      "dosage": "10mg",
+      "frequency": "Oral tablet",
+      "route": "oral",
+      "prescribingDoctor": "Dr Priya Clarke",
+      "prescriptionDate": "2025-04-01T00:00:00.000Z",
+      "startDate": "2025-04-01T00:00:00.000Z",
+      "endDate": "2025-05-01T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "54",
+      "name": "Triamcinolone acetonide",
+      "dosage": "Apply to eczema",
+      "frequency": "Topical cream",
+      "route": "topical",
+      "prescribingDoctor": "Dr Wiremu Sharma",
+      "prescriptionDate": "2025-05-10T00:00:00.000Z",
+      "startDate": "2025-05-10T00:00:00.000Z",
+      "endDate": "2025-05-24T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "55",
+      "name": "Colecalciferol",
+      "dosage": "1000 IU",
+      "frequency": "Oral tablet",
+      "route": "oral",
+      "prescribingDoctor": "Dr Anika Thompson",
+      "prescriptionDate": "2025-06-15T00:00:00.000Z",
+      "startDate": "2025-06-15T00:00:00.000Z",
+      "endDate": "2025-07-15T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "56",
+      "name": "Zopiclone",
+      "dosage": "5mg",
+      "frequency": "Oral tablet",
+      "route": "oral",
+      "prescribingDoctor": "Dr Harpreet Ngatai",
+      "prescriptionDate": "2025-07-20T00:00:00.000Z",
+      "startDate": "2025-07-20T00:00:00.000Z",
+      "endDate": "2025-08-03T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "57",
+      "name": "Mometasone furoate",
+      "dosage": "Apply to rash",
+      "frequency": "Topical cream",
+      "route": "topical",
+      "prescribingDoctor": "Dr Arjun Wainui",
+      "prescriptionDate": "2025-08-10T00:00:00.000Z",
+      "startDate": "2025-08-10T00:00:00.000Z",
+      "endDate": "2025-08-24T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "58",
+      "name": "Candesartan cilexetil",
+      "dosage": "8mg",
+      "frequency": "Oral tablet",
+      "route": "oral",
+      "prescribingDoctor": "Dr Aroha Patel",
+      "prescriptionDate": "2025-08-25T00:00:00.000Z",
+      "startDate": "2025-08-25T00:00:00.000Z",
+      "endDate": "2025-09-24T00:00:00.000Z",
+      "status": "active"
+    }
+  ],
+  "ZFE35PQ": [
+    {
+      "id": "59",
+      "name": "Ibuprofen",
+      "dosage": "200mg",
+      "frequency": "Oral tablet",
+      "route": "oral",
+      "prescribingDoctor": "Dr Neha Rawiri",
+      "prescriptionDate": "2025-04-15T00:00:00.000Z",
+      "startDate": "2025-04-15T00:00:00.000Z",
+      "endDate": "2025-04-29T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "60",
+      "name": "Levothyroxine",
+      "dosage": "100mcg",
+      "frequency": "Oral tablet",
+      "route": "oral",
+      "prescribingDoctor": "Dr Moana Singh",
+      "prescriptionDate": "2025-05-10T00:00:00.000Z",
+      "startDate": "2025-05-10T00:00:00.000Z",
+      "endDate": "2025-06-09T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "61",
+      "name": "Clobetasol propionate",
+      "dosage": "Apply thinly",
+      "frequency": "Topical cream",
+      "route": "topical",
+      "prescribingDoctor": "Dr James Kaur",
+      "prescriptionDate": "2025-06-20T00:00:00.000Z",
+      "startDate": "2025-06-20T00:00:00.000Z",
+      "endDate": "2025-07-04T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "62",
+      "name": "Metoprolol succinate",
+      "dosage": "50mg",
+      "frequency": "Oral tablet",
+      "route": "oral",
+      "prescribingDoctor": "Dr Mereana Joshi",
+      "prescriptionDate": "2025-07-15T00:00:00.000Z",
+      "startDate": "2025-07-15T00:00:00.000Z",
+      "endDate": "2025-08-14T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "63",
+      "name": "Medroxyprogesterone acetate",
+      "dosage": "Apply to scalp",
+      "frequency": "",
+      "prescribingDoctor": "Dr Charlotte Desai",
+      "prescriptionDate": "2025-08-10T00:00:00.000Z",
+      "startDate": "2025-08-10T00:00:00.000Z",
+      "endDate": "2025-08-24T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "64",
+      "name": "Candesartan cilexetil",
+      "dosage": "8mg",
+      "frequency": "Oral tablet",
+      "route": "oral",
+      "prescribingDoctor": "Dr Tāne Kapoor",
+      "prescriptionDate": "2025-08-28T00:00:00.000Z",
+      "startDate": "2025-08-28T00:00:00.000Z",
+      "endDate": "2025-09-27T00:00:00.000Z",
+      "status": "active"
+    }
+  ],
+  "ZFZ57UL": [
+    {
+      "id": "65",
+      "name": "Amoxicillin",
+      "dosage": "500mg",
+      "frequency": "Oral tablet",
+      "route": "oral",
+      "prescribingDoctor": "Dr Tāne Kapoor",
+      "prescriptionDate": "2025-03-01T00:00:00.000Z",
+      "startDate": "2025-03-01T00:00:00.000Z",
+      "endDate": "2025-03-31T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "66",
+      "name": "Betamethasone valerate",
+      "dosage": "Apply sparingly",
+      "frequency": "Topical cream",
+      "route": "topical",
+      "prescribingDoctor": "Dr Charlotte Desai",
+      "prescriptionDate": "2025-04-05T00:00:00.000Z",
+      "startDate": "2025-04-05T00:00:00.000Z",
+      "endDate": "2025-04-19T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "67",
+      "name": "Metformin hydrochloride",
+      "dosage": "500mg",
+      "frequency": "Oral tablet",
+      "route": "oral",
+      "prescribingDoctor": "Dr Harpreet Ngatai",
+      "prescriptionDate": "2025-05-10T00:00:00.000Z",
+      "startDate": "2025-05-10T00:00:00.000Z",
+      "endDate": "2025-06-09T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "68",
+      "name": "Triamcinolone acetonide",
+      "dosage": "Apply to eczema",
+      "frequency": "Topical cream",
+      "route": "topical",
+      "prescribingDoctor": "Dr Harpreet Ngatai",
+      "prescriptionDate": "2025-06-20T00:00:00.000Z",
+      "startDate": "2025-06-20T00:00:00.000Z",
+      "endDate": "2025-07-04T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "69",
+      "name": "Colecalciferol",
+      "dosage": "1000 IU",
+      "frequency": "Oral tablet",
+      "route": "oral",
+      "prescribingDoctor": "Dr Mereana Joshi",
+      "prescriptionDate": "2025-07-30T00:00:00.000Z",
+      "startDate": "2025-07-30T00:00:00.000Z",
+      "endDate": "2025-08-29T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "70",
+      "name": "Atorvastatin",
+      "dosage": "10mg",
+      "frequency": "Oral tablet",
+      "route": "oral",
+      "prescribingDoctor": "Dr Aroha Patel",
+      "prescriptionDate": "2025-08-20T00:00:00.000Z",
+      "startDate": "2025-08-20T00:00:00.000Z",
+      "endDate": "2025-09-19T00:00:00.000Z",
+      "status": "active"
+    }
+  ],
+  "ZGA02YJ": [
+    {
+      "id": "71",
+      "name": "Aspirin",
+      "dosage": "100mg",
+      "frequency": "Oral tablet",
+      "route": "oral",
+      "prescribingDoctor": "Dr Tāne Kapoor",
+      "prescriptionDate": "2025-02-15T00:00:00.000Z",
+      "startDate": "2025-02-15T00:00:00.000Z",
+      "endDate": "2025-03-16T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "72",
+      "name": "Sertraline",
+      "dosage": "500mg",
+      "frequency": "Oral tablet",
+      "route": "oral",
+      "prescribingDoctor": "Dr Priya Clarke",
+      "prescriptionDate": "2025-03-20T00:00:00.000Z",
+      "startDate": "2025-03-20T00:00:00.000Z",
+      "endDate": "2025-04-19T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "73",
+      "name": "Clobetasol propionate",
+      "dosage": "Apply thinly",
+      "frequency": "Topical cream",
+      "route": "topical",
+      "prescribingDoctor": "Dr Tāne Kapoor",
+      "prescriptionDate": "2025-05-01T00:00:00.000Z",
+      "startDate": "2025-05-01T00:00:00.000Z",
+      "endDate": "2025-05-15T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "74",
+      "name": "Amlodipine",
+      "dosage": "16mg",
+      "frequency": "Oral tablet",
+      "route": "oral",
+      "prescribingDoctor": "Dr Wiremu Sharma",
+      "prescriptionDate": "2025-06-10T00:00:00.000Z",
+      "startDate": "2025-06-10T00:00:00.000Z",
+      "endDate": "2025-07-10T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "75",
+      "name": "Diclofenac sodium",
+      "dosage": "Apply to joints",
+      "frequency": "Topical cream",
+      "route": "topical",
+      "prescribingDoctor": "Dr Wiremu Sharma",
+      "prescriptionDate": "2025-07-25T00:00:00.000Z",
+      "startDate": "2025-07-25T00:00:00.000Z",
+      "endDate": "2025-08-08T00:00:00.000Z",
+      "status": "active"
+    },
+    {
+      "id": "76",
+      "name": "Loratadine",
+      "dosage": "10mg",
+      "frequency": "Oral tablet",
+      "route": "oral",
+      "prescribingDoctor": "Dr Tāne Kapoor",
+      "prescriptionDate": "2025-08-20T00:00:00.000Z",
+      "startDate": "2025-08-20T00:00:00.000Z",
+      "endDate": "2025-09-19T00:00:00.000Z",
+      "status": "active"
+    }
+  ]
+}

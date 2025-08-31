@@ -1,0 +1,471 @@
+{
+  "ZHV48PG": [
+    {
+      "id": "5",
+      "testName": "Liver Function Panel",
+      "testDate": "1995-03-12T00:00:00Z",
+      "laboratory": "Southern Community Laboratories",
+      "results": [
+        {
+          "parameter": "ALT",
+          "value": "32",
+          "unit": "U/L",
+          "referenceRange": "7-56 U/L",
+          "status": "normal"
+        },
+        {
+          "parameter": "AST",
+          "value": "28",
+          "unit": "U/L",
+          "referenceRange": "10-40 U/L",
+          "status": "normal"
+        },
+        {
+          "parameter": "ALP",
+          "value": "110",
+          "unit": "U/L",
+          "referenceRange": "44-147 U/L",
+          "status": "normal"
+        }
+      ],
+      "clinicalNotes": "All values are within reference ranges. No immediate action required."
+    },
+    {
+      "id": "22",
+      "testName": "Lipid Panel",
+      "testDate": "1999-07-25T00:00:00Z",
+      "laboratory": "Southern Community Laboratories",
+      "results": [
+        {
+          "parameter": "Total Cholesterol",
+          "value": "6.2",
+          "unit": "mmol/L",
+          "referenceRange": "0-5.2 mmol/L",
+          "status": "high"
+        },
+        {
+          "parameter": "HDL",
+          "value": "1.4",
+          "unit": "mmol/L",
+          "referenceRange": "1-0 mmol/L",
+          "status": "normal"
+        },
+        {
+          "parameter": "LDL",
+          "value": "4.1",
+          "unit": "mmol/L",
+          "referenceRange": "0-3.4 mmol/L",
+          "status": "high"
+        },
+        {
+          "parameter": "Triglycerides",
+          "value": "1.8",
+          "unit": "mmol/L",
+          "referenceRange": "0-1.7 mmol/L",
+          "status": "high"
+        }
+      ],
+      "clinicalNotes": "Findings include elevated values: Total Cholesterol, LDL, Triglycerides. Consider follow-up if clinically indicated."
+    },
+    {
+      "id": "23",
+      "testName": "HbA1c",
+      "testDate": "2004-11-03T00:00:00Z",
+      "laboratory": "Southern Community Laboratories",
+      "results": [
+        {
+          "parameter": "HbA1c",
+          "value": "5.8",
+          "unit": "%",
+          "referenceRange": "4-5.6 %",
+          "status": "borderline"
+        }
+      ],
+      "clinicalNotes": "Findings include borderline values: HbA1c. Consider follow-up if clinically indicated."
+    },
+    {
+      "id": "24",
+      "testName": "Iron Studies",
+      "testDate": "2009-04-18T00:00:00Z",
+      "laboratory": "Southern Community Laboratories",
+      "results": [
+        {
+          "parameter": "Ferritin",
+          "value": "85",
+          "unit": "µg/L",
+          "referenceRange": "30-400 µg/L",
+          "status": "normal"
+        },
+        {
+          "parameter": "Serum Iron",
+          "value": "14",
+          "unit": "µmol/L",
+          "referenceRange": "10-30 µmol/L",
+          "status": "normal"
+        },
+        {
+          "parameter": "TIBC",
+          "value": "58",
+          "unit": "µmol/L",
+          "referenceRange": "45-70 µmol/L",
+          "status": "normal"
+        }
+      ],
+      "clinicalNotes": "All values are within reference ranges. No immediate action required."
+    },
+    {
+      "id": "25",
+      "testName": "Vitamin D",
+      "testDate": "2014-09-30T00:00:00Z",
+      "laboratory": "Southern Community Laboratories",
+      "results": [
+        {
+          "parameter": "25(OH)D",
+          "value": "42",
+          "unit": "nmol/L",
+          "referenceRange": "50-0 nmol/L",
+          "status": "low"
+        }
+      ],
+      "clinicalNotes": "Findings include low values: 25(OH)D. Consider follow-up if clinically indicated."
+    },
+    {
+      "id": "26",
+      "testName": "Complete Blood Count (CBC)",
+      "testDate": "2019-09-14T00:00:00Z",
+      "laboratory": "Southern Community Laboratories",
+      "results": [
+        {
+          "parameter": "Hemoglobin",
+          "value": "135",
+          "unit": "g/L",
+          "referenceRange": "130-180 g/L",
+          "status": "normal"
+        },
+        {
+          "parameter": "WBC",
+          "value": "6.2",
+          "unit": "x10⁹/L",
+          "referenceRange": "4-11 x10⁹/L",
+          "status": "normal"
+        },
+        {
+          "parameter": "Platelets",
+          "value": "210",
+          "unit": "x10⁹/L",
+          "referenceRange": "150-400 x10⁹/L",
+          "status": "normal"
+        }
+      ],
+      "clinicalNotes": "All values are within reference ranges. No immediate action required."
+    },
+    {
+      "id": "27",
+      "testName": "Blood Glucose",
+      "testDate": "2025-06-01T00:00:00Z",
+      "laboratory": "Southern Community Laboratories",
+      "results": [
+        {
+          "parameter": "Fasting Glucose",
+          "value": "5.4",
+          "unit": "mmol/L",
+          "referenceRange": "3.9-5.5 mmol/L",
+          "status": "normal"
+        }
+      ],
+      "clinicalNotes": "All values are within reference ranges. No immediate action required."
+    }
+  ],
+  "ZAK21MS": [
+    {
+      "id": "31",
+      "testName": "Liver Function Panel",
+      "testDate": "2010-06-15T00:00:00Z",
+      "laboratory": "Awanui Labs",
+      "results": [
+        {
+          "parameter": "ALT",
+          "value": "29",
+          "unit": "U/L",
+          "referenceRange": "7-56 U/L",
+          "status": "normal"
+        },
+        {
+          "parameter": "AST",
+          "value": "33",
+          "unit": "U/L",
+          "referenceRange": "10-40 U/L",
+          "status": "normal"
+        },
+        {
+          "parameter": "ALP",
+          "value": "102",
+          "unit": "U/L",
+          "referenceRange": "44-147 U/L",
+          "status": "normal"
+        }
+      ],
+      "clinicalNotes": "All values are within reference ranges. No immediate action required."
+    },
+    {
+      "id": "32",
+      "testName": "Lipid Panel",
+      "testDate": "2013-09-22T00:00:00Z",
+      "laboratory": "Awanui Labs",
+      "results": [
+        {
+          "parameter": "Total Cholesterol",
+          "value": "5.9",
+          "unit": "mmol/L",
+          "referenceRange": "0-5.2 mmol/L",
+          "status": "high"
+        },
+        {
+          "parameter": "HDL",
+          "value": "1.6",
+          "unit": "mmol/L",
+          "referenceRange": "1-0 mmol/L",
+          "status": "normal"
+        },
+        {
+          "parameter": "LDL",
+          "value": "3.9",
+          "unit": "mmol/L",
+          "referenceRange": "0-3.4 mmol/L",
+          "status": "high"
+        },
+        {
+          "parameter": "Triglycerides",
+          "value": "1.5",
+          "unit": "mmol/L",
+          "referenceRange": "0-1.7 mmol/L",
+          "status": "normal"
+        }
+      ],
+      "clinicalNotes": "Findings include elevated values: Total Cholesterol, LDL. Consider follow-up if clinically indicated."
+    },
+    {
+      "id": "33",
+      "testName": "HbA1c",
+      "testDate": "2016-11-05T00:00:00Z",
+      "laboratory": "Awanui Labs",
+      "results": [
+        {
+          "parameter": "HbA1c",
+          "value": "5.5",
+          "unit": "%",
+          "referenceRange": "4-5.6 %",
+          "status": "normal"
+        }
+      ],
+      "clinicalNotes": "All values are within reference ranges. No immediate action required."
+    },
+    {
+      "id": "34",
+      "testName": "Thyroid Function Panel",
+      "testDate": "2019-03-18T00:00:00Z",
+      "laboratory": "Awanui Labs",
+      "results": [
+        {
+          "parameter": "TSH",
+          "value": "2.1",
+          "unit": "mIU/L",
+          "referenceRange": "0.4-4 mIU/L",
+          "status": "normal"
+        },
+        {
+          "parameter": "Free T4",
+          "value": "14.2",
+          "unit": "pmol/L",
+          "referenceRange": "9-19 pmol/L",
+          "status": "normal"
+        },
+        {
+          "parameter": "Free T3",
+          "value": "4.8",
+          "unit": "pmol/L",
+          "referenceRange": "3.1-6.8 pmol/L",
+          "status": "normal"
+        }
+      ],
+      "clinicalNotes": "All values are within reference ranges. No immediate action required."
+    },
+    {
+      "id": "35",
+      "testName": "Vitamin B12",
+      "testDate": "2022-07-09T00:00:00Z",
+      "laboratory": "Awanui Labs",
+      "results": [
+        {
+          "parameter": "Vitamin B12",
+          "value": "310",
+          "unit": "pmol/L",
+          "referenceRange": "140-700 pmol/L",
+          "status": "normal"
+        }
+      ],
+      "clinicalNotes": "All values are within reference ranges. No immediate action required."
+    },
+    {
+      "id": "36",
+      "testName": "Complete Blood Count (CBC)",
+      "testDate": "2025-05-12T00:00:00Z",
+      "laboratory": "Awanui Labs",
+      "results": [
+        {
+          "parameter": "Hemoglobin",
+          "value": "138",
+          "unit": "g/L",
+          "referenceRange": "130-180 g/L",
+          "status": "normal"
+        },
+        {
+          "parameter": "WBC",
+          "value": "5.9",
+          "unit": "x10⁹/L",
+          "referenceRange": "4-11 x10⁹/L",
+          "status": "normal"
+        },
+        {
+          "parameter": "Platelets",
+          "value": "225",
+          "unit": "x10⁹/L",
+          "referenceRange": "150-400 x10⁹/L",
+          "status": "normal"
+        }
+      ],
+      "clinicalNotes": "All values are within reference ranges. No immediate action required."
+    }
+  ],
+  "ZAP28LA": [
+    {
+      "id": "41",
+      "testName": "Liver Function Panel",
+      "testDate": "2014-03-10T00:00:00Z",
+      "laboratory": "Greymouth Phlebotomy Services",
+      "results": [
+        {
+          "parameter": "ALT",
+          "value": "35",
+          "unit": "U/L",
+          "referenceRange": "7-56 U/L",
+          "status": "normal"
+        },
+        {
+          "parameter": "AST",
+          "value": "30",
+          "unit": "U/L",
+          "referenceRange": "10-40 U/L",
+          "status": "normal"
+        },
+        {
+          "parameter": "ALP",
+          "value": "115",
+          "unit": "U/L",
+          "referenceRange": "44-147 U/L",
+          "status": "normal"
+        }
+      ],
+      "clinicalNotes": "All values are within reference ranges. No immediate action required."
+    },
+    {
+      "id": "42",
+      "testName": "Lipid Panel",
+      "testDate": "2017-08-21T00:00:00Z",
+      "laboratory": "Greymouth Phlebotomy Services",
+      "results": [
+        {
+          "parameter": "Total Cholesterol",
+          "value": "5.4",
+          "unit": "mmol/L",
+          "referenceRange": "0-5.2 mmol/L",
+          "status": "high"
+        },
+        {
+          "parameter": "HDL",
+          "value": "1.5",
+          "unit": "mmol/L",
+          "referenceRange": "1-0 mmol/L",
+          "status": "normal"
+        },
+        {
+          "parameter": "LDL",
+          "value": "3.6",
+          "unit": "mmol/L",
+          "referenceRange": "0-3.4 mmol/L",
+          "status": "high"
+        },
+        {
+          "parameter": "Triglycerides",
+          "value": "1.4",
+          "unit": "mmol/L",
+          "referenceRange": "0-1.7 mmol/L",
+          "status": "normal"
+        }
+      ],
+      "clinicalNotes": "Findings include elevated values: Total Cholesterol, LDL. Consider follow-up if clinically indicated."
+    },
+    {
+      "id": "43",
+      "testName": "HbA1c",
+      "testDate": "2020-12-02T00:00:00Z",
+      "laboratory": "Greymouth Phlebotomy Services",
+      "results": [
+        {
+          "parameter": "HbA1c",
+          "value": "5.3",
+          "unit": "%",
+          "referenceRange": "4-5.6 %",
+          "status": "normal"
+        }
+      ],
+      "clinicalNotes": "All values are within reference ranges. No immediate action required."
+    },
+    {
+      "id": "44",
+      "testName": "Vitamin D",
+      "testDate": "2023-05-17T00:00:00Z",
+      "laboratory": "Greymouth Phlebotomy Services",
+      "results": [
+        {
+          "parameter": "25(OH)D",
+          "value": "48",
+          "unit": "nmol/L",
+          "referenceRange": "50-0 nmol/L",
+          "status": "low"
+        }
+      ],
+      "clinicalNotes": "Findings include low values: 25(OH)D. Consider follow-up if clinically indicated."
+    },
+    {
+      "id": "45",
+      "testName": "Complete Blood Count (CBC)",
+      "testDate": "2025-07-28T00:00:00Z",
+      "laboratory": "Greymouth Phlebotomy Services",
+      "results": [
+        {
+          "parameter": "Hemoglobin",
+          "value": "140",
+          "unit": "g/L",
+          "referenceRange": "130-180 g/L",
+          "status": "normal"
+        },
+        {
+          "parameter": "WBC",
+          "value": "6.5",
+          "unit": "x10⁹/L",
+          "referenceRange": "4-11 x10⁹/L",
+          "status": "normal"
+        },
+        {
+          "parameter": "Platelets",
+          "value": "230",
+          "unit": "x10⁹/L",
+          "referenceRange": "150-400 x10⁹/L",
+          "status": "normal"
+        }
+      ],
+      "clinicalNotes": "All values are within reference ranges. No immediate action required."
+    }
+  ]
+}

@@ -3,17 +3,17 @@ import type { ErrorResponse } from './types.js';
 
 export const validateNHI: MiddlewareHandler = async (c, next) => {
   const nhi = c.req.param('nhi');
-  const nhiPattern = /^[A-Z]{3}\d{4}$/;
+  //const nhiPattern = /^[A-Z]{3}\d{4}$/;
+  //!nhiPattern.test(nhi)
   
-  if (!nhi || !nhiPattern.test(nhi)) {
+    if (!nhi) {
     const error: ErrorResponse = {
       error: 'INVALID_NHI',
-      message: 'Invalid NHI format. Must be 3 letters followed by 4 digits (e.g., ABC1234).',
+      message: 'Invalid NHI format. Must be 3 letters followed by 4 digits (e.g., ABC1234). for more information visit "https://www.tewhatuora.govt.nz/health-services-and-programmes/health-identity/national-health-index/upcoming-changes-nhi"',
       timestamp: new Date().toISOString()
     };
     return c.json(error, 400);
   }
-  
   await next();
 };
 

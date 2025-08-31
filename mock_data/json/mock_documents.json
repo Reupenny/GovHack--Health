@@ -1,0 +1,1310 @@
+{
+  "ZAK21MS": [
+    {
+      "id": "doc_0001_migraine",
+      "type": "discharge-summary",
+      "title": "ED Discharge – Migraine Episode",
+      "description": "Presented with severe headache. CT normal. Discharged with analgesia.",
+      "date": "2010-06-12T00:00:00Z",
+      "author": "Dr Wiremu Sharma",
+      "specialty": "Emergency Medicine",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "discharge-summary",
+        "discharge",
+        "episode"
+      ]
+    },
+    {
+      "id": "doc_0002_neuro_ref",
+      "type": "specialist-letter",
+      "title": "Neurology Referral",
+      "description": "Referred for evaluation of chronic migraine.",
+      "date": "2011-07-01T00:00:00Z",
+      "author": "Dr Charlotte Desai",
+      "specialty": "Neurology",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "specialist-letter",
+        "neurology"
+      ]
+    },
+    {
+      "id": "doc_0003_lab_2015",
+      "type": "lab-result",
+      "title": "Blood Test Results – 2015",
+      "description": "All values within normal range.",
+      "date": "2015-03-20T00:00:00Z",
+      "author": "Dr Moana Singh",
+      "specialty": "Pathology",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "lab-result"
+      ]
+    },
+    {
+      "id": "doc_0004_spine_xray",
+      "type": "x-ray",
+      "title": "Lumbar Spine X-Ray Report",
+      "description": "Mild degenerative changes. No fracture.",
+      "date": "2018-11-05T00:00:00Z",
+      "author": "Dr James Kaur",
+      "specialty": "Radiology",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "x-ray",
+        "lumbar",
+        "spine"
+      ]
+    },
+    {
+      "id": "doc_0005_annual_2022",
+      "type": "report",
+      "title": "Annual Health Check Summary",
+      "description": "BP 130/85. Cholesterol borderline. Advised dietary changes.",
+      "date": "2022-04-18T00:00:00Z",
+      "author": "Dr Mereana Joshi",
+      "specialty": "General Practice",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "report",
+        "annual"
+      ]
+    },
+    {
+      "id": "doc_0006_cardio_2025",
+      "type": "specialist-letter",
+      "title": "Cardiology Follow-up",
+      "description": "ECG borderline. No intervention needed. Continue monitoring.",
+      "date": "2025-06-10T00:00:00Z",
+      "author": "Dr Tāne Kapoor",
+      "specialty": "Cardiology",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "specialist-letter",
+        "cardiology",
+        "follow"
+      ]
+    }
+  ],
+  "ZAP28LA": [
+    {
+      "id": "doc_0007_abdo_pain",
+      "type": "discharge-summary",
+      "title": "ED Discharge – Abdominal Pain",
+      "description": "Presented with lower abdominal pain. No acute findings. Discharged with advice.",
+      "date": "2013-08-22T00:00:00Z",
+      "author": "Dr Wiremu Sharma",
+      "specialty": "Emergency Medicine",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "discharge-summary",
+        "discharge"
+      ]
+    },
+    {
+      "id": "doc_0008_gastro_ref",
+      "type": "specialist-letter",
+      "title": "Gastroenterology Referral",
+      "description": "Referred for evaluation of bloating and intermittent diarrhea.",
+      "date": "2014-09-10T00:00:00Z",
+      "author": "Dr Charlotte Desai",
+      "specialty": "Gastroenterology",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "specialist-letter",
+        "gastroenterology"
+      ]
+    },
+    {
+      "id": "doc_0009_lab_2017",
+      "type": "lab-result",
+      "title": "Blood Test Results – 2017",
+      "description": "Mild iron deficiency noted. Recommend dietary changes and repeat in 3 months.",
+      "date": "2017-03-05T00:00:00Z",
+      "author": "Dr Moana Singh",
+      "specialty": "Pathology",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "lab-result"
+      ]
+    },
+    {
+      "id": "doc_0010_annual_2021",
+      "type": "report",
+      "title": "Annual Health Check Summary",
+      "description": "BP 125/80. Weight stable. Advised increased physical activity.",
+      "date": "2021-06-18T00:00:00Z",
+      "author": "Dr Mereana Joshi",
+      "specialty": "General Practice",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "report",
+        "annual"
+      ]
+    },
+    {
+      "id": "doc_0011_endo_2025",
+      "type": "specialist-letter",
+      "title": "Endocrinology Follow-up",
+      "description": "TSH normalized. Continue current dose of levothyroxine.",
+      "date": "2025-07-15T00:00:00Z",
+      "author": "Dr Tāne Kapoor",
+      "specialty": "Endocrinology",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "specialist-letter",
+        "endocrinology",
+        "follow"
+      ]
+    }
+  ],
+  "ZBD33XL": [
+    {
+      "id": "doc_0012_hypertension",
+      "type": "discharge-summary",
+      "title": "ED Discharge – Hypertension Crisis",
+      "description": "BP 190/110. Stabilized in ED. Discharged with antihypertensive plan.",
+      "date": "2005-03-18T00:00:00Z",
+      "author": "Dr Wiremu Sharma",
+      "specialty": "Emergency Medicine",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "discharge-summary",
+        "discharge",
+        "hypertension"
+      ]
+    },
+    {
+      "id": "doc_0013_cardio_ref",
+      "type": "specialist-letter",
+      "title": "Cardiology Referral",
+      "description": "Referred for cardiovascular risk assessment.",
+      "date": "2006-04-22T00:00:00Z",
+      "author": "Dr Charlotte Desai",
+      "specialty": "Cardiology",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "specialist-letter",
+        "cardiology"
+      ]
+    },
+    {
+      "id": "doc_0014_lab_2010",
+      "type": "lab-result",
+      "title": "Blood Test Results – 2010",
+      "description": "LDL elevated. Creatinine normal. Recommend statin therapy.",
+      "date": "2010-09-05T00:00:00Z",
+      "author": "Dr Moana Singh",
+      "specialty": "Pathology",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "lab-result"
+      ]
+    },
+    {
+      "id": "doc_0015_chest_xray",
+      "type": "x-ray",
+      "title": "Chest X-Ray Report",
+      "description": "No infiltrates. Normal cardiac silhouette.",
+      "date": "2013-11-12T00:00:00Z",
+      "author": "Dr James Kaur",
+      "specialty": "Radiology",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "x-ray"
+      ]
+    },
+    {
+      "id": "doc_0016_annual_2018",
+      "type": "report",
+      "title": "Annual Health Check Summary",
+      "description": "BP 135/85. Weight stable. Advised increased exercise.",
+      "date": "2018-02-28T00:00:00Z",
+      "author": "Dr Mereana Joshi",
+      "specialty": "General Practice",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "report",
+        "annual"
+      ]
+    },
+    {
+      "id": "doc_0017_endo_2022",
+      "type": "specialist-letter",
+      "title": "Endocrinology Follow-up",
+      "description": "TSH borderline. Continue current dose. Repeat in 6 months.",
+      "date": "2022-06-10T00:00:00Z",
+      "author": "Dr Tāne Kapoor",
+      "specialty": "Endocrinology",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "specialist-letter",
+        "endocrinology",
+        "follow"
+      ]
+    },
+    {
+      "id": "doc_0018_lab_2025",
+      "type": "lab-result",
+      "title": "Blood Test Results – 2025",
+      "description": "HbA1c 6.4%. Recommend dietary changes and follow-up.",
+      "date": "2025-08-01T00:00:00Z",
+      "author": "Dr Moana Singh",
+      "specialty": "Pathology",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "lab-result"
+      ]
+    }
+  ],
+  "ZBJ59LE": [
+    {
+      "id": "doc_0019_asthma",
+      "type": "discharge-summary",
+      "title": "ED Discharge – Asthma Flare-Up",
+      "description": "Presented with wheezing and SOB. Nebulized in ED. Discharged with steroids.",
+      "date": "2008-04-22T00:00:00Z",
+      "author": "Dr Wiremu Sharma",
+      "specialty": "Emergency Medicine",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "discharge-summary",
+        "discharge",
+        "flare"
+      ]
+    },
+    {
+      "id": "doc_0020_resp_ref",
+      "type": "specialist-letter",
+      "title": "Respiratory Referral",
+      "description": "Referred for assessment and long-term inhaler strategy.",
+      "date": "2009-05-10T00:00:00Z",
+      "author": "Dr Charlotte Desai",
+      "specialty": "Respiratory Medicine",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "specialist-letter",
+        "respiratory"
+      ]
+    },
+    {
+      "id": "doc_0021_lab_2013",
+      "type": "lab-result",
+      "title": "Blood Test Results – 2013",
+      "description": "Eosinophils mildly elevated. Suggest allergy testing.",
+      "date": "2013-08-18T00:00:00Z",
+      "author": "Dr Moana Singh",
+      "specialty": "Pathology",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "lab-result"
+      ]
+    },
+    {
+      "id": "doc_0022_chest_xray",
+      "type": "x-ray",
+      "title": "Chest X-Ray Report",
+      "description": "No infiltrates. Hyperinflation noted.",
+      "date": "2016-11-03T00:00:00Z",
+      "author": "Dr James Kaur",
+      "specialty": "Radiology",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "x-ray"
+      ]
+    },
+    {
+      "id": "doc_0023_annual_2021",
+      "type": "report",
+      "title": "Annual Health Check Summary",
+      "description": "Asthma well-controlled. Advised flu vaccination and inhaler refill.",
+      "date": "2021-03-15T00:00:00Z",
+      "author": "Dr Mereana Joshi",
+      "specialty": "General Practice",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "report",
+        "annual"
+      ]
+    },
+    {
+      "id": "doc_0024_allergy_2025",
+      "type": "specialist-letter",
+      "title": "Allergy Clinic Follow-up",
+      "description": "Positive for dust mites. Recommend antihistamines and environmental control.",
+      "date": "2025-07-20T00:00:00Z",
+      "author": "Dr Tāne Kapoor",
+      "specialty": "Allergy & Immunology",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "specialist-letter",
+        "allergy",
+        "clinic"
+      ]
+    }
+  ],
+  "ZBS45LD": [
+    {
+      "id": "doc_0031_chest_pain",
+      "type": "discharge-summary",
+      "title": "ED Discharge – Chest Pain",
+      "description": "ECG normal. Pain resolved with analgesia. Discharged with follow-up advice.",
+      "date": "2002-03-14T00:00:00Z",
+      "author": "Dr Wiremu Sharma",
+      "specialty": "Emergency Medicine",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "discharge-summary",
+        "discharge"
+      ]
+    },
+    {
+      "id": "doc_0032_cardio_ref",
+      "type": "specialist-letter",
+      "title": "Cardiology Referral",
+      "description": "Referred for cardiovascular risk assessment.",
+      "date": "2003-04-20T00:00:00Z",
+      "author": "Dr Charlotte Desai",
+      "specialty": "Cardiology",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "specialist-letter",
+        "cardiology"
+      ]
+    },
+    {
+      "id": "doc_0033_lab_2008",
+      "type": "lab-result",
+      "title": "Blood Test Results – 2008",
+      "description": "LDL elevated. HbA1c normal. Recommend statin therapy.",
+      "date": "2008-06-05T00:00:00Z",
+      "author": "Dr Moana Singh",
+      "specialty": "Pathology",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "lab-result"
+      ]
+    },
+    {
+      "id": "doc_0034_chest_xray",
+      "type": "x-ray",
+      "title": "Chest X-Ray Report",
+      "description": "No infiltrates. Normal cardiac silhouette.",
+      "date": "2012-09-18T00:00:00Z",
+      "author": "Dr James Kaur",
+      "specialty": "Radiology",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "x-ray"
+      ]
+    },
+    {
+      "id": "doc_0035_annual_2017",
+      "type": "report",
+      "title": "Annual Health Check Summary",
+      "description": "BP 138/88. Advised dietary changes and increased physical activity.",
+      "date": "2017-03-22T00:00:00Z",
+      "author": "Dr Mereana Joshi",
+      "specialty": "General Practice",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "report",
+        "annual"
+      ]
+    },
+    {
+      "id": "doc_0036_endo_2022",
+      "type": "specialist-letter",
+      "title": "Endocrinology Follow-up",
+      "description": "TSH borderline. Continue current dose. Repeat in 6 months.",
+      "date": "2022-08-10T00:00:00Z",
+      "author": "Dr Tāne Kapoor",
+      "specialty": "Endocrinology",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "specialist-letter",
+        "endocrinology",
+        "follow"
+      ]
+    },
+    {
+      "id": "doc_0037_lab_2025",
+      "type": "lab-result",
+      "title": "Blood Test Results – 2025",
+      "description": "HbA1c 6.5%. Recommend dietary changes and follow-up testing.",
+      "date": "2025-08-20T00:00:00Z",
+      "author": "Dr Moana Singh",
+      "specialty": "Pathology",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "lab-result"
+      ]
+    }
+  ],
+  "ZCL47UF": [
+    {
+      "id": "doc_0038_sports_injury",
+      "type": "discharge-summary",
+      "title": "ED Discharge – Sports Injury",
+      "description": "Rolled ankle during rugby. X-ray negative. Discharged with crutches and physio advice.",
+      "date": "2019-03-12T00:00:00Z",
+      "author": "Dr Wiremu Sharma",
+      "specialty": "Emergency Medicine",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "discharge-summary",
+        "discharge",
+        "sports"
+      ]
+    },
+    {
+      "id": "doc_0039_ortho_ref",
+      "type": "specialist-letter",
+      "title": "Orthopaedic Referral",
+      "description": "Referred for evaluation of knee instability and pain during activity.",
+      "date": "2020-05-08T00:00:00Z",
+      "author": "Dr Charlotte Desai",
+      "specialty": "Orthopaedics",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "specialist-letter",
+        "orthopaedic"
+      ]
+    },
+    {
+      "id": "doc_0040_lab_2023",
+      "type": "lab-result",
+      "title": "Blood Test Results – 2023",
+      "description": "Mild iron deficiency. Recommend dietary adjustment and repeat in 6 months.",
+      "date": "2023-09-20T00:00:00Z",
+      "author": "Dr Moana Singh",
+      "specialty": "Pathology",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "lab-result"
+      ]
+    },
+    {
+      "id": "doc_0041_youth_check",
+      "type": "report",
+      "title": "Youth Health Check Summary",
+      "description": "Discussed sleep, diet, and mental wellbeing. No concerns. Advised regular exercise.",
+      "date": "2025-06-10T00:00:00Z",
+      "author": "Dr Mereana Joshi",
+      "specialty": "General Practice",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "report"
+      ]
+    }
+  ],
+  "ZCL83GC": [
+    {
+      "id": "doc_0042_head_injury",
+      "type": "discharge-summary",
+      "title": "ED Discharge – Head Injury",
+      "description": "Fall from ladder. CT head normal. Discharged with observation advice.",
+      "date": "2003-05-10T00:00:00Z",
+      "author": "Dr Wiremu Sharma",
+      "specialty": "Emergency Medicine",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "discharge-summary",
+        "discharge"
+      ]
+    },
+    {
+      "id": "doc_0043_neuro_ref",
+      "type": "specialist-letter",
+      "title": "Neurology Referral",
+      "description": "Referred for evaluation of dizziness and headaches post-injury.",
+      "date": "2004-06-18T00:00:00Z",
+      "author": "Dr Charlotte Desai",
+      "specialty": "Neurology",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "specialist-letter",
+        "neurology"
+      ]
+    },
+    {
+      "id": "doc_0044_lab_2009",
+      "type": "lab-result",
+      "title": "Blood Test Results – 2009",
+      "description": "All values within normal range. No action required.",
+      "date": "2009-08-22T00:00:00Z",
+      "author": "Dr Moana Singh",
+      "specialty": "Pathology",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "lab-result"
+      ]
+    },
+    {
+      "id": "doc_0045_spine_xray",
+      "type": "x-ray",
+      "title": "Cervical Spine X-Ray Report",
+      "description": "Mild degenerative changes. No acute findings.",
+      "date": "2013-02-14T00:00:00Z",
+      "author": "Dr James Kaur",
+      "specialty": "Radiology",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "x-ray",
+        "cervical",
+        "spine"
+      ]
+    },
+    {
+      "id": "doc_0046_annual_2018",
+      "type": "report",
+      "title": "Annual Health Check Summary",
+      "description": "BP 132/84. Weight stable. Advised regular stretching and hydration.",
+      "date": "2018-04-30T00:00:00Z",
+      "author": "Dr Mereana Joshi",
+      "specialty": "General Practice",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "report",
+        "annual"
+      ]
+    },
+    {
+      "id": "doc_0047_endo_2023",
+      "type": "specialist-letter",
+      "title": "Endocrinology Follow-up",
+      "description": "TSH slightly elevated. Recommend repeat testing in 6 months.",
+      "date": "2023-07-12T00:00:00Z",
+      "author": "Dr Tāne Kapoor",
+      "specialty": "Endocrinology",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "specialist-letter",
+        "endocrinology",
+        "follow"
+      ]
+    },
+    {
+      "id": "doc_0048_lab_2025",
+      "type": "lab-result",
+      "title": "Blood Test Results – 2025",
+      "description": "HbA1c 6.3%. Recommend dietary changes and follow-up.",
+      "date": "2025-08-20T00:00:00Z",
+      "author": "Dr Moana Singh",
+      "specialty": "Pathology",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "lab-result"
+      ]
+    }
+  ],
+  "ZCM16EW": [
+    {
+      "id": "doc_0049_wrist_fx",
+      "type": "discharge-summary",
+      "title": "ED Discharge – Wrist Fracture",
+      "description": "Fall while skateboarding. X-ray confirmed distal radius fracture. Splinted and discharged.",
+      "date": "2015-04-10T00:00:00Z",
+      "author": "Dr Wiremu Sharma",
+      "specialty": "Emergency Medicine",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "discharge-summary",
+        "discharge",
+        "fracture"
+      ]
+    },
+    {
+      "id": "doc_0050_ortho_follow",
+      "type": "specialist-letter",
+      "title": "Orthopaedic Follow-up",
+      "description": "Healing well. Range of motion improving. Continue physiotherapy.",
+      "date": "2015-05-02T00:00:00Z",
+      "author": "Dr Charlotte Desai",
+      "specialty": "Orthopaedics",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "specialist-letter",
+        "orthopaedic",
+        "follow"
+      ]
+    },
+    {
+      "id": "doc_0051_lab_2019",
+      "type": "lab-result",
+      "title": "Blood Test Results – 2019",
+      "description": "Vitamin D slightly low. Recommend supplementation.",
+      "date": "2019-09-15T00:00:00Z",
+      "author": "Dr Moana Singh",
+      "specialty": "Pathology",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "lab-result"
+      ]
+    },
+    {
+      "id": "doc_0052_annual_2023",
+      "type": "report",
+      "title": "Annual Health Check Summary",
+      "description": "BP 122/78. Weight stable. Advised regular exercise and sleep hygiene.",
+      "date": "2023-03-20T00:00:00Z",
+      "author": "Dr Mereana Joshi",
+      "specialty": "General Practice",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "report",
+        "annual"
+      ]
+    },
+    {
+      "id": "doc_0053_endo_ref_2025",
+      "type": "specialist-letter",
+      "title": "Endocrinology Referral",
+      "description": "TSH borderline. Referred for further endocrine evaluation.",
+      "date": "2025-07-30T00:00:00Z",
+      "author": "Dr Tāne Kapoor",
+      "specialty": "Endocrinology",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "specialist-letter",
+        "endocrinology"
+      ]
+    }
+  ],
+  "ZDJ24ZS": [
+    {
+      "id": "doc_0054_kidney_stone",
+      "type": "discharge-summary",
+      "title": "ED Discharge – Kidney Stone Episode",
+      "description": "Presented with flank pain. CT confirmed small stone. Discharged with analgesia and hydration advice.",
+      "date": "2007-11-03T00:00:00Z",
+      "author": "Dr Wiremu Sharma",
+      "specialty": "Emergency Medicine",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "discharge-summary",
+        "discharge",
+        "episode"
+      ]
+    },
+    {
+      "id": "doc_0055_urology_ref",
+      "type": "specialist-letter",
+      "title": "Urology Referral",
+      "description": "Referred for evaluation of stone recurrence and hydration strategy.",
+      "date": "2008-01-15T00:00:00Z",
+      "author": "Dr Charlotte Desai",
+      "specialty": "Urology",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "specialist-letter",
+        "urology"
+      ]
+    },
+    {
+      "id": "doc_0056_lab_2012",
+      "type": "lab-result",
+      "title": "Blood Test Results – 2012",
+      "description": "Creatinine normal. Calcium slightly elevated. Recommend dietary review.",
+      "date": "2012-06-20T00:00:00Z",
+      "author": "Dr Moana Singh",
+      "specialty": "Pathology",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "lab-result"
+      ]
+    },
+    {
+      "id": "doc_0057_abdo_xray",
+      "type": "x-ray",
+      "title": "Abdominal X-Ray Report",
+      "description": "No obstruction. Normal bowel gas pattern.",
+      "date": "2016-03-10T00:00:00Z",
+      "author": "Dr James Kaur",
+      "specialty": "Radiology",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "x-ray"
+      ]
+    },
+    {
+      "id": "doc_0058_annual_2021",
+      "type": "report",
+      "title": "Annual Health Check Summary",
+      "description": "BP 130/85. Weight stable. Advised increased hydration and regular exercise.",
+      "date": "2021-07-02T00:00:00Z",
+      "author": "Dr Mereana Joshi",
+      "specialty": "General Practice",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "report",
+        "annual"
+      ]
+    },
+    {
+      "id": "doc_0059_endo_2025",
+      "type": "specialist-letter",
+      "title": "Endocrinology Follow-up",
+      "description": "TSH normalized. Continue current dose. Repeat in 12 months.",
+      "date": "2025-07-30T00:00:00Z",
+      "author": "Dr Tāne Kapoor",
+      "specialty": "Endocrinology",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "specialist-letter",
+        "endocrinology",
+        "follow"
+      ]
+    }
+  ],
+  "ZDP92ZR": [
+    {
+      "id": "doc_0060_food_poison",
+      "type": "discharge-summary",
+      "title": "ED Discharge – Food Poisoning",
+      "description": "Presented with vomiting and diarrhea. IV fluids administered. Discharged stable.",
+      "date": "2016-01-12T00:00:00Z",
+      "author": "Dr Wiremu Sharma",
+      "specialty": "Emergency Medicine",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "discharge-summary",
+        "discharge",
+        "food"
+      ]
+    },
+    {
+      "id": "doc_0061_gastro_ref",
+      "type": "specialist-letter",
+      "title": "Gastroenterology Referral",
+      "description": "Referred for evaluation of bloating and irregular bowel habits.",
+      "date": "2017-02-20T00:00:00Z",
+      "author": "Dr Charlotte Desai",
+      "specialty": "Gastroenterology",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "specialist-letter",
+        "gastroenterology"
+      ]
+    },
+    {
+      "id": "doc_0062_lab_2020",
+      "type": "lab-result",
+      "title": "Blood Test Results – 2020",
+      "description": "Coeliac screen negative. Mild transaminitis. Recommend repeat in 6 months.",
+      "date": "2020-07-05T00:00:00Z",
+      "author": "Dr Moana Singh",
+      "specialty": "Pathology",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "lab-result"
+      ]
+    },
+    {
+      "id": "doc_0063_annual_2023",
+      "type": "report",
+      "title": "Annual Health Check Summary",
+      "description": "BP 124/80. Weight stable. Advised increased fibre intake and hydration.",
+      "date": "2023-10-01T00:00:00Z",
+      "author": "Dr Mereana Joshi",
+      "specialty": "General Practice",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "report",
+        "annual"
+      ]
+    },
+    {
+      "id": "doc_0064_endo_2025",
+      "type": "specialist-letter",
+      "title": "Endocrinology Follow-up",
+      "description": "TSH borderline. Continue current dose. Repeat in 6 months.",
+      "date": "2025-08-20T00:00:00Z",
+      "author": "Dr Tāne Kapoor",
+      "specialty": "Endocrinology",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "specialist-letter",
+        "endocrinology",
+        "follow"
+      ]
+    }
+  ],
+  "ZES76BM": [
+    {
+      "id": "doc_0065_ankle_sprain",
+      "type": "discharge-summary",
+      "title": "ED Discharge – Ankle Sprain",
+      "description": "Twisted ankle during netball. X-ray negative. Discharged with crutches and physio advice.",
+      "date": "2016-09-12T00:00:00Z",
+      "author": "Dr Wiremu Sharma",
+      "specialty": "Emergency Medicine",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "discharge-summary",
+        "discharge",
+        "sprain"
+      ]
+    },
+    {
+      "id": "doc_0066_physio_ref",
+      "type": "specialist-letter",
+      "title": "Physiotherapy Referral",
+      "description": "Referred for strengthening and mobility exercises.",
+      "date": "2016-09-20T00:00:00Z",
+      "author": "Dr Charlotte Desai",
+      "specialty": "Physiotherapy",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "specialist-letter",
+        "physiotherapy"
+      ]
+    },
+    {
+      "id": "doc_0067_lab_2020",
+      "type": "lab-result",
+      "title": "Blood Test Results – 2020",
+      "description": "Iron slightly low. Recommend dietary changes and repeat in 6 months.",
+      "date": "2020-03-02T00:00:00Z",
+      "author": "Dr Moana Singh",
+      "specialty": "Pathology",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "lab-result"
+      ]
+    },
+    {
+      "id": "doc_0068_annual_2023",
+      "type": "report",
+      "title": "Annual Health Check Summary",
+      "description": "BP 120/78. Weight stable. Advised increased physical activity.",
+      "date": "2023-03-02T00:00:00Z",
+      "author": "Dr Mereana Joshi",
+      "specialty": "General Practice",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "report",
+        "annual"
+      ]
+    },
+    {
+      "id": "doc_0069_endo_2025",
+      "type": "specialist-letter",
+      "title": "Endocrinology Follow-up",
+      "description": "TSH borderline. Continue current dose. Repeat in 6 months.",
+      "date": "2025-08-20T00:00:00Z",
+      "author": "Dr Tāne Kapoor",
+      "specialty": "Endocrinology",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "specialist-letter",
+        "endocrinology",
+        "follow"
+      ]
+    }
+  ],
+  "ZFE35PQ": [
+    {
+      "id": "doc_0070_gastro_ed",
+      "type": "discharge-summary",
+      "title": "ED Discharge – Gastro Episode",
+      "description": "Presented with vomiting and diarrhea. IV fluids given. Discharged stable.",
+      "date": "2016-02-10T00:00:00Z",
+      "author": "Dr Wiremu Sharma",
+      "specialty": "Emergency Medicine",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "discharge-summary",
+        "discharge",
+        "gastro"
+      ]
+    },
+    {
+      "id": "doc_0071_gastro_ref",
+      "type": "specialist-letter",
+      "title": "Gastroenterology Referral",
+      "description": "Referred for evaluation of bloating and irregular bowel habits.",
+      "date": "2017-03-05T00:00:00Z",
+      "author": "Dr Charlotte Desai",
+      "specialty": "Gastroenterology",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "specialist-letter",
+        "gastroenterology"
+      ]
+    },
+    {
+      "id": "doc_0072_lab_2020",
+      "type": "lab-result",
+      "title": "Blood Test Results – 2020",
+      "description": "Coeliac screen negative. Mild transaminitis. Recommend repeat in 6 months.",
+      "date": "2020-09-03T00:00:00Z",
+      "author": "Dr Moana Singh",
+      "specialty": "Pathology",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "lab-result"
+      ]
+    },
+    {
+      "id": "doc_0073_annual_2025",
+      "type": "report",
+      "title": "Annual Health Check Summary",
+      "description": "BP 126/82. Weight stable. Advised increased fibre intake and hydration.",
+      "date": "2025-08-20T00:00:00Z",
+      "author": "Dr Mereana Joshi",
+      "specialty": "General Practice",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "report",
+        "annual"
+      ]
+    }
+  ],
+  "ZFZ57UL": [
+    {
+      "id": "doc_0074_gallbladder",
+      "type": "discharge-summary",
+      "title": "ED Discharge – Gallbladder Pain",
+      "description": "Presented with RUQ pain. Ultrasound showed gallstones. Discharged with surgical referral.",
+      "date": "2009-03-18T00:00:00Z",
+      "author": "Dr Wiremu Sharma",
+      "specialty": "Emergency Medicine",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "discharge-summary",
+        "discharge",
+        "gallbladder"
+      ]
+    },
+    {
+      "id": "doc_0075_surgical_ref",
+      "type": "specialist-letter",
+      "title": "Surgical Referral",
+      "description": "Referred for elective gallbladder removal due to recurrent biliary colic.",
+      "date": "2009-04-10T00:00:00Z",
+      "author": "Dr Charlotte Desai",
+      "specialty": "Surgery",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "specialist-letter",
+        "surgical"
+      ]
+    },
+    {
+      "id": "doc_0076_lab_2013",
+      "type": "lab-result",
+      "title": "Blood Test Results – 2013",
+      "description": "ALT mildly elevated. CRP normal. Recommend follow-up in 6 months.",
+      "date": "2013-07-22T00:00:00Z",
+      "author": "Dr Moana Singh",
+      "specialty": "Pathology",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "lab-result"
+      ]
+    },
+    {
+      "id": "doc_0077_chest_xray",
+      "type": "x-ray",
+      "title": "Chest X-Ray Report",
+      "description": "No infiltrates. Normal cardiac silhouette.",
+      "date": "2017-10-05T00:00:00Z",
+      "author": "Dr James Kaur",
+      "specialty": "Radiology",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "x-ray"
+      ]
+    },
+    {
+      "id": "doc_0078_annual_2022",
+      "type": "report",
+      "title": "Annual Health Check Summary",
+      "description": "BP 128/84. Weight stable. Advised increased physical activity.",
+      "date": "2022-12-30T00:00:00Z",
+      "author": "Dr Mereana Joshi",
+      "specialty": "General Practice",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "report",
+        "annual"
+      ]
+    },
+    {
+      "id": "doc_0079_endo_2025",
+      "type": "specialist-letter",
+      "title": "Endocrinology Follow-up",
+      "description": "TSH borderline. Continue current dose. Repeat in 6 months.",
+      "date": "2025-08-20T00:00:00Z",
+      "author": "Dr Tāne Kapoor",
+      "specialty": "Endocrinology",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "specialist-letter",
+        "endocrinology",
+        "follow"
+      ]
+    }
+  ],
+  "ZGA02YJ": [
+    {
+      "id": "doc_0080_hypertension",
+      "type": "discharge-summary",
+      "title": "ED Discharge – Hypertension Crisis",
+      "description": "BP 190/110. Stabilized in ED. Discharged with antihypertensive plan.",
+      "date": "2003-04-12T00:00:00Z",
+      "author": "Dr Wiremu Sharma",
+      "specialty": "Emergency Medicine",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "discharge-summary",
+        "discharge",
+        "hypertension"
+      ]
+    },
+    {
+      "id": "doc_0081_cardio_ref",
+      "type": "specialist-letter",
+      "title": "Cardiology Referral",
+      "description": "Referred for cardiovascular risk assessment.",
+      "date": "2004-05-18T00:00:00Z",
+      "author": "Dr Charlotte Desai",
+      "specialty": "Cardiology",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "specialist-letter",
+        "cardiology"
+      ]
+    },
+    {
+      "id": "doc_0082_lab_2009",
+      "type": "lab-result",
+      "title": "Blood Test Results – 2009",
+      "description": "LDL elevated. Creatinine normal. Recommend statin therapy.",
+      "date": "2009-08-05T00:00:00Z",
+      "author": "Dr Moana Singh",
+      "specialty": "Pathology",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "lab-result"
+      ]
+    },
+    {
+      "id": "doc_0083_chest_xray",
+      "type": "x-ray",
+      "title": "Chest X-Ray Report",
+      "description": "No infiltrates. Normal cardiac silhouette.",
+      "date": "2013-11-12T00:00:00Z",
+      "author": "Dr James Kaur",
+      "specialty": "Radiology",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "x-ray"
+      ]
+    },
+    {
+      "id": "doc_0084_annual_2018",
+      "type": "report",
+      "title": "Annual Health Check Summary",
+      "description": "BP 135/85. Weight stable. Advised increased exercise.",
+      "date": "2018-02-28T00:00:00Z",
+      "author": "Dr Mereana Joshi",
+      "specialty": "General Practice",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "report",
+        "annual"
+      ]
+    },
+    {
+      "id": "doc_0085_endo_2023",
+      "type": "specialist-letter",
+      "title": "Endocrinology Follow-up",
+      "description": "TSH borderline. Continue current dose. Repeat in 6 months.",
+      "date": "2023-06-10T00:00:00Z",
+      "author": "Dr Tāne Kapoor",
+      "specialty": "Endocrinology",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "specialist-letter",
+        "endocrinology",
+        "follow"
+      ]
+    },
+    {
+      "id": "doc_0086_lab_2025",
+      "type": "lab-result",
+      "title": "Blood Test Results – 2025",
+      "description": "HbA1c 6.4%. Recommend dietary changes and follow-up.",
+      "date": "2025-08-30T00:00:00Z",
+      "author": "Dr Moana Singh",
+      "specialty": "Pathology",
+      "facility": "Auckland City Hospital",
+      "contentType": "application/pdf",
+      "size": 512000,
+      "tags": [
+        "lab-result"
+      ]
+    }
+  ]
+}
