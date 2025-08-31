@@ -74,8 +74,12 @@ module.exports = (env, argv) => {
             new webpack.DefinePlugin({
                 'process.env.NODE_ENV': JSON.stringify(argv.mode),
                 'process.env.REACT_APP_API_URL': JSON.stringify(process.env.REACT_APP_API_URL),
+                'process.env.REACT_APP_CENTRAL_API_URL': JSON.stringify(process.env.REACT_APP_CENTRAL_API_URL),
                 'process.env.REACT_APP_DHB_API_URL': JSON.stringify(process.env.REACT_APP_DHB_API_URL),
-                'process.env.REACT_APP_GROQ_API_KEY': JSON.stringify(process.env.REACT_APP_GROQ_API_KEY)
+                'process.env.REACT_APP_TONIQ_API_URL': JSON.stringify(process.env.REACT_APP_TONIQ_API_URL),
+                'process.env.REACT_APP_GROQ_API_KEY': JSON.stringify(process.env.REACT_APP_GROQ_API_KEY),
+                'process.env.REACT_APP_GEMINI_API_KEY': JSON.stringify(process.env.REACT_APP_GEMINI_API_KEY)
+
             })
         ],
         devServer: {

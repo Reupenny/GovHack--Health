@@ -1,11 +1,11 @@
 import { serve } from '@hono/node-server';
 import { Hono } from 'hono';
 import api from './routes.js';
-import { errorHandler, corsMiddleware } from './middleware.js';
+import { errorHandler } from './middleware.js';
 
 const app = new Hono();
 
-app.use('*', corsMiddleware);
+// No CORS middleware needed - this API is only called server-to-server by Central API
 app.use('*', errorHandler);
 
 app.route('/api/v1', api);
@@ -96,16 +96,20 @@ app.notFound((c) => {
   }, 404);
 });
 
-serve({
-  fetch: app.fetch,
-  port: 3001
-}, (info) => {
-  console.log(`🚀 OpenHealth API running on http://localhost:${info.port}`);
-  console.log(`📚 API Documentation: http://localhost:${info.port}/docs`);
-  console.log(`❤️  Health Check: http://localhost:${info.port}/health`);
-  console.log(`\n📋 Sample endpoints:`);
-  console.log(`   http://localhost:${info.port}/api/v1/patients/ABC1234`);
-  console.log(`   http://localhost:${info.port}/api/v1/patients/ABC1234/medications`);
-  console.log(`   http://localhost:${info.port}/api/v1/patients/ABC1234/blood-tests`);
-  console.log(`   http://localhost:${info.port}/api/v1/patients/ABC1234/documents`);
-});
+if (process.env.NODE_ENV !== 'production') {
+  serve({
+    fetch: app.fetch,
+    port: 3001
+  }, (info) => {
+    console.log(`🚀 OpenHealth API running on http://localhost:${info.port}`);
+    console.log(`📚 API Documentation: http://localhost:${info.port}/docs`);
+    console.log(`❤️  Health Check: http://localhost:${info.port}/health`);
+    console.log(`\n📋 Sample endpoints:`);
+    console.log(`   http://localhost:${info.port}/api/v1/patients/ABC1234`);
+    console.log(`   http://localhost:${info.port}/api/v1/patients/ABC1234/medications`);
+    console.log(`   http://localhost:${info.port}/api/v1/patients/ABC1234/blood-tests`);
+    console.log(`   http://localhost:${info.port}/api/v1/patients/ABC1234/documents`);
+  });
+}
+
+export default app

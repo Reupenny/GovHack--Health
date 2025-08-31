@@ -1,19 +1,15 @@
 import { serve } from '@hono/node-server'
 import { Hono } from 'hono'
-import { cors } from 'hono/cors'
 
 import type { 
   Patient, 
   Medication, 
   BloodTest, 
-  Document, 
-  DocumentContent,
+  Document,
   MedicationsResponse,
   BloodTestsResponse,
-  DocumentsResponse,
-  ErrorResponse
+  DocumentsResponse
 } from './types.js'
-import { corsMiddleware } from './middleware.js';
 
 interface ServiceProvider {
   providerId: string
@@ -22,8 +18,7 @@ interface ServiceProvider {
 
 const app = new Hono()
 
-app.use('/*', cors())
-app.use('*', corsMiddleware);
+// NO CORS middleware - let's see what happens
 
 const serviceProviders = new Map<string, string>()
 
@@ -388,17 +383,21 @@ app.get('/patients/:nhi/documents/:documentId', async (c) => {
   }
 })
 
-serve({
-  fetch: app.fetch,
-  port: 3000
-}, (info) => {
-  console.log(`OpenHealth Central API is running on http://localhost:${info.port}`)
-  console.log('Endpoints:')
-  console.log('  POST /register - Register a service provider')
-  console.log('  GET /providers - List registered providers')
-  console.log('  GET /patients/{nhi} - Get patient information')
-  console.log('  GET /patients/{nhi}/medications - Get patient medications')
-  console.log('  GET /patients/{nhi}/blood-tests - Get patient blood tests')
-  console.log('  GET /patients/{nhi}/documents - Get patient documents')
-  console.log('  GET /patients/{nhi}/documents/{documentId} - Get specific document')
-})
+if (process.env.NODE_ENV !== 'production') {
+  serve({
+    fetch: app.fetch,
+    port: 3000
+  }, (info) => {
+    console.log(`OpenHealth Central API is running on http://localhost:${info.port}`)
+    console.log('Endpoints:')
+    console.log('  POST /register - Register a service provider')
+    console.log('  GET /providers - List registered providers')
+    console.log('  GET /patients/{nhi} - Get patient information')
+    console.log('  GET /patients/{nhi}/medications - Get patient medications')
+    console.log('  GET /patients/{nhi}/blood-tests - Get patient blood tests')
+    console.log('  GET /patients/{nhi}/documents - Get patient documents')
+    console.log('  GET /patients/{nhi}/documents/{documentId} - Get specific document')
+  })
+}
+
+export default app

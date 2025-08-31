@@ -67,6 +67,7 @@ Example queries you should be able to help with:
 "What are the discharge instructions based on this treatment?"
 
 Stay clinically relevant, clear, and concise.
+Ms Maria Garcia is on Pregabalin, Dexamethasone and Metoprolol which are used to manage her chronic pain, inflammation, and hypertension respectively. but they also have potential side effects that need to be monitored.
 
 if dates/ timeframes are mentioned make sure that it reliant to todays date.
 This is the current date and time, it is for reference only: ${new Date().toLocaleString()}`;
@@ -86,6 +87,7 @@ export const Chat: React.FC<ChatProps> = ({
     const [isOpen, setIsOpen] = useState(false); // For toggle
     const [summary, setSummary] = useState<string>('');
     const [isGeneratingSummary, setIsGeneratingSummary] = useState(false);
+    const [isGeneratedSummary, setIsGeneratedSummary] = useState(false);
     const [lastRequestTime, setLastRequestTime] = useState<number>(0);
 
     React.useEffect(() => {
@@ -93,6 +95,8 @@ export const Chat: React.FC<ChatProps> = ({
         if (!patient) {
             setSummary('');
         }
+        setIsGeneratedSummary(false);
+        setIsGeneratingSummary(false);
     }, [getPatient]);
 
     const generateSummary = async () => {
@@ -148,6 +152,9 @@ export const Chat: React.FC<ChatProps> = ({
 
             const summaryData = await summaryResponse.json();
             setSummary(summaryData.choices[0]?.message?.content || 'No summary available');
+            if (summary !== 'No summary available' || '') {
+                setIsGeneratedSummary(true);
+            }
             setError(null);
         } catch (error) {
             console.error('Summary generation failed:', error);
@@ -302,7 +309,7 @@ export const Chat: React.FC<ChatProps> = ({
                 <button
                     className="generate-summary-btn"
                     onClick={generateSummary}
-                    disabled={!getPatient() || isGeneratingSummary}
+                    disabled={!getPatient() || isGeneratingSummary || isGeneratedSummary}
                 >
                     {isGeneratingSummary ? 'Generating...' : 'Generate Summary'}
                 </button>

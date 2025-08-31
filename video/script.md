@@ -124,3 +124,10 @@ Narrator: "From emergency care to mental health treatment, OpenHealth empowers h
 - Use New Zealand locations and context where possible
 - Ensure diverse representation in visuals
 - Include accessibility features (subtitles)
+
+## Demo script
+The OpenHealth Patient Portal showcases seamless data integration powered by the OpenHealth API. It allows the migration of health records from various providers—such as local hospitals and pharmacies—through a simple service registration process.
+
+By searching a patient's NHI number, users can access comprehensive medical data maintained across multiple networks and providers.
+
+Leveraging AI, the portal can generate a summarized patient overview. An AI assistant is also available to help users quickly navigate patient records, confirm medication dosages, and reference relevant clinical information through follow-up questions.

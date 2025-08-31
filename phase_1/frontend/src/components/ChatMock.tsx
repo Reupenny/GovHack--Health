@@ -16,13 +16,13 @@ interface Message {
     content: string;
 }
 
-const GROQ_API_KEY = process.env.REACT_APP_GROQ_API_KEY;
+const GEMINI_API_KEY = process.env.REACT_APP_GEMINI_API_KEY;
 
-// Use Groq's text generation API through Cloudflare AI Gateway
-const groqUrl = `https://api.groq.com/openai/v1/chat/completions`;
+// Use Google's Gemini API
+const geminiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
 
 // Rate limiting configuration
-const RATE_LIMIT_DELAY = 2000; // 2 seconds between requests
+const RATE_LIMIT_DELAY = 1000; // 1 second between requests for Gemini API
 const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 // Prompt to allow prototyping using Groq API through AI Gateway
@@ -111,20 +111,22 @@ export const Chat: React.FC<ChatProps> = ({
                 bloodTests: getBloodTests(),
             };
 
-            const summaryResponse = await fetch(groqUrl, {
+            const summaryResponse = await fetch(geminiUrl, {
                 method: "POST",
                 headers: {
-                    "Authorization": `Bearer ${GROQ_API_KEY}`,
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    model: "llama-3.3-70b-versatile",
-                    messages: [
-                        {
-                            role: "system",
-                            content: `${summaryPrompt}\n\nContext Data:\n${JSON.stringify(contextData, null, 2)}`
-                        }
-                    ]
+                    contents: [{
+                        role: "user",
+                        parts: [{
+                            text: `${summaryPrompt}\n\nContext Data:\n${JSON.stringify(contextData, null, 2)}`
+                        }]
+                    }],
+                    generationConfig: {
+                        temperature: 0.7,
+                        maxOutputTokens: 1024
+                    }
                 })
             });
 
@@ -136,7 +138,7 @@ export const Chat: React.FC<ChatProps> = ({
             }
 
             const summaryData = await summaryResponse.json();
-            setSummary(summaryData.choices[0]?.message?.content || 'No summary available');
+            setSummary(summaryData.candidates[0]?.content?.parts[0]?.text || 'No summary available');
             setError(null);
         } catch (error) {
             console.error('Summary generation failed:', error);
@@ -185,36 +187,37 @@ export const Chat: React.FC<ChatProps> = ({
                 })),
             ];
 
-            const groqResponse = await fetch(groqUrl, {
+            const geminiResponse = await fetch(geminiUrl, {
                 method: "POST",
                 headers: {
-                    Authorization: `Bearer ${GROQ_API_KEY}`,
-                    "Content-Type": "application/json",
+                    "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    model: "llama-3.3-70b-versatile",
-                    messages: conversationMessages
+                    contents: [{
+                        role: "user",
+                        parts: [{
+                            text: systemPromptWithContext + "\n\n" + updatedHistory.map(msg => msg.content).join("\n")
+                        }]
+                    }],
+                    generationConfig: {
+                        temperature: 0.7,
+                        maxOutputTokens: 1024
+                    }
                 }),
             });
 
-            if (!groqResponse.ok) {
-                if (groqResponse.status === 429) {
+            if (!geminiResponse.ok) {
+                if (geminiResponse.status === 429) {
                     throw new Error('Please wait a moment and try again (rate limit reached)');
                 }
-                throw new Error(`HTTP error! status: ${groqResponse.status}`);
+                throw new Error(`HTTP error! status: ${geminiResponse.status}`);
             }
 
-            const groqData = (await groqResponse.json()) as {
-                choices: Array<{
-                    message: {
-                        content: string;
-                    };
-                }>;
-            };
+            const geminiData = await geminiResponse.json();
 
-            // Extract response text from Groq response
+            // Extract response text from Gemini response
             let response =
-                groqData.choices[0]?.message?.content ||
+                geminiData.candidates[0]?.content?.parts[0]?.text ||
                 "Sorry I'm not sure about that. Can you ask a different question?";
 
             // Validate and sanitize response

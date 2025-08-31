@@ -19,7 +19,7 @@ export const ProviderRegistrationPage: React.FC = () => {
                                 await registerProvider({
                                     providerId: 'South_Island_Health_Service',
                                     name: 'South Island Health Service',
-                                    baseUrl: 'http://localhost:3001'
+                                    baseUrl: 'https://oyi4jwlu2s74brzah3effulx3i0dlexu.lambda-url.ap-southeast-2.on.aws'
                                 });
                                 alert('DHB provider registered successfully!');
                                 window.location.href = '/';
@@ -38,7 +38,7 @@ export const ProviderRegistrationPage: React.FC = () => {
                                 await registerProvider({
                                     providerId: 'GovHack_Pharmacy',
                                     name: 'GovHack Pharmacy',
-                                    baseUrl: 'http://localhost:3003'
+                                    baseUrl: 'https://fpsmmuwjil6aqcmgluipbr7kxm0onchb.lambda-url.ap-southeast-2.on.aws'
                                 });
                                 alert('GovHack Pharmacy registered successfully!');
                                 window.location.href = '/';

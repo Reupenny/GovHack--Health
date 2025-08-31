@@ -1,11 +1,11 @@
 import { serve } from "@hono/node-server"
 import { Hono } from "hono"
 import api from "./routes.js"
-import { errorHandler, corsMiddleware } from "./middleware.js"
+import { errorHandler } from "./middleware.js"
 
 const app = new Hono()
 
-app.use("*", corsMiddleware)
+// No CORS middleware needed - this API is only called server-to-server by Central API
 app.use("*", errorHandler)
 
 app.route("/api/v1", api)
@@ -92,18 +92,22 @@ app.notFound((c) => {
   )
 })
 
-serve(
-  {
-    fetch: app.fetch,
-    port: 3003,
-  },
-  (info) => {
-    console.log(`🚀 Toniq Medication API running on http://localhost:${info.port}`)
-    console.log(`📚 API Documentation: http://localhost:${info.port}/docs`)
-    console.log(`❤️  Health Check: http://localhost:${info.port}/health`)
-    console.log(`📋 Sample medication endpoints:`)
-    console.log(
-      `   http://localhost:${info.port}/api/v1/patients/ABC1234/medications`,
-    )
-  },
-)
+if (process.env.NODE_ENV !== 'production') {
+  serve(
+    {
+      fetch: app.fetch,
+      port: 3003,
+    },
+    (info) => {
+      console.log(`🚀 Toniq Medication API running on http://localhost:${info.port}`)
+      console.log(`📚 API Documentation: http://localhost:${info.port}/docs`)
+      console.log(`❤️  Health Check: http://localhost:${info.port}/health`)
+      console.log(`📋 Sample medication endpoints:`)
+      console.log(
+        `   http://localhost:${info.port}/api/v1/patients/ABC1234/medications`,
+      )
+    },
+  )
+}
+
+export default app
