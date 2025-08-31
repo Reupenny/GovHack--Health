@@ -1,7 +1,7 @@
-// API base URLs - hardcoded Lambda URLs
-const API_BASE_URL = 'https://jg4wo5swesujsvbli2zrcicfjy0bpqbp.lambda-url.ap-southeast-2.on.aws';
-const DHB_API_URL = 'https://oyi4jwlu2s74brzah3effulx3i0dlexu.lambda-url.ap-southeast-2.on.aws';
-const TONIQ_API_URL = 'https://fpsmmuwjil6aqcmgluipbr7kxm0onchb.lambda-url.ap-southeast-2.on.aws';
+// API base URLs - Updated after CORS fix deployment
+const API_BASE_URL = 'https://hsuigdnufgjkgneoviwrnkmeem0mbytz.lambda-url.ap-southeast-2.on.aws';
+const DHB_API_URL = 'https://k26nr6p5pecced2cchwefkfuym0bvxsk.lambda-url.ap-southeast-2.on.aws';
+const TONIQ_API_URL = 'https://xsxdjmlue3vwgxvlqu57mg4rci0fxvne.lambda-url.ap-southeast-2.on.aws';
 
 export interface Provider {
   providerId: string

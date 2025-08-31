@@ -1,11 +1,11 @@
 import { serve } from "@hono/node-server"
 import { Hono } from "hono"
 import api from "./routes.js"
-import { errorHandler, corsMiddleware } from "./middleware.js"
+import { errorHandler } from "./middleware.js"
 
 const app = new Hono()
 
-app.use("*", corsMiddleware)
+// No CORS middleware needed - this API is only called server-to-server by Central API
 app.use("*", errorHandler)
 
 app.route("/api/v1", api)

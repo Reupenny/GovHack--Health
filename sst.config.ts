@@ -21,7 +21,9 @@ export default $config({
       environment: {
         NODE_ENV: "production",
       },
-      url: true,
+      url: {
+        cors: true
+      },
     });
 
     // DHB API Lambda  

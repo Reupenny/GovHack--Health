@@ -1,19 +1,15 @@
 import { serve } from '@hono/node-server'
 import { Hono } from 'hono'
-import { cors } from 'hono/cors'
 
 import type { 
   Patient, 
   Medication, 
   BloodTest, 
-  Document, 
-  DocumentContent,
+  Document,
   MedicationsResponse,
   BloodTestsResponse,
-  DocumentsResponse,
-  ErrorResponse
+  DocumentsResponse
 } from './types.js'
-import { corsMiddleware } from './middleware.js';
 
 interface ServiceProvider {
   providerId: string
@@ -22,8 +18,7 @@ interface ServiceProvider {
 
 const app = new Hono()
 
-app.use('/*', cors())
-app.use('*', corsMiddleware);
+// NO CORS middleware - let's see what happens
 
 const serviceProviders = new Map<string, string>()
 
