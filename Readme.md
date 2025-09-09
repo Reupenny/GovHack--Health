@@ -2,8 +2,8 @@
 
 This repository contains the Google Cloud Run deployment configuration for the OpenHealth microservices with **true scale-to-zero** capabilities.
 
-### Website
- https://reupenny.github.io/GovHack--Health/
+ ### [Website](https://reupenny.github.io/GovHack--Health/)
+ ### [GovHack Project Page](https://hackerspace.govhack.org/projects/openhealth_api)
 
 ## Architecture
 
